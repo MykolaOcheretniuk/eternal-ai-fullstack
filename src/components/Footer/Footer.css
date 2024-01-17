@@ -1,0 +1,68 @@
+.footer {
+  margin-top: auto;
+  color: white;
+  margin-bottom: 32px;
+  margin-right: 32px;
+  margin-left: 32px;
+}
+.footer-inner {
+  border-radius: 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 48px;
+  background-color: #262626;
+}
+.footer-follow-us {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding-right: 48px;
+}
+.footer-text {
+  font-family: "Arquitecta";
+  font-size: 11px;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  padding-right: 15px;
+  opacity: 0.7;
+}
+.footer-social-medias {
+  display: inherit;
+  gap: 8px;
+}
+.footer-social-media {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inherit;
+  justify-content: center;
+  align-items: center;
+  background: var(
+    --Eternal-Gradient,
+    linear-gradient(281deg, #f82d98 -2.34%, #5833ef 114.41%)
+  );
+}
+.footer-copyright {
+  font-family: "Avenir";
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: -0.12px;
+  opacity: 0.7;
+}
+@media (max-width: 920px) {
+  .footer-inner {
+    padding: 32px;
+    gap: 32px;
+    flex-direction: column;
+  }
+  .footer-follow-us {
+    order: 1;
+    padding: 0;
+  }
+  .footer-copyright {
+    order: 2;
+  }
+}

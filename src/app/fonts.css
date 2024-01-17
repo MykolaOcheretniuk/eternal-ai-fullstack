@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "Avenir";
+  src: url("../../public/fonts/Avenir-Book.ttf") format("truetype"),
+    url("../../public/fonts/Avenir-Book.woff2") format("woff2"),
+    url("../../public/fonts/Avenir-Book.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AvenirMedium";
+  src: url("../../public/fonts/Avenir-Medium.ttf") format("truetype"),
+    url("../../public/fonts/Avenir-Medium.woff2") format("woff2"),
+    url("../../public/fonts/Avenir-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AvenirBold";
+  src: url("../../public/fonts/Avenir-Black.ttf") format("truetype"),
+    url("../../public/fonts/Avenir-Book.woff2") format("woff2"),
+    url("../../public/fonts/Avenir-Medium.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ArquitectaBold";
+  src: url("../../public/fonts/ArquitectaBold.otf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Arquitecta";
+  src: url("../../public/fonts/Arquitecta.otf");
+  font-weight: 700;
+  font-style: normal;
+}

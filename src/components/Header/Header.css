@@ -1,0 +1,57 @@
+.header {
+  position: absolute;
+  margin-top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.header-inner {
+  width: 100vw;
+  max-width: 1642px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 32px;
+  padding-left: 32px;
+}
+.logo-container {
+  padding-left: 230px;
+}
+.start-button {
+  width: 185px;
+  height: 48px;
+  border: none;
+  margin-left: 15px;
+}
+.login-button {
+  border: none;
+  background: transparent;
+  font-family: "Arquitecta";
+  font-size: 13px;
+  letter-spacing: 3.9px;
+}
+.menu-icon {
+  cursor: pointer;
+}
+.mobile-menu-icon {
+  cursor: pointer;
+  display: none;
+}
+@media (max-width: 1024px) {
+  .header-buttons {
+    display: none;
+  }
+  .menu-icon {
+    display: none;
+  }
+  .logo-container {
+    padding: 0;
+  }
+  .mobile-menu-icon {
+    display: block;
+  }
+  .header-inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
