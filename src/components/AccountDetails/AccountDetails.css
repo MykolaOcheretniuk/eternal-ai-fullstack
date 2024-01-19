@@ -1,0 +1,130 @@
+.account-details {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 198px;
+  padding-bottom: 24px;
+}
+.account-details-title {
+  font-size: 32px;
+}
+.account-details-info {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  border-radius: 32px;
+  padding: 48px;
+}
+.account-details-input {
+  width: 664px;
+  height: 59px;
+  margin-top: 8px;
+}
+.account-details-input-text {
+  font-size: 18px;
+}
+.account-details-save-button {
+  align-self: flex-end;
+  width: 210px;
+  height: 62px;
+}
+.account-details-subscription {
+  padding: 48px;
+  border-radius: 32px;
+  margin-top: 24px;
+  max-height: 365px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.account-details-price {
+  margin-top: 12px;
+}
+.account-details-next-payment {
+  opacity: 0.7;
+}
+.account-details-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+  margin-bottom: 48px;
+  font-family: "Arquitecta";
+  font-size: 13px;
+  letter-spacing: 3.9px;
+  text-transform: uppercase;
+}
+.account-details-update-payment {
+  width: 664px;
+  height: 62px;
+  border-radius: 120px;
+  border: 1px solid #fff;
+  background: transparent;
+}
+.account-details-cancel-subscription {
+  background-color: transparent;
+  border: none;
+  padding-top: 32px;
+}
+@media (max-width: 845px) {
+  .account-details-info {
+    padding: 24px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .account-details-subscription {
+    max-width: 600px;
+  }
+  .account-details-input {
+    max-width: 500px;
+  }
+  .account-details-update-payment {
+    max-width: 500px;
+  }
+}
+@media (max-width: 630px) {
+  .account-details-title {
+    font-size: 24px;
+  }
+  .account-details-info {
+    max-width: 343px;
+  }
+  .account-details-subscription {
+    text-align: center;
+    max-width: 343px;
+  }
+  .account-details-input {
+    max-width: 295px;
+  }
+  .account-details-update-payment {
+    max-width: 500px;
+  }
+  .account-details-save-button {
+    align-self: center;
+    width: 295px;
+  }
+  .account-details-update-payment {
+    width: 295px;
+  }
+}
+@media (max-width: 345px) {
+  .account-details-info {
+    padding: 15px;
+    max-width: 260px;
+  }
+  .account-details-subscription {
+    max-width: 250px;
+  }
+  .account-details-input {
+    max-width: 230px;
+  }
+  .account-details-update-payment {
+    max-width: 230px;
+  }
+  .account-details-save-button {
+    width: 230px;
+  }
+  .account-details-update-payment {
+    width: 295px;
+  }
+}

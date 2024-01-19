@@ -1,0 +1,72 @@
+[
+  {
+    "name": "dr. martin luther king jr.",
+    "career": "political activist",
+    "photoPath": "MartinLuther.png"
+  },
+  {
+    "name": "Steve Jobs",
+    "career": "Apple Computer Founder",
+    "photoPath": "SteveJobs.png"
+  },
+  {
+    "name": "elon musk",
+    "career": "space nerd",
+    "photoPath": "ElonMusk.png"
+  },
+  {
+    "name": "albert einstein",
+    "career": "genius",
+    "photoPath": "AlbertEinstein.png"
+  },
+  {
+    "name": "mother teresa",
+    "career": "philanthropist",
+    "photoPath": "MotherTeresa.png"
+  },
+  {
+    "name": "jesus christ",
+    "career": "lord & savior",
+    "photoPath": "JesusChrist.png"
+  },
+  {
+    "name": "leonardo da vinci",
+    "career": "artist",
+    "photoPath": "LeonardoDaVinci.png"
+  },
+  {
+    "name": "queen elizabeth",
+    "career": "queen of england",
+    "photoPath": "QueenElizbeth.png"
+  },
+  {
+    "name": "william shakespeare",
+    "career": "author",
+    "photoPath": "WilliamShakespeare.png"
+  },
+  {
+    "name": "nelson mandela",
+    "career": "philanthropist",
+    "photoPath": "NelsonMandela.png"
+  },
+  {
+    "name": "betsy ross",
+    "career": "american history",
+    "photoPath": "BetsyRoss.png"
+  },
+  {
+    "name": "gandhi",
+    "career": "philanthropist",
+    "photoPath": "Gandini.png"
+  },
+  {
+    "name": "abraham lincoln",
+    "career": "american president",
+    "photoPath": "AbrahamLincoln.png"
+  },
+  {
+    "name": "ron swanson",
+    "career": "tv goofy guy",
+    "photoPath": "RonSwanson.png"
+  }
+]

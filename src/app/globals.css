@@ -13,7 +13,7 @@ button {
   text-transform: uppercase;
   color: white;
 }
-a{
+a {
   cursor: pointer;
 }
 .wrapper {
@@ -51,11 +51,12 @@ a{
   line-height: 110%;
   letter-spacing: 3.9px;
   text-transform: uppercase;
+  border: none;
 }
 .avenir-bold {
   font-family: "AvenirBold";
 }
-.default-section {
+.gradient-section {
   border-radius: 32px;
   background: linear-gradient(91deg, #040410 11.84%, #0f0306 111.32%);
 }
@@ -84,8 +85,77 @@ a{
   line-height: 150%;
   letter-spacing: -0.24px;
 }
+.base-input {
+  border-radius: 16px;
+  border: 1px solid #2f2535;
+  background: #060608;
+  font-family: "Avenir";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.18px;
+  padding: 16px;
+}
+.pro {
+  font-family: "Arquitecta";
+  padding: 12px 16px;
+  font-size: 13px;
+  letter-spacing: 3.9px;
+  text-transform: uppercase;
+  border-radius: 16px;
+}
+.container-with-blur {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(77px);
+  position: fixed;
+  z-index: 100;
+  overflow: auto;
+ 
+}
+.close-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  border: 1px solid #2f2535;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  z-index: 999;
+}
+.auth-pop-up-logo {
+  position: absolute;
+  top: 24px;
+  cursor: pointer;
+  z-index: 999;
+}
+.purple-text {
+  color: #f82d98;
+}
 @media (max-width: 700px) {
   .base-text {
     font-size: 14px;
+  }
+  .auth-pop-up-logo {
+    width: 144px;
+    height: 49px;
+  }
+  .close-button {
+    width: 48px;
+    height: 48px;
+  }
+}
+@media (max-width: 645px) {
+  .auth-pop-up-logo {
+    left: 16px;
   }
 }

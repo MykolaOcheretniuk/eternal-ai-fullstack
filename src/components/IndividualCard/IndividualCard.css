@@ -1,0 +1,94 @@
+.individual-card {
+  position: relative;
+}
+.individual-portrait-container {
+  border-radius: 16px;
+  cursor: pointer;
+}
+.individual-portrait {
+  border-radius: 16px;
+}
+.individual-card-info {
+  position: absolute;
+  background: rgba(88, 48, 102, 0.2);
+  backdrop-filter: blur(22px);
+  width: 100%;
+  max-width: 269px;
+  height: 77px;
+  border-radius: 16px;
+  bottom: 0;
+  font-family: "Arquitecta";
+  text-transform: uppercase;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease, height 0.2s ease;
+}
+.individual-portrait-container:hover + .individual-card-info {
+  display: flex;
+  flex-direction: column;
+  height: 77px;
+  opacity: 1;
+}
+.individual-card-name {
+  padding-top: 20px;
+  padding-left: 20px;
+  font-size: 16px;
+  letter-spacing: 4.8px;
+}
+.individual-card-career {
+  padding-left: 20px;
+  font-size: 11px;
+  letter-spacing: 2.2px;
+}
+@media (max-width: 885px) {
+  .individual-card-info {
+    gap: 4px;
+    display: flex;
+    flex-direction: column;
+    height: 77px;
+    opacity: 1;
+    background-color: red;
+    background-color: transparent;
+    backdrop-filter: none;
+    position: relative;
+    border-radius: 0;
+  }
+  .individual-card-name {
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 0;
+  }
+  .individual-card-career {
+    font-family: "Arquitecta";
+    font-size: 11px;
+    letter-spacing: 2.2px;
+    padding: 0;
+    margin: 0;
+  }
+}
+@media (max-width: 590px) {
+  .individual-card-info {
+    max-width: 163px;
+    padding: 0;
+    margin-top: 55px;
+  }
+
+  .individual-portrait-container {
+    height: 227px;
+    width: 163px;
+  }
+  .individual-portrait {
+    object-fit: cover;
+  }
+}
+@media (max-width: 370px) {
+  .individual-card {
+    width: 280px;
+    align-items: center;
+    justify-content: center;
+  }
+  .individual-portrait{
+    width: 270px;
+  }
+}

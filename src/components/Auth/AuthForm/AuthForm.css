@@ -1,0 +1,32 @@
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+.auth-form-input {
+  margin-top: 32px;
+}
+.input-text {
+  font-size: 18px;
+  letter-spacing: -0.18px;
+}
+.auth-input {
+  color: white;
+  margin-top: 8px;
+  width: 625px;
+  height: 59px;
+}
+@media (max-width: 740px) {
+  .auth-input {
+    width: 550px;
+  }
+}
+@media (max-width: 645px) {
+  .auth-input {
+    width: 279px;
+  }
+}
+@media (max-width: 370px) {
+  .auth-input {
+    width: 260px;
+  }
+}
