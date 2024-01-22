@@ -1,0 +1,7 @@
+.individual-img-container {
+  background-image: url(../../../../public/ChatIndividualBg.svg);
+  width: 1117px;
+  height: 939px;
+  background-repeat: no-repeat;
+  background-position: center;
+}

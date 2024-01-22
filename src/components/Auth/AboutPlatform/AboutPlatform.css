@@ -27,23 +27,23 @@
   height: 62px;
   width: 625px;
 }
-input {
+.about-platform-checkbox {
   opacity: 0;
   position: absolute;
 }
-label {
+.checkbox-label {
   font-size: 2.2em;
   display: flex;
   cursor: pointer;
 }
-label::before {
+.checkbox-label::before {
   content: "";
   border: 1px solid white;
   border-radius: 8px;
   width: 32px;
   height: 32px;
 }
-input:checked + label:before {
+.about-platform-checkbox:checked + .checkbox-label:before {
   content: "";
   background: url(../../../../public/check.svg);
   background-repeat: no-repeat;

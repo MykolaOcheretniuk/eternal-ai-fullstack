@@ -1,0 +1,58 @@
+.payment-card-input {
+  border-radius: 16px;
+  border: 1px solid #2f2535;
+  background: #060608;
+}
+.payment-card-inner {
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-card-inner input {
+  background-color: transparent;
+  border: none;
+  font-family: "Avenir";
+  font-size: 18px;
+  letter-spacing: -0.18px;
+  opacity: 0.7;
+  display: flex;
+  color: white;
+  line-height: 150%;
+}
+.payment-card-input-card {
+  width: 340px;
+  height: 27px;
+  position: relative;
+  margin-left: 4px;
+}
+
+.payment-card-input-date {
+  width: 72px;
+}
+.payment-card-input-cvc {
+  width: 39px;
+  margin-left: 16px;
+}
+@media (max-width: 640px) {
+  .payment-card-inner input {
+    font-size: 14px;
+  }
+  .payment-card-input-card {
+    width: 200px;
+  }
+  .payment-card-input-date {
+    width: 58px;
+  }
+  .payment-card-input-cvc {
+    width: 39px;
+    margin-left: 16px;
+  }
+}
+@media (max-width: 640px) {
+  .payment-card-input-card {
+    width: 120px;
+  }
+}   

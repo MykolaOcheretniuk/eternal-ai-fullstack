@@ -1,0 +1,55 @@
+.success-payment {
+  margin-top: 257px;
+}
+.success-payment-check {
+  border-radius: 50%;
+  width: 78px;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.success-payment-check-img {
+  width: 30px;
+  height: 30px;
+}
+.success-payment-inner {
+  display: flex;
+  flex-direction: column;
+  border-radius: 32px;
+  padding: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.success-payment-text-group {
+  text-align: center;
+}
+.success-payment-title {
+  font-size: 24px;
+}
+.success-payment-start {
+  width: 529px;
+  height: 62px;
+}
+
+@media (max-width: 640px) {
+  .success-payment-inner {
+    padding: 24px;
+  }
+  .success-payment-check {
+    width: 56px;
+    height: 56px;
+  }
+  .success-payment-title {
+    font-size: 18px;
+  }
+  .success-payment-start {
+    width: 295px;
+  }
+}
+@media (max-width: 360px) {
+  .success-payment-inner {
+    padding: 8px;
+  }
+}

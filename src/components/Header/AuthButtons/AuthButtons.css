@@ -1,0 +1,22 @@
+.header-auth-start {
+  width: 185px;
+  height: 48px;
+  border: none;
+  margin-left: 15px;
+}
+.header-auth-login {
+  border: none;
+  background: transparent;
+  font-family: "Arquitecta";
+  font-size: 13px;
+  letter-spacing: 3.9px;
+}
+@media (max-width: 1024px) {
+  .header-auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+  }
+}

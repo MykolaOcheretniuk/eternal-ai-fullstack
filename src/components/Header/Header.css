@@ -3,6 +3,7 @@
   margin-top: 32px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 90 !important;
 }
 .header-inner {
   width: 100vw;
@@ -17,20 +18,6 @@
 .logo-container {
   padding-left: 230px;
 }
-.start-button {
-  width: 185px;
-  height: 48px;
-  border: none;
-  margin-left: 15px;
-}
-.login-button {
-  border: none;
-  background: transparent;
-  font-family: "Arquitecta";
-  font-size: 13px;
-  letter-spacing: 3.9px;
-}
-
 .menu-icon {
   cursor: pointer;
 }

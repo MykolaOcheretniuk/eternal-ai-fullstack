@@ -4,15 +4,18 @@ import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { ImportantQuestions } from "@/components/ImportantQuestions/ImportantQuestions";
 import { IndividualsList } from "@/components/IndividualsList/IndividuaList";
+import { PricingPopUp } from "@/components/Pricing/PricingPopUp";
 import { useSearchParams } from "next/navigation";
 
 export default function Home() {
   const searchParams = useSearchParams();
-  const action = searchParams.get("action");
+  const authAction = searchParams.get("action");
+  const pricingAction = searchParams.get("pricing");
   return (
     <div className="wrapper">
       <Header />
-      {action && <AuthPopUp action={action} />}
+      {authAction && <AuthPopUp action={authAction} />}
+      {pricingAction && <PricingPopUp action={pricingAction} />}
       <ImportantQuestions />
       <IndividualsList />
       <Footer />

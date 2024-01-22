@@ -1,0 +1,8 @@
+.chat {
+  margin-top: 137px;
+}
+.chat-inner {
+  display: flex;
+  align-items: center;
+
+}
