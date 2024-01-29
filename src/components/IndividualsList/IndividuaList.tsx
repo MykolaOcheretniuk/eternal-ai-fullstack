@@ -3,11 +3,10 @@ import "./IndividualsList.css";
 import individuals from "../../../public/individuals.json";
 import { useEffect, useState } from "react";
 import { Individual } from "@/models/individuals";
-import { IndividualCard } from "../IndividualCard/IndividualCard";
+import { IndividualCard } from "./IndividualCard/IndividualCard";
 export const IndividualsList = () => {
   const [individualsList, setIndividuals] = useState<Individual[]>([]);
   useEffect(() => {
-    console.log(individuals);
     setIndividuals(individuals as Individual[]);
   }, []);
   return (

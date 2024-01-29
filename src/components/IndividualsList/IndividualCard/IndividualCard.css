@@ -6,6 +6,7 @@
   cursor: pointer;
 }
 .individual-portrait {
+  object-fit: cover;
   border-radius: 16px;
 }
 .individual-card-info {

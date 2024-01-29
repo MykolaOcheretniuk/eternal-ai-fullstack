@@ -21,6 +21,9 @@
   font-size: 18px;
   margin-top: 64px;
 }
+.auth-pop-up-logo {
+  cursor: pointer;
+}
 @media (max-width: 740px) {
   .sign-in-inner {
     padding: 32px;

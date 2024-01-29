@@ -21,13 +21,33 @@
 .menu-icon {
   cursor: pointer;
 }
+.menu-close {
+  cursor: pointer;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  border: 1px solid #2f2535;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-mobile-close-container {
+  display: none;
+}
 .mobile-menu-icon {
   cursor: pointer;
   display: none;
 }
 @media (max-width: 1024px) {
+  .menu-close-container {
+    display: none;
+  }
   .header-buttons {
     display: none;
+  }
+  .menu-mobile-close-container {
+    display: block;
   }
   .menu-icon {
     display: none;

@@ -20,6 +20,9 @@
   width: 305px;
   height: 62px;
 }
+.auth-button:disabled {
+  opacity: 0.7;
+}
 .google-button {
   background: transparent;
   font-family: "Arquitecta";

@@ -1,5 +1,17 @@
+"use client";
+import { Dispatch, SetStateAction } from "react";
 import "./AuthForm.css";
-export const AuthForm = () => {
+interface Props {
+  setPassword: Dispatch<SetStateAction<string>>;
+  setEmail: Dispatch<SetStateAction<string>>;
+}
+export const AuthForm = ({ setPassword, setEmail }: Props) => {
+  const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
   return (
     <form className="auth-form">
       <div className="auth-form-input">
@@ -8,6 +20,7 @@ export const AuthForm = () => {
           className="auth-input base-input"
           placeholder="justin@gmail.com"
           type="email"
+          onChange={handleEmailInput}
         ></input>
       </div>
       <div className="auth-form-input"></div>
@@ -16,6 +29,7 @@ export const AuthForm = () => {
         className="auth-input base-input"
         placeholder="•••••••••••••••••••"
         type="password"
+        onChange={handlePasswordInput}
       ></input>
     </form>
   );

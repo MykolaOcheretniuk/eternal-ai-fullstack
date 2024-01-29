@@ -49,6 +49,9 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+.about-platform-button:disabled {
+  opacity: 0.7;
+}
 @media (max-width: 740px) {
   .about-platform-text {
     max-width: 279px;

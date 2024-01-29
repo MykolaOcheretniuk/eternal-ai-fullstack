@@ -1,10 +1,26 @@
+"use client";
+import { useEffect, useRef } from "react";
 import { AuthButtons } from "../AuthButtons/AuthButtons";
 import "./HeaderNav.css";
-export const HeaderNav = () => {
+import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
+interface Props {
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const HeaderNav = ({ setVisible }: Props) => {
+  const menuAreaRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, []);
+  useHandleOutsideClick(menuAreaRef, () => {
+    setVisible(false);
+  });
   return (
-    <section className="header-nav container-with-blur">
+    <section className="header-nav container-with-blur no-scroll">
       <div className="container">
-        <div className="header-nav-inner">
+        <div className="header-nav-inner" ref={menuAreaRef}>
           <nav className="header-nav-navigation">
             <ul className="header-nav-elements">
               <li className="header-nav-element">

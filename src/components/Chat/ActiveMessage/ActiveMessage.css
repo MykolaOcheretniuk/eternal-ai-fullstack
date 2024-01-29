@@ -1,0 +1,39 @@
+.active-response {
+  border-radius: 32px;
+  background: var(
+    --Eternal-Gradient,
+    linear-gradient(281deg, #f82d98 -2.34%, #5833ef 114.41%)
+  );
+  padding: 10px;
+  position: relative;
+}
+.active-response::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -28px;
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-right: 30px solid #5833ef;
+  transform: translateY(-50%);
+  border-radius: 8px;
+}
+.active-response-inner {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 45px 55px;
+  border-radius: 32px;
+}
+.active-response-text {
+  color: #0a0806;
+  font-family: "Avenir";
+  font-size: 24px;
+  letter-spacing: -0.24px;
+  max-width: 620px;
+}
+@media (max-width: 1640px) {
+  .active-response::before {
+    display: none;
+  }
+}

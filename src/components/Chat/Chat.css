@@ -1,8 +1,30 @@
 .chat {
-  margin-top: 137px;
+  margin-top: 134px;
 }
 .chat-inner {
-  display: flex;
-  align-items: center;
+  background-image: url(../../../public/ChatIndividualBg.svg);
+  background-repeat: no-repeat;
+}
+.chat-background-img {
+  min-width: 282px;
+  min-height: 280px;
+}
+.chat-individual {
+  padding-top: 70px;
+}
 
+.chat-inner {
+  display: flex;
+  flex-direction: row;
+}
+@media (max-width: 1640px) {
+  .chat-inner {
+    flex-direction: column;
+    background-position-x: center;
+    align-items: center;
+    justify-content: center;
+  }
+  .messages-list {
+    margin: 0 auto;
+  }
 }

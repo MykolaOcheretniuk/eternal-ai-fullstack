@@ -1,12 +1,29 @@
+"use client";
 import XMark from "../../../../public/xMark.svg";
 import Image from "next/image";
 import EternalLogo from "../../../../public/EternalLogo.svg";
 import "./AboutPlatform.css";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 export const AboutPlatform = () => {
+  const router = useRouter();
+  const [checked, setChecked] = useState(false);
   return (
     <>
-      <Image className="auth-pop-up-logo" src={EternalLogo} alt="logo" />
-      <button className="close-button">
+      <Image
+        className="auth-pop-up-logo"
+        src={EternalLogo}
+        alt="logo"
+        onClick={() => {
+          router.push("/");
+        }}
+      />
+      <button
+        className="close-button"
+        onClick={() => {
+          router.push("/");
+        }}
+      >
         <Image className="close-button-ig" src={XMark} alt="x mark" />
       </button>
       <div className="container">
@@ -32,13 +49,25 @@ export const AboutPlatform = () => {
                 type="checkbox"
                 id="ch1"
               ></input>
-              <label className="checkbox-label" htmlFor={"ch1"}></label>
+              <label
+                className="checkbox-label"
+                htmlFor={"ch1"}
+                onClick={() => {
+                  setChecked(!checked);
+                }}
+              ></label>
             </div>
             <p className="about-check-text base-text">
               I have read the above statement
             </p>
           </div>
-          <button className="about-platform-button gradient-button">
+          <button
+            className="about-platform-button gradient-button"
+            disabled={!checked}
+            onClick={() => {
+              router.push("/");
+            }}
+          >
             continue
           </button>
         </div>

@@ -1,0 +1,41 @@
+.messages-list {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+.messages-list-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.messages-list-active-message {
+  margin-top: 184px;
+}
+.messages-list-send-message {
+  border-radius: 120px;
+  border: 1px solid var(--Eternal-Gradient, #f82d98);
+  background: linear-gradient(91deg, #08081e 11.84%, #21050c 111.32%);
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 32px;
+  font-family: Avenir;
+  font-size: 18px;
+  color: white;
+}
+.messages-list-send-message-input {
+  color: white;
+  background: transparent;
+  border: none;
+  width: 75%;
+  margin-left: 40px;
+}
+.messages-list-send-message-button {
+  width: 157px;
+  height: 62px;
+  margin-left: 8px;
+}
+.messages-list-send-message {
+  margin-bottom: 32px;
+}
