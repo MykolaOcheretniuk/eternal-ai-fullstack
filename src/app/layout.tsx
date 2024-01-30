@@ -5,6 +5,7 @@ import "./fonts.css";
 import { Header } from "@/components/Header/Header";
 import { SignUp } from "@/components/Auth/SignUp/SignUp";
 import { SignIn } from "@/components/Auth/SignIn/SignIn";
+import { Providers } from "@/components/Providers/Providers";
 
 export const metadata: Metadata = {
   title: "EternalAi",
@@ -18,7 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <Providers>
+        <body>{children}</body>
+      </Providers>
     </html>
   );
 }

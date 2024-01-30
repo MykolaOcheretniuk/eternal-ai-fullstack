@@ -4,10 +4,23 @@ import Image from "next/image";
 import EternalLogo from "../../../../public/EternalLogo.svg";
 import "./AboutPlatform.css";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AuthRequest } from "@/models/user";
 export const AboutPlatform = () => {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
+  const signUpUser = async () => {
+    const registrationData = JSON.parse(
+      sessionStorage.getItem("REGISTER_DATA") as string
+    ) as AuthRequest;
+    console.log(registrationData);
+  };
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, []);
   return (
     <>
       <Image
@@ -64,7 +77,8 @@ export const AboutPlatform = () => {
           <button
             className="about-platform-button gradient-button"
             disabled={!checked}
-            onClick={() => {
+            onClick={async () => {
+              await signUpUser();
               router.push("/");
             }}
           >

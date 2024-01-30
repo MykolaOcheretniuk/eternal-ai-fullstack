@@ -3,13 +3,11 @@ import "./AuthButtons.css";
 import GoogleIcon from "../../../../public/googleIcon.svg";
 import Image from "next/image";
 interface Props {
-  navigateTo: string;
   isDisabled: boolean;
   actionText: string;
+  onClick: () => void;
 }
-import { useRouter } from "next/navigation";
-export const AuthButtons = ({ navigateTo, isDisabled, actionText }: Props) => {
-  const router = useRouter();
+export const AuthButtons = ({ isDisabled, actionText, onClick }: Props) => {
   return (
     <div className="auth-buttons">
       <button className="auth-button google-button">
@@ -22,9 +20,7 @@ export const AuthButtons = ({ navigateTo, isDisabled, actionText }: Props) => {
       </button>
       <button
         className="auth-button confirm-button gradient-button"
-        onClick={() => {
-          router.push(navigateTo);
-        }}
+        onClick={onClick}
         disabled={isDisabled}
       >
         {actionText}

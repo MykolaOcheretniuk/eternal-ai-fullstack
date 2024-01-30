@@ -6,8 +6,9 @@ import EternalLogo from "../../../../public/EternalLogo.svg";
 import { AuthForm } from "../AuthForm/AuthForm";
 import { AuthButtons } from "../AuthButtons/AuthButtons";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
+import { EMAIL_TEST_REGEX } from "@/enums/regex";
 export const SignUp = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
@@ -16,6 +17,18 @@ export const SignUp = () => {
   useHandleOutsideClick(signUpAreaRef, () => {
     router.push("/");
   });
+  const saveRegisterData = () => {
+    sessionStorage.setItem(
+      "REGISTER_DATA",
+      JSON.stringify({ email, password })
+    );
+  };
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, []);
   return (
     <>
       <Image
@@ -23,7 +36,8 @@ export const SignUp = () => {
         src={EternalLogo}
         alt="logo"
         onClick={() => {
-          router.push("/");
+          saveRegisterData();
+          router.push("/?action=about");
         }}
       />
       <button
@@ -43,13 +57,24 @@ export const SignUp = () => {
             </p>
           </div>
           <div className="sign-up-form-container">
-            <AuthForm setPassword={setPassword} setEmail={setEmail} />
+            <AuthForm
+              setPassword={setPassword}
+              setEmail={setEmail}
+              email={email}
+            />
           </div>
           <div className="sign-up-buttons">
             <AuthButtons
               actionText="sign up"
-              navigateTo="/?action=about"
-              isDisabled={email.length === 0 || password.length === 0}
+              isDisabled={
+                email.length === 0 ||
+                password.length === 0 ||
+                !EMAIL_TEST_REGEX.test(email)
+              }
+              onClick={() => {
+                saveRegisterData();
+                router.push("/?action=about");
+              }}
             />
           </div>
           <p className="sign-up-sign-in-text">

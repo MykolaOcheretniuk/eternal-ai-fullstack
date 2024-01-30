@@ -11,7 +11,7 @@ import { useState } from "react";
 import XMark from "../../../public/xMark.svg";
 export const Header = () => {
   const router = useRouter();
-  const [isNavOpen, setIsNavOpen] = useState(true);
+  const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <>
       {isNavOpen && <HeaderNav setVisible={setIsNavOpen} />}

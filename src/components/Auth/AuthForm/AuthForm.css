@@ -15,6 +15,9 @@
   width: 625px;
   height: 59px;
 }
+.auth-input:invalid {
+  background-color: #2e0202;
+}
 @media (max-width: 740px) {
   .auth-input {
     width: 550px;

@@ -6,8 +6,9 @@ import "./SignIn.css";
 import { AuthForm } from "../AuthForm/AuthForm";
 import { AuthButtons } from "../AuthButtons/AuthButtons";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
+import { EMAIL_TEST_REGEX } from "@/enums/regex";
 export const SignIn = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
@@ -16,6 +17,12 @@ export const SignIn = () => {
   useHandleOutsideClick(signInAreaRef, () => {
     router.push("/");
   });
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, []);
   return (
     <>
       <Image
@@ -33,14 +40,22 @@ export const SignIn = () => {
             <h1 className="sign-in-title avenir-bold">Login</h1>
           </div>
           <div className="sign-in-auth-form">
-            <AuthForm setPassword={setPassword} setEmail={setEmail} />
+            <AuthForm
+              setPassword={setPassword}
+              setEmail={setEmail}
+              email={email}
+            />
           </div>
           <a className="sign-in-forgot-pass base-text">Forgot password?</a>
           <div className="sign-in-auth-buttons">
             <AuthButtons
               actionText="sign in"
-              navigateTo="/"
-              isDisabled={email.length === 0 || password.length === 0}
+              isDisabled={
+                email.length === 0 ||
+                password.length === 0 ||
+                !EMAIL_TEST_REGEX.test(email)
+              }
+              onClick={() => {}}
             />
           </div>
           <p className="sign-in-sign-up-text avenir-bold">
