@@ -3,4 +3,8 @@ export type EnvVariables =
   | "DB_PASSWORD"
   | "DB_ENDPOINT"
   | "DB_PORT"
-  | "DB_NAME";
+  | "DB_NAME"
+  | "REFRESH_TOKEN_SECRET"
+  | "ACCESS_TOKEN_SECRET"
+  | "GOOGLE_CLIENT_ID"
+  | "GOOGLE_CLIENT_SECRET";
