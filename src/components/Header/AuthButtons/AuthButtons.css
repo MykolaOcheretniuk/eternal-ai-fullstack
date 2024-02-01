@@ -6,6 +6,7 @@
 }
 .header-auth-login {
   border: none;
+  width: 100px;
   background: transparent;
   font-family: "Arquitecta";
   font-size: 13px;

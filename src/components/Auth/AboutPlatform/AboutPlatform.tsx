@@ -1,19 +1,34 @@
 "use client";
 import XMark from "../../../../public/xMark.svg";
+import Spinner from "../../../../public/ButtonSpinner.svg";
 import Image from "next/image";
 import EternalLogo from "../../../../public/EternalLogo.svg";
 import "./AboutPlatform.css";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AuthRequest } from "@/models/user";
+import { useEscapeKeyHandler } from "@/utils/handleEscPush";
+import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 export const AboutPlatform = () => {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
+  const [authDataSending, setAuthDataSending] = useState(false);
+  useEscapeKeyHandler(() => {
+    router.push("/");
+  });
+  useEnterKeyHandler(() => {
+    signUpUser();
+  });
   const signUpUser = async () => {
-    const registrationData = JSON.parse(
-      sessionStorage.getItem("REGISTER_DATA") as string
-    ) as AuthRequest;
-    console.log(registrationData);
+    setAuthDataSending(true);
+    const registrationData = sessionStorage.getItem("REGISTER_DATA");
+    if (registrationData) {
+      await fetch(`/api/user`, {
+        method: "POST",
+        body: registrationData,
+      });
+    }
+    setAuthDataSending(false);
+    router.push("/?action=signIn");
   };
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -76,13 +91,16 @@ export const AboutPlatform = () => {
           </div>
           <button
             className="about-platform-button gradient-button"
-            disabled={!checked}
+            disabled={checked === false || authDataSending}
             onClick={async () => {
               await signUpUser();
-              router.push("/");
             }}
           >
-            continue
+            {authDataSending ? (
+              <Image className="button-spinner" src={Spinner} alt="loading" />
+            ) : (
+              <>continue</>
+            )}
           </button>
         </div>
       </div>

@@ -9,13 +9,38 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
 import { EMAIL_TEST_REGEX } from "@/enums/regex";
+import { signIn } from "next-auth/react";
+import { useEscapeKeyHandler } from "@/utils/handleEscPush";
+import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 export const SignIn = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [dataSending, setDataSending] = useState(false);
   const signInAreaRef = useRef(null);
+
+  const submitLogin = async () => {
+    setDataSending(true);
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: email,
+      password: password,
+    });
+    if (!res?.ok) {
+      console.log(res?.error);
+    } else {
+      router.push("/");
+    }
+    setDataSending(false);
+  };
+  useEscapeKeyHandler(() => {
+    router.push("/");
+  });
   useHandleOutsideClick(signInAreaRef, () => {
     router.push("/");
+  });
+  useEnterKeyHandler(() => {
+    submitLogin();
   });
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -55,7 +80,10 @@ export const SignIn = () => {
                 password.length === 0 ||
                 !EMAIL_TEST_REGEX.test(email)
               }
-              onClick={() => {}}
+              dataSending={dataSending}
+              onClick={() => {
+                submitLogin();
+              }}
             />
           </div>
           <p className="sign-in-sign-up-text avenir-bold">

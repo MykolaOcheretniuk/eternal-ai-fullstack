@@ -1,22 +1,40 @@
 "use client";
+import { signOut, useSession } from "next-auth/react";
 import "./AuthButtons.css";
 import { useRouter } from "next/navigation";
 export const AuthButtons = () => {
+  const { data: session } = useSession();
   const router = useRouter();
   return (
     <div className="header-auth-buttons">
-      <button
-        className="header-auth-login"
-        onClick={() => {
-          router.push("/?action=signIn");
-        }}
-      >
-        Login
-      </button>
+      {!session?.user ? (
+        <button
+          className="header-auth-login"
+          onClick={() => {
+            router.push("/?action=signIn");
+          }}
+        >
+          Login
+        </button>
+      ) : (
+        <>
+          <button
+            className="header-auth-login"
+            onClick={() => {
+              signOut();
+            }}
+          >
+            sign out
+          </button>
+        </>
+      )}
       <button
         className="header-auth-start gradient-button"
         onClick={() => {
-          router.push("/?action=signUp");
+          if (session?.user) {
+            return router.push("/?pricing=info");
+          }
+          return router.push("/?action=signUp");
         }}
       >
         Get started

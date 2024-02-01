@@ -8,7 +8,7 @@ interface Props {
 export const PricingPopUp = ({ action }: Props) => {
   return (
     <section className="pricing-pop-up pricing-background">
-      {action === "init" && <Price />}
+      {action === "info" && <Price />}
       {action === "pay" && <PaymentInput />}
       {action === "success" && <SuccessPayment />}
     </section>

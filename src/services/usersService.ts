@@ -1,21 +1,59 @@
 import { IUsersRepository } from "@/db/IRepositories/IUsersRepository";
 import { InsertUser, SelectUser } from "@/db/schema/users";
 import { IUsersService } from "./IServices/IUsersService";
-import { TokensResponse } from "@/models/tokens";
-import { AuthRequest, SessionUser } from "@/models/user";
+import { AuthRequest, GoogleUser, SessionUser } from "@/models/user";
 import { usersRepository } from "@/db/repositories/UsersRepository";
 import { UsersError } from "@/errors/UserErrors";
 import passwordService from "@/utils/passwordService";
-import jwtTokensService from "@/utils/tokensService";
-import { refreshTokensRepository } from "@/db/repositories/RefreshTokensRepository";
 import { randomUUID } from "crypto";
 
 class UsersService implements IUsersService {
   constructor(
     private readonly usersRepository: IUsersRepository<InsertUser, SelectUser>
   ) {}
-  signUp = async (model: AuthRequest) => {
-    const { email, password } = model;
+  googleAuth = async ({
+    googleEmail: email,
+    googleSub,
+    name,
+  }: GoogleUser): Promise<SessionUser> => {
+    const user = await this.usersRepository.getByGoogleSub(googleSub);
+    if (!user) {
+      const newUser: InsertUser = {
+        email,
+        passwordHash: null,
+        id: randomUUID(),
+        name: name ?? null,
+        questions: 5,
+        googleSub,
+        phoneNumber: null,
+      };
+      await this.usersRepository.addNew(newUser);
+      return Object.assign({}, user, {
+        passwordHash: undefined,
+      });
+    }
+    return Object.assign({}, user, { passwordHash: undefined });
+  };
+  addNewFromGoogle = async ({
+    googleEmail: email,
+    googleSub,
+    name,
+  }: GoogleUser): Promise<void> => {
+    const user = await this.usersRepository.getByGoogleSub(googleSub);
+    if (!user) {
+      const newUser: InsertUser = {
+        email: email,
+        passwordHash: null,
+        id: randomUUID(),
+        name,
+        questions: 5,
+        googleSub,
+        phoneNumber: null,
+      };
+      await this.usersRepository.addNew(newUser);
+    }
+  };
+  signUp = async ({ email, password }: AuthRequest) => {
     const existingUser = await this.usersRepository.getByEmail(email);
     if (existingUser) {
       throw UsersError.AlreadyExists("User");
@@ -29,15 +67,17 @@ class UsersService implements IUsersService {
       questions: 5,
       phoneNumber: null,
     };
-    await usersRepository.addNew(newUser);
+    await this.usersRepository.addNew(newUser);
   };
-  login = async (model: AuthRequest): Promise<SessionUser> => {
-    const { email, password } = model;
-    const existingUser = await usersRepository.getByEmail(email);
+  login = async ({ email, password }: AuthRequest): Promise<SessionUser> => {
+    const existingUser = await this.usersRepository.getByEmail(email);
     if (!existingUser) {
       throw UsersError.NotFound("User");
     }
     const { passwordHash } = existingUser;
+    if (!passwordHash) {
+      throw UsersError.NotFound("User");
+    }
     const isPasswordCorrect = await passwordService.validatePassword(
       password,
       passwordHash

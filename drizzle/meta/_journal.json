@@ -15,6 +15,27 @@
       "when": 1706608285335,
       "tag": "0001_absurd_xavin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1706701255169,
+      "tag": "0002_spotty_silver_sable",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1706706276298,
+      "tag": "0003_nosy_guardian",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1706721968504,
+      "tag": "0004_chunky_toxin",
+      "breakpoints": true
     }
   ]
 }

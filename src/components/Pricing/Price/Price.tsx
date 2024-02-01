@@ -1,13 +1,21 @@
+"use client";
 import XMark from "../../../../public/xMark.svg";
 import Image from "next/image";
 import EternalLogo from "../../../../public/EternalLogo.svg";
 import { PricingHead } from "../PricingHead";
 import "./Price.css";
+import { useRouter } from "next/navigation";
 export const Price = () => {
+  const router = useRouter();
   return (
     <>
       <Image className="auth-pop-up-logo" src={EternalLogo} alt="logo" />
-      <button className="close-button">
+      <button
+        className="close-button"
+        onClick={() => {
+          router.push("/accountDetails");
+        }}
+      >
         <Image className="close-button-ig" src={XMark} alt="x mark" />
       </button>
       <div className="container">

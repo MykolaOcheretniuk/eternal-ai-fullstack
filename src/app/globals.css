@@ -140,6 +140,11 @@ a {
 .purple-text {
   color: #f82d98;
 }
+.button-spinner {
+  width: 80px;
+  height: 50px;
+  margin: 0 auto;
+}
 @media (max-width: 700px) {
   .base-text {
     font-size: 14px;

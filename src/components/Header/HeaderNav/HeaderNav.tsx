@@ -3,11 +3,13 @@ import { useEffect, useRef } from "react";
 import { AuthButtons } from "../AuthButtons/AuthButtons";
 import "./HeaderNav.css";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
+import { useSession } from "next-auth/react";
 interface Props {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const HeaderNav = ({ setVisible }: Props) => {
   const menuAreaRef = useRef<HTMLDivElement>(null);
+  const { data: session } = useSession();
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -38,11 +40,13 @@ export const HeaderNav = ({ setVisible }: Props) => {
                   How it works
                 </a>
               </li>
-              <li className="header-nav-element">
-                <a className="header-nav-element-link" href="#">
-                  My account
-                </a>
-              </li>
+              {session?.user && (
+                <li className="header-nav-element">
+                  <a className="header-nav-element-link" href="#">
+                    My account
+                  </a>
+                </li>
+              )}
             </ul>
           </nav>
           <div className="header-nav-social-medias">

@@ -9,19 +9,31 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
 import { EMAIL_TEST_REGEX } from "@/enums/regex";
+import { useEscapeKeyHandler } from "@/utils/handleEscPush";
+import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 export const SignUp = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [dataSending, setDataSending] = useState(false);
   const signUpAreaRef = useRef(null);
   useHandleOutsideClick(signUpAreaRef, () => {
     router.push("/");
   });
+  useEscapeKeyHandler(() => {
+    router.push("/");
+  });
+  useEnterKeyHandler(() => {
+    saveRegisterData();
+  });
   const saveRegisterData = () => {
+    setDataSending(true);
     sessionStorage.setItem(
       "REGISTER_DATA",
       JSON.stringify({ email, password })
     );
+    setDataSending(false);
+    router.push("/?action=about");
   };
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -71,9 +83,9 @@ export const SignUp = () => {
                 password.length === 0 ||
                 !EMAIL_TEST_REGEX.test(email)
               }
+              dataSending={dataSending}
               onClick={() => {
                 saveRegisterData();
-                router.push("/?action=about");
               }}
             />
           </div>
