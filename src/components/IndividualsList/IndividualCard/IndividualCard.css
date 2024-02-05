@@ -4,6 +4,7 @@
 .individual-portrait-container {
   border-radius: 16px;
   cursor: pointer;
+  background-color: gray;
 }
 .individual-portrait {
   object-fit: cover;
@@ -22,14 +23,17 @@
   text-transform: uppercase;
   overflow: hidden;
   opacity: 0;
+  cursor: pointer;
   transition: opacity 0.5s ease, height 0.2s ease;
 }
-.individual-portrait-container:hover + .individual-card-info {
+.individual-portrait-container:hover + .individual-card-info,
+.individual-card-info:hover {
   display: flex;
   flex-direction: column;
   height: 77px;
   opacity: 1;
 }
+
 .individual-card-name {
   padding-top: 20px;
   padding-left: 20px;
@@ -75,7 +79,6 @@
     margin-top: 55px;
   }
 
- 
   .individual-portrait {
     object-fit: cover;
     width: auto;

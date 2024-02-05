@@ -145,6 +145,9 @@ a {
   height: 50px;
   margin: 0 auto;
 }
+.incorrect-input {
+  background-color: #2e0202 !important;
+}
 @media (max-width: 700px) {
   .base-text {
     font-size: 14px;

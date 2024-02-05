@@ -4,6 +4,7 @@ import { AuthButtons } from "../AuthButtons/AuthButtons";
 import "./HeaderNav.css";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 interface Props {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -31,9 +32,9 @@ export const HeaderNav = ({ setVisible }: Props) => {
                 </a>
               </li>
               <li className="header-nav-element">
-                <a className="header-nav-element-link" href="#">
+                <Link className="header-nav-element-link" href="/?pricing=info">
                   Pricing
-                </a>
+                </Link>
               </li>
               <li className="header-nav-element">
                 <a className="header-nav-element-link" href="#">
@@ -42,9 +43,12 @@ export const HeaderNav = ({ setVisible }: Props) => {
               </li>
               {session?.user && (
                 <li className="header-nav-element">
-                  <a className="header-nav-element-link" href="#">
+                  <Link
+                    className="header-nav-element-link"
+                    href="/accountDetails"
+                  >
                     My account
-                  </a>
+                  </Link>
                 </li>
               )}
             </ul>

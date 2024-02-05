@@ -17,9 +17,6 @@ export const IndividualCard = ({ individual }: Props) => {
           width={269}
           height={279}
           priority={false}
-          style={{
-            background: ` lightgray 50% / cover no-repeat`,
-          }}
         />
       </div>
       <div className="individual-card-info">

@@ -10,3 +10,5 @@ export const chatLog = mysqlTable("ChatLog", {
   question: varchar("Question", { length: 256 }).notNull(),
   answer: varchar("Answer", { length: 256 }).notNull(),
 });
+export type ChatLogInsert = typeof chatLog.$inferInsert;
+export type ChatLogSelect = typeof chatLog.$inferSelect;

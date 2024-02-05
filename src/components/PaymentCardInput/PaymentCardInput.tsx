@@ -1,23 +1,77 @@
 import "./PaymentCardInput.css";
 import Image from "next/image";
 import CardSvg from "../../../public/CreditCards.svg";
-export const PaymentCardInput = () => {
+import InputMask from "react-input-mask";
+import { CREDIT_CARD_DATE_REGEX, CREDIT_CARD_REGEX } from "@/enums/regex";
+import { SetStateAction, useState } from "react";
+
+interface Props {
+  setCard: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setDate: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+export const PaymentCardInput = ({ setCard, setCvc, setDate }: Props) => {
+  const [isCardValid, setIsCardValid] = useState(false);
+  const [isCvcValid, setIsCvcValid] = useState(false);
+  const [isDateValid, setIsDateValid] = useState(false);
+  const onBlur = (value: string, fieldName: string) => {
+    if (fieldName === "card") {
+      const card = value.replace(/\s/g, "");
+      const isCardValid = CREDIT_CARD_REGEX.test(card);
+      setIsCardValid(isCardValid);
+    }
+    if (fieldName === "cvc") {
+      setIsCvcValid(value.replace(/\s/g, "").length === 3);
+    }
+    if (fieldName === "date") {
+      setIsDateValid(CREDIT_CARD_DATE_REGEX.test(value));
+    }
+  };
   return (
-    <div className="payment-card-input">
+    <form
+      className={`payment-card-input ${
+        isCardValid && isCvcValid && isDateValid ? "" : "incorrect-input"
+      }`}
+    >
       <div className="payment-card-inner">
         <Image src={CardSvg} alt="card" />
-        <input
+        <InputMask
+          name="card"
           className="payment-card-input-card"
           placeholder="Card Number"
-        ></input>
-        <input
+          maskChar=" "
+          mask="9999 9999 9999 9999"
+          onChange={setCard}
+          onBlur={(e) => {
+            onBlur(e.target.value, e.target.name);
+          }}
+        ></InputMask>
+        <InputMask
+          name="date"
           className="payment-card-input-date"
-          type="text"
-          pattern="([0-9]{2}[/]?){2}"
           placeholder="MM / YY"
-        ></input>
-        <input className="payment-card-input-cvc" placeholder="CVC"></input>
+          maskChar=" "
+          mask="99/99"
+          pattern="^(0[1-9]|1[0-2])\/(1[9-9][0-9][0-9]|20[0-9][0-9])$"
+          type="text"
+          onChange={setDate}
+          onBlur={(e) => {
+            onBlur(e.target.value, e.target.name);
+          }}
+        ></InputMask>
+        <InputMask
+          name="cvc"
+          className="payment-card-input-cvc"
+          placeholder="CVC"
+          maskChar=" "
+          mask="999"
+          type="text"
+          onChange={setCvc}
+          onBlur={(e) => {
+            onBlur(e.target.value, e.target.name);
+          }}
+        ></InputMask>
       </div>
-    </div>
+    </form>
   );
 };

@@ -36,6 +36,7 @@
   width: 39px;
   margin-left: 16px;
 }
+
 @media (max-width: 640px) {
   .payment-card-inner input {
     font-size: 14px;
@@ -55,4 +56,4 @@
   .payment-card-input-card {
     width: 120px;
   }
-}   
+}

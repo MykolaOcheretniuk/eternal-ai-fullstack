@@ -7,6 +7,7 @@ export const users = mysqlTable("Users", {
   passwordHash: varchar("PasswordHash", { length: 256 }),
   phoneNumber: varchar("PhoneNumber", { length: 100 }),
   googleSub: varchar("GoogleSub", { length: 256 }),
+  googleEmail: varchar("GoogleEmail", { length: 256 }),
   questions: int("Questions").notNull(),
 });
 export type SelectUser = typeof users.$inferSelect;

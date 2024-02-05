@@ -4,3 +4,6 @@ export interface Individual {
   career: string;
   background: string;
 }
+export interface ChoseIndividual {
+  individualName: string;
+}

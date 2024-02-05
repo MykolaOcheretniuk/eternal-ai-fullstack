@@ -13,7 +13,7 @@ export const Price = () => {
       <button
         className="close-button"
         onClick={() => {
-          router.push("/accountDetails");
+          router.back();
         }}
       >
         <Image className="close-button-ig" src={XMark} alt="x mark" />
@@ -32,7 +32,7 @@ export const Price = () => {
                   <p className="price-share-text base-text">
                     Get <span className="purple-text">3 free</span> questions
                     when you share on social media
-                  </p>{" "}
+                  </p>
                 </div>
                 <button className="price-share-button">share</button>
               </div>
@@ -59,7 +59,9 @@ export const Price = () => {
                   </p>
                 </li>
               </ul>
-              <button className="price-amount-subscribe gradient-button">
+              <button className="price-amount-subscribe gradient-button" onClick={()=>{
+                router.push("/?pricing=pay")
+              }}>
                 subscribe
               </button>
             </div>

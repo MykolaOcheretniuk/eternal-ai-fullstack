@@ -1,5 +1,5 @@
 import { int, mysqlTable, varchar } from "drizzle-orm/mysql-core";
-import { users } from "./users";
+import { SelectUser, users } from "./users";
 
 export const subscribers = mysqlTable("Subscribers", {
   userId: varchar("UserId", { length: 70 })
@@ -9,3 +9,5 @@ export const subscribers = mysqlTable("Subscribers", {
   stripeCustomerId: varchar("StripeCustomerId", { length: 100 }).notNull(),
   nextPaymentDate: int("nextPaymentDate").notNull(),
 });
+export type SelectSubscriber = typeof subscribers.$inferSelect;
+export type InsertSubscriber = typeof subscribers.$inferInsert;

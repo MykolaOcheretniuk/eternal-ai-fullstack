@@ -2,9 +2,8 @@ import type { Account, AuthOptions, Profile } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import getEnv from "./getEnv";
-import { usersService } from "@/services/usersService";
+import { authService } from "@/services/authService";
 import { SessionUser } from "@/models/user";
-import { UsersError } from "@/errors/UserErrors";
 
 export const authConfig: AuthOptions = {
   pages: {
@@ -16,7 +15,7 @@ export const authConfig: AuthOptions = {
       clientSecret: getEnv("GOOGLE_CLIENT_SECRET"),
       profile: async (profile) => {
         const { sub, email, name } = profile;
-        const user = await usersService.googleAuth({
+        const user = await authService.googleAuth({
           googleSub: sub,
           googleEmail: email,
           name,
@@ -35,7 +34,7 @@ export const authConfig: AuthOptions = {
         }
         const email = credentials?.email as string;
         const password = credentials?.password as string;
-        const sessionUser = await usersService.login({ email, password });
+        const sessionUser = await authService.login({ email, password });
         return sessionUser;
       },
     }),
