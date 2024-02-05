@@ -18,17 +18,12 @@ export async function POST(request: Request) {
           customer,
           end
         );
-        return { body: JSON.stringify("Subscriber added"), statusCode: 200 };
+        return new Response(null, { status: 200 });
       }
       case "customer.subscription.deleted": {
         const { customer: stripeCustomerId } = body.data.object;
         await usersService.removeFromSubscribers(stripeCustomerId);
-        return {
-          body: JSON.stringify(
-            `Customer:${stripeCustomerId} removed from subscribers`
-          ),
-          statusCode: 200,
-        };
+        return new Response(null, { status: 200 });
       }
       default: {
         return new Response(null, { status: 200 });
