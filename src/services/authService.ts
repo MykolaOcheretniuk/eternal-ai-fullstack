@@ -37,11 +37,18 @@ class AuthService implements IAuthService {
   };
   signUp = async ({ email, password }: AuthRequest) => {
     const existingUser = await this.usersRepository.getByEmail(email);
-    if (existingUser.passwordHash) {
-      throw UsersError.AlreadyExists("User");
+    if (existingUser) {
+      if (existingUser.passwordHash) {
+        throw UsersError.AlreadyExists("User");
+      }
     }
+    const googleUser = await this.usersRepository.getGoogleUser(email);
+    console.log(googleUser);
     const passwordHash = await passwordService.hashPassword(password);
-    if (existingUser.googleEmail) {
+    if (googleUser) {
+      if (googleUser.passwordHash) {
+        throw UsersError.AlreadyExists("User");
+      }
       const updateUser = Object.assign({}, existingUser, {
         passwordHash: passwordHash,
       });

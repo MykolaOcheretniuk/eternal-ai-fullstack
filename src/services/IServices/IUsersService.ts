@@ -1,8 +1,7 @@
-import { SelectSubscriber } from "@/db/schema/subscribers";
-import { SessionUser, UpdateUser } from "@/models/user";
+import { SessionUser, Subscriber, UpdateUser } from "@/models/user";
 
 export interface IUsersService {
-  getSubscriber(userId: string): Promise<SelectSubscriber | null>;
+  getSubscriber(userId: string): Promise<Subscriber | null>;
   updateUser(user: UpdateUser, email: string): Promise<SessionUser>;
   setIndividual(email: string, individualName: string): Promise<void>;
   addToSubscribers(

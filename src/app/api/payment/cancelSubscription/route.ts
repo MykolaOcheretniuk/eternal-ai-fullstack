@@ -2,7 +2,7 @@ import { stripeService } from "@/services/stripeService";
 import { authConfig } from "@/utils/auth";
 import { getServerSession } from "next-auth";
 
-export async function POST(request: Request) {
+export async function POST() {
   try {
     const session = await getServerSession(authConfig);
     if (!session) {

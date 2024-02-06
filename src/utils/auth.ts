@@ -40,13 +40,17 @@ export const authConfig: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.user = user as SessionUser;
       }
+      if (trigger === "update") {
+        token.user = session.user as SessionUser;
+        return token;
+      }
       return token;
     },
-    async session({ token, session }) {
+    async session({ token, session, trigger }) {
       session.user = token.user as SessionUser;
       return session;
     },

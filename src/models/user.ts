@@ -1,3 +1,4 @@
+import { SelectSubscriber } from "@/db/schema/subscribers";
 import { SelectUser } from "@/db/schema/users";
 
 export interface AuthRequest {
@@ -16,3 +17,6 @@ export interface UpdateUser {
   password: string | null;
 }
 export interface SessionUser extends Omit<SelectUser, "passwordHash"> {}
+export interface Subscriber extends SelectSubscriber {
+  status: string;
+}

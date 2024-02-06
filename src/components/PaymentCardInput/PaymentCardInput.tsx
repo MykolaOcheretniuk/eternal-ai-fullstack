@@ -3,14 +3,20 @@ import Image from "next/image";
 import CardSvg from "../../../public/CreditCards.svg";
 import InputMask from "react-input-mask";
 import { CREDIT_CARD_DATE_REGEX, CREDIT_CARD_REGEX } from "@/enums/regex";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   setCard: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setDate: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  actualDateValidator: (value: string) => boolean;
 }
-export const PaymentCardInput = ({ setCard, setCvc, setDate }: Props) => {
+export const PaymentCardInput = ({
+  setCard,
+  setCvc,
+  setDate,
+  actualDateValidator,
+}: Props) => {
   const [isCardValid, setIsCardValid] = useState(false);
   const [isCvcValid, setIsCvcValid] = useState(false);
   const [isDateValid, setIsDateValid] = useState(false);
@@ -24,7 +30,12 @@ export const PaymentCardInput = ({ setCard, setCvc, setDate }: Props) => {
       setIsCvcValid(value.replace(/\s/g, "").length === 3);
     }
     if (fieldName === "date") {
-      setIsDateValid(CREDIT_CARD_DATE_REGEX.test(value));
+      const isDateActual = actualDateValidator(value);
+      if (!isDateActual) {
+        setIsDateValid(false);
+      } else {
+        setIsDateValid(CREDIT_CARD_DATE_REGEX.test(value));
+      }
     }
   };
   return (

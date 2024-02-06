@@ -3,12 +3,28 @@ import check from "../../../../public/check.svg";
 import XMark from "../../../../public/xMark.svg";
 import Image from "next/image";
 import EternalLogo from "../../../../public/EternalLogo.svg";
+import { useRouter } from "next/navigation";
 export const SuccessPayment = () => {
+  const router = useRouter();
   return (
     <>
-      <Image className="auth-pop-up-logo" src={EternalLogo} alt="logo" />
+      <Image
+        className="auth-pop-up-logo"
+        src={EternalLogo}
+        alt="logo"
+        onClick={() => {
+          router.push("/");
+        }}
+      />
       <button className="close-button">
-        <Image className="close-button-ig" src={XMark} alt="x mark" />
+        <Image
+          className="close-button-ig"
+          src={XMark}
+          alt="x mark"
+          onClick={() => {
+            router.back();
+          }}
+        />
       </button>
       <div className="success-payment">
         <div className="container">
@@ -28,7 +44,12 @@ export const SuccessPayment = () => {
                 A receipt was sent to your email
               </p>
             </div>
-            <button className="success-payment-start gradient-button">
+            <button
+              className="success-payment-start gradient-button"
+              onClick={() => {
+                router.push("/chat");
+              }}
+            >
               start chatting
             </button>
           </div>

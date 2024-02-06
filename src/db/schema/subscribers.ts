@@ -1,5 +1,5 @@
 import { int, mysqlTable, varchar } from "drizzle-orm/mysql-core";
-import { SelectUser, users } from "./users";
+import { users } from "./users";
 
 export const subscribers = mysqlTable("Subscribers", {
   userId: varchar("UserId", { length: 70 })

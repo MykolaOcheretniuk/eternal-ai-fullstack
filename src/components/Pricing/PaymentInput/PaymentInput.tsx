@@ -7,12 +7,14 @@ import { PaymentCardInput } from "@/components/PaymentCardInput/PaymentCardInput
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CREDIT_CARD_DATE_REGEX, CREDIT_CARD_REGEX } from "@/enums/regex";
-
+import Spinner from "../../../../public/ButtonSpinner.svg";
+import { isDateCorrect } from "@/utils/isCardDateCorrect";
 export const PaymentInput = () => {
   const router = useRouter();
   const [card, setCard] = useState("");
   const [cvc, setCvc] = useState("");
   const [date, setDate] = useState("");
+  const [dataSending, setDataSending] = useState(false);
   const inputCard = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCard(e.target.value.replace(/\s/g, ""));
   };
@@ -23,6 +25,24 @@ export const PaymentInput = () => {
     setDate(e.target.value);
   };
 
+  const subscribeUser = async () => {
+    setDataSending(true);
+    const response = await fetch("/api/payment/subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        card,
+        cvc,
+        date,
+      }),
+    });
+    setDataSending(false);
+    if (response.status === 200) {
+      router.push("/?pricing=success");
+    }
+  };
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -52,16 +72,30 @@ export const PaymentInput = () => {
                 setCard={inputCard}
                 setCvc={inputCvc}
                 setDate={inputDate}
+                actualDateValidator={isDateCorrect}
               />
               <button
                 className="payment-input-submit gradient-button"
                 disabled={
                   !CREDIT_CARD_REGEX.test(card) ||
                   cvc.length !== 3 ||
-                  !CREDIT_CARD_DATE_REGEX.test(date)
+                  !CREDIT_CARD_DATE_REGEX.test(date) ||
+                  !isDateCorrect(date) ||
+                  dataSending
                 }
+                onClick={async () => {
+                  await subscribeUser();
+                }}
               >
-                submit payment
+                {dataSending ? (
+                  <Image
+                    className="button-spinner"
+                    src={Spinner}
+                    alt="loading"
+                  />
+                ) : (
+                  <> submit payment</>
+                )}
               </button>
             </div>
           </div>

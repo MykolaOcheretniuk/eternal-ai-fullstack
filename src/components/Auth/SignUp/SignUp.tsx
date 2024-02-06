@@ -25,7 +25,9 @@ export const SignUp = () => {
     router.push("/");
   });
   useEnterKeyHandler(() => {
-    saveRegisterData();
+    if (email.length > 0 && password.length > 0) {
+      saveRegisterData();
+    }
   });
   const saveRegisterData = () => {
     setDataSending(true);

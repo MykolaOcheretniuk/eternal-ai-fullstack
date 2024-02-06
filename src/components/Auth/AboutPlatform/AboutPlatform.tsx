@@ -16,16 +16,21 @@ export const AboutPlatform = () => {
     router.push("/");
   });
   useEnterKeyHandler(() => {
-    signUpUser();
+    if (checked) {
+      signUpUser();
+    }
   });
   const signUpUser = async () => {
     setAuthDataSending(true);
     const registrationData = sessionStorage.getItem("REGISTER_DATA");
     if (registrationData) {
-      await fetch(`/api/user`, {
+      const res = await fetch(`/api/user`, {
         method: "POST",
         body: registrationData,
       });
+      if (!res.ok) {
+        return router.push("/?action=signUp");
+      }
     }
     setAuthDataSending(false);
     router.push("/?action=signIn");

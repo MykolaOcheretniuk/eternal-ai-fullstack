@@ -1,25 +1,78 @@
 "use client";
 import { useSession } from "next-auth/react";
 import "./AccountDetails.css";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { SessionUser } from "@/models/user";
-import { SelectSubscriber } from "@/db/schema/subscribers";
-import { EMAIL_TEST_REGEX } from "@/enums/regex";
+import { useLayoutEffect, useState } from "react";
+import { SessionUser, Subscriber, UpdateUser } from "@/models/user";
+import Spinner from "../../../public/ButtonSpinner.svg";
+import {
+  CREDIT_CARD_DATE_REGEX,
+  CREDIT_CARD_REGEX,
+  EMAIL_TEST_REGEX,
+} from "@/enums/regex";
+import Image from "next/image";
+import { PaymentCardInput } from "../PaymentCardInput/PaymentCardInput";
+import { isDateCorrect } from "@/utils/isCardDateCorrect";
 export const AccountDetails = () => {
-  const { data: session } = useSession();
-  const [subscriber, setSubscriber] = useState<SelectSubscriber | null>(null);
+  let { data: session, update } = useSession();
+  const [subscriber, setSubscriber] = useState<Subscriber | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
+  const [dataSending, setDataSending] = useState(false);
+  const [isPaymentInputActive, setIsPaymentInputActive] = useState(false);
+  const [card, setCard] = useState("");
+  const [cvc, setCvc] = useState("");
+  const [date, setDate] = useState("");
+  const inputCard = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCard(e.target.value.replace(/\s/g, ""));
+  };
+  const inputCvc = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCvc(e.target.value);
+  };
+  const inputDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
+  };
+
   const getSubscriber = async () => {
     const response = await fetch("/api/user/subscriber", { method: "GET" });
-    const subscriber = (await response.json()) as SelectSubscriber;
+    const subscriber = (await response.json()) as Subscriber;
     if (subscriber) {
       setSubscriber(subscriber);
     } else {
       setSubscriber(null);
     }
+  };
+  const clearInputs = () => {
+    setUserName(null);
+    setEmail(null);
+    setPhoneNumber(null);
+    setPassword(null);
+  };
+  const updateUser = async () => {
+    setDataSending(true);
+    const updateRequest: UpdateUser = {
+      name: userName,
+      email,
+      password,
+      phoneNumber,
+    };
+    const res = await fetch("/api/user", {
+      method: "PATCH",
+      body: JSON.stringify(updateRequest),
+    });
+    const updatedUser = (await res.json()) as SessionUser;
+    if (session) {
+      session.user = updatedUser;
+      await update(session);
+    }
+    clearInputs();
+    setDataSending(false);
+  };
+  const cancelSubscription = async () => {
+    await fetch("/api/payment/cancelSubscription", {
+      method: "POST",
+    });
   };
   useLayoutEffect(() => {
     getSubscriber();
@@ -42,6 +95,7 @@ export const AccountDetails = () => {
                 onChange={(e) => {
                   setUserName(e.target.value);
                 }}
+                value={userName ? userName : ""}
                 type="text"
               ></input>
             </div>
@@ -55,6 +109,7 @@ export const AccountDetails = () => {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
+                value={email ? email : ""}
                 pattern={`${EMAIL_TEST_REGEX}`}
                 type="email"
               ></input>
@@ -70,6 +125,7 @@ export const AccountDetails = () => {
                     ? session.user.phoneNumber
                     : "8329822222"
                 }
+                value={phoneNumber ? phoneNumber : ""}
                 onChange={(e) => {
                   setPhoneNumber(e.target.value);
                 }}
@@ -82,6 +138,7 @@ export const AccountDetails = () => {
                 className="account-details-input base-input"
                 placeholder="•••••••••••••••••••"
                 type="password"
+                value={password ? password : ""}
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
@@ -91,28 +148,76 @@ export const AccountDetails = () => {
               className="account-details-save-button gradient-button"
               disabled={
                 (!userName && !email && !phoneNumber && !password) ||
-                !EMAIL_TEST_REGEX.test(email as string)
+                (email ? !EMAIL_TEST_REGEX.test(email as string) : false)
               }
+              onClick={async () => {
+                await updateUser();
+              }}
             >
-              save
+              {dataSending ? (
+                <Image className="button-spinner" src={Spinner} alt="loading" />
+              ) : (
+                <>continue</>
+              )}
             </button>
           </div>
         </div>
-        {subscriber && (
+        {subscriber && subscriber.status === "active" && (
           <div className="account-details-subscription gradient-border">
             <span className="pro gradient-border">PRO</span>
             <p className="account-details-price avenir-bold">$10 / month</p>
             <p className="account-details-next-payment base-text">
               Next payment will be processed on April 6, 2023
             </p>
-            <div className="account-details-buttons">
-              <button className="account-details-update-payment">
-                update payment
-              </button>
-              <button className="account-details-cancel-subscription">
-                cancel subscription
-              </button>
-            </div>
+            {isPaymentInputActive ? (
+              <div className="account-details-payment-input">
+                <PaymentCardInput
+                  setCard={inputCard}
+                  setCvc={inputCvc}
+                  setDate={inputDate}
+                  actualDateValidator={isDateCorrect}
+                />
+                <button
+                  className="account-details-payment-change-submit gradient-button"
+                  disabled={
+                    !CREDIT_CARD_REGEX.test(card) ||
+                    cvc.length !== 3 ||
+                    !CREDIT_CARD_DATE_REGEX.test(date) ||
+                    !isDateCorrect(date) ||
+                    dataSending
+                  }
+                >
+                  {dataSending ? (
+                    <Image
+                      className="button-spinner"
+                      src={Spinner}
+                      alt="loading"
+                    />
+                  ) : (
+                    <> Save</>
+                  )}
+                </button>
+              </div>
+            ) : (
+              <div className="account-details-buttons">
+                <button
+                  className="account-details-button account-details-update-payment"
+                  onClick={() => {
+                    setIsPaymentInputActive(true);
+                  }}
+                >
+                  update payment
+                </button>
+                <button
+                  className="account-details-button account-details-cancel-subscription"
+                  onClick={async () => {
+                    await cancelSubscription();
+                  }}
+                >
+                  cancel subscription
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

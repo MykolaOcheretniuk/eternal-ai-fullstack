@@ -5,9 +5,11 @@ import { ISubscribersRepository } from "@/db/IRepositories/ISubscribersRepositor
 import { usersRepository } from "@/db/repositories/UsersRepository";
 import { subscribersRepository } from "@/db/repositories/SubscribersRepository";
 import { InsertSubscriber, SelectSubscriber } from "@/db/schema/subscribers";
-import { SessionUser, UpdateUser } from "@/models/user";
+import { SessionUser, Subscriber, UpdateUser } from "@/models/user";
 import { ApiError } from "@/errors/ApiError";
 import passwordService from "@/utils/passwordService";
+import { IStripeService } from "./IServices/IStripeService";
+import { stripeService } from "./stripeService";
 
 class UsersService implements IUsersService {
   constructor(
@@ -15,7 +17,8 @@ class UsersService implements IUsersService {
     private readonly subscribersRepository: ISubscribersRepository<
       InsertSubscriber,
       SelectSubscriber
-    >
+    >,
+    private readonly stripeService: IStripeService
   ) {}
   addToSubscribers = async (
     userEmail: string,
@@ -85,10 +88,13 @@ class UsersService implements IUsersService {
     return Object.assign({}, newUser, { passwordHash: undefined });
   };
 
-  getSubscriber = async (userId: string): Promise<SelectSubscriber | null> => {
+  getSubscriber = async (userId: string): Promise<Subscriber | null> => {
     const subscriber = await this.subscribersRepository.get(userId);
+    const { status: subStatus } = await this.stripeService.getSubscription(
+      userId
+    );
     if (subscriber) {
-      return subscriber;
+      return { ...subscriber, status: subStatus.toString() };
     } else {
       return null;
     }
@@ -96,5 +102,6 @@ class UsersService implements IUsersService {
 }
 export const usersService = new UsersService(
   usersRepository,
-  subscribersRepository
+  subscribersRepository,
+  stripeService
 );

@@ -40,7 +40,9 @@ export const SignIn = () => {
     router.push("/");
   });
   useEnterKeyHandler(() => {
-    submitLogin();
+    if (email.length > 0 && password.length > 0) {
+      submitLogin();
+    }
   });
   useEffect(() => {
     document.body.style.overflow = "hidden";

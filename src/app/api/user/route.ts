@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     return new Response(null, { status: 200 });
   } catch (err) {
     console.log(err);
-    return Response.json({ message: JSON.stringify(err) });
+    return Response.json({ message: JSON.stringify(err) }, { status: 400 });
   }
 }
 
@@ -24,8 +24,7 @@ export async function PATCH(request: Request) {
     const data = (await request.json()) as UpdateUser;
     const { email: userEmail } = session.user;
     const updateUser = await usersService.updateUser(data, userEmail);
-    session.user = updateUser;
-    return Response.json({ status: 200 });
+    return Response.json(updateUser, { status: 200 });
   } catch (err) {
     console.log(err);
     return Response.json({ message: JSON.stringify(err) });

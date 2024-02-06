@@ -12,9 +12,9 @@ export async function POST(request: Request) {
     const card = (await request.json()) as PaymentCard;
     const date = card.date.split("/");
     const exp_month = parseInt(date[0]);
-    const exp_year = parseInt(date[0]);
-    const { id: userId } = session.user;
-    await stripeService.subscribeUser(userId, {
+    const exp_year = parseInt(`20${date[1]}`);
+    const { email } = session.user;
+    await stripeService.subscribeUser(email, {
       exp_month,
       exp_year,
       number: card.card,

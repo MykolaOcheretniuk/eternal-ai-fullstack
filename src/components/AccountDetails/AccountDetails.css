@@ -58,10 +58,11 @@
   margin-bottom: 48px;
   font-family: "Arquitecta";
   font-size: 13px;
-  letter-spacing: 3.9px;
   text-transform: uppercase;
 }
-
+.account-details-button {
+  letter-spacing: 3.9px;
+}
 .account-details-update-payment {
   width: 664px;
   height: 62px;
@@ -85,6 +86,19 @@ input[type="number"] {
   -webkit-appearance: textfield;
   appearance: textfield;
 }
+.account-details-payment-input {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+.account-details-payment-change-submit {
+  width: 119px;
+  height: 62px;
+}
+.account-details-payment-change-submit:disabled {
+  opacity: 0.7;
+}
 @media (max-width: 845px) {
   .account-details-info {
     padding: 24px;
@@ -102,6 +116,12 @@ input[type="number"] {
   }
 }
 @media (max-width: 630px) {
+  .account-details-payment-input {
+    flex-direction: column;
+  }
+  .account-details-payment-change-submit {
+    width: 300px;
+  }
   .account-details-title {
     font-size: 24px;
   }
@@ -127,6 +147,10 @@ input[type="number"] {
   }
 }
 @media (max-width: 345px) {
+  .account-details-payment-change-submit {
+    margin: 0 auto;
+    width: 220px;
+  }
   .account-details-info {
     padding: 15px;
     max-width: 260px;
