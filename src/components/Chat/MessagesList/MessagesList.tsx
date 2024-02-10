@@ -1,25 +1,78 @@
+"use client";
+import { useLayoutEffect, useState } from "react";
 import { ActiveMessage } from "../ActiveMessage/ActiveMessage";
 import { IndividualMessage } from "../IndividualMessage/IndividualMessage";
 import { UserMessage } from "../UserMessage/UserMessage";
 import "./MessagesList.css";
+import { ChatLog } from "@/models/message";
+const limit = 10;
 export const MessagesList = () => {
+  const [messages, setMessages] = useState<ChatLog[]>([]);
+  const [page, setPage] = useState(1);
+  const [question, setQuestion] = useState("");
+  const [activeAnswer, setAnswer] = useState<null | string>(null);
+  const getAnswer = async () => {
+    if (activeAnswer) {
+      messages[messages.length - 1].answer = activeAnswer;
+    }
+    setMessages((prev) => [...prev, { question, answer: null } as ChatLog]);
+    const res = await fetch("/api/user/getAnswer", {
+      method: "POST",
+      body: JSON.stringify({ question }),
+    });
+    const { answer } = await res.json();
+    setAnswer(answer);
+    setQuestion("");
+  };
+
+  useLayoutEffect(() => {
+    const getChatLog = async () => {
+      const res = await fetch(`/api/user/chatLog?page=${page}&limit=${limit}`, {
+        method: "GET",
+      });
+      const chatLog = (await res.json()) as ChatLog[];
+      setMessages(chatLog);
+    };
+    getChatLog();
+  }, [page]);
   return (
     <div className="messages-list">
       <div className="messages-list-messages">
-        <UserMessage />
-        <IndividualMessage message="I have a dream to free the mind of user interfaces and that mankind will be able to communicate in new and innovative ways." />
-        <IndividualMessage message="I have a dream that one day the world will no longer rely on fossil fuels." />
-        <IndividualMessage message="I have a dream that man will walk on Mars during my lifetime." />
+        {messages.map((message, i) => {
+          const {
+            question,
+            answer: individualMessage,
+            individualIcon,
+          } = message;
+          return (
+            <div className="messages-container" key={i}>
+              <UserMessage message={question} />
+              {individualMessage && (
+                <IndividualMessage
+                  message={individualMessage}
+                  individualPortraitPath={individualIcon}
+                />
+              )}
+            </div>
+          );
+        })}
       </div>
-      <div className="messages-list-active-message">
-        <ActiveMessage message="I have a dream that one day every valley shall be exalted, every hill and mountain shall be made low, the rough places will be made plain, and the crooked places will be made straight, and the glory of the Lord shall be revealed." />
-      </div>
+      {activeAnswer && <ActiveMessage message={activeAnswer} />}
       <div className="messages-list-send-message gradient-border">
         <input
           className="messages-list-send-message-input"
           placeholder="Enter your message..."
+          onChange={(e) => {
+            setQuestion(e.target.value);
+          }}
         ></input>
-        <button className="messages-list-send-message-button gradient-button">
+        <button
+          className="messages-list-send-message-button gradient-button"
+          disabled={question.length === 0}
+          onClick={() => {
+            getAnswer();
+          }}
+        >
           Submit
         </button>
       </div>

@@ -43,6 +43,13 @@
       "when": 1707130394759,
       "tag": "0005_graceful_northstar",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1707570168187,
+      "tag": "0006_black_karma",
+      "breakpoints": true
     }
   ]
 }

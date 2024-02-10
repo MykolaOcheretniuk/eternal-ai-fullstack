@@ -9,10 +9,10 @@ export async function POST(request: Request) {
     if (!session) {
       return Response.json({ message: "Unauthorized" }, { status: 401 });
     }
-    const question = (await request.json()) as string;
+    const { question } = await request.json();
     const { email } = session.user;
     const answer = await chatService.getAnswer(question, email);
-    return new Response(answer, { status: 200 });
+    return new Response(JSON.stringify({ answer }), { status: 200 });
   } catch (err) {
     console.log(err);
     return Response.json({ message: JSON.stringify(err) });

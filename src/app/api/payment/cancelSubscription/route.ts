@@ -10,7 +10,7 @@ export async function POST() {
     }
     const { id: userId } = session.user;
     await stripeService.cancelSubscriptionAtPeriodEnd(userId);
-    return new Response(null, { status: 200 });
+    return new Response(JSON.stringify({ canceled: true }), { status: 200 });
   } catch (err) {
     console.log(err);
     return Response.json({ message: JSON.stringify(err) });

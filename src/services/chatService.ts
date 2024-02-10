@@ -14,6 +14,8 @@ import { subscribersRepository } from "@/db/repositories/SubscribersRepository";
 import { IStripeService } from "./IServices/IStripeService";
 import { stripeService } from "./stripeService";
 import { InsertSubscriber, SelectSubscriber } from "@/db/schema/subscribers";
+import { ChatLog } from "@/models/message";
+import individuals from "../../public/individuals.json";
 
 class ChatService implements IChatService {
   constructor(
@@ -29,6 +31,25 @@ class ChatService implements IChatService {
     >,
     private readonly stripeService: IStripeService
   ) {}
+  getChatLog = async (
+    userId: string,
+    page: number,
+    limit: number
+  ): Promise<ChatLog[]> => {
+    const offset = (page - 1) * limit;
+    const chatLog = await this.chatRepository.get(userId, limit, offset);
+    return chatLog.map((log) => {
+      return {
+        answer: log.answer,
+        question: log.question,
+        individualIcon: individuals.find((individual) => {
+          if (individual.name === log.individual) {
+            return individual;
+          }
+        })?.photoPath as string,
+      };
+    });
+  };
   getAnswer = async (question: string, userEmail: string): Promise<string> => {
     const existingUser = await usersRepository.getByEmail(userEmail);
     if (!existingUser) {

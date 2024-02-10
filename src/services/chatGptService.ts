@@ -17,14 +17,14 @@ class ChatGptService implements IChatGptService {
       messages: [
         {
           role: "user",
-          content: `Give me a possible ${individualName} answer to ${question}`,
+          content: `Give me a possible ${individualName} answer to ${question}. Response should not contain more then 1000 symbols.`,
         },
       ],
       model: "gpt-3.5-turbo",
       temperature: 0.1,
     });
     const { choices } = response;
-    return JSON.parse(choices[0].message?.content as string);
+    return choices[0].message?.content as string;
   };
 }
 export const chatGptService = new ChatGptService();

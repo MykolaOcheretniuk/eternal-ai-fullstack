@@ -19,4 +19,5 @@ export interface UpdateUser {
 export interface SessionUser extends Omit<SelectUser, "passwordHash"> {}
 export interface Subscriber extends SelectSubscriber {
   status: string;
+  isCancelled: boolean;
 }

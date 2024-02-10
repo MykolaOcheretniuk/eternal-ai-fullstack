@@ -1,8 +1,11 @@
 import "./UserMessage.css";
-export const UserMessage = () => {
+interface Props {
+  message: string;
+}
+export const UserMessage = ({ message }: Props) => {
   return (
     <div className="user-message">
-      <p className="user-message-text">What is the meaning of life?</p>
+      <p className="user-message-text">{message}</p>
     </div>
   );
 };

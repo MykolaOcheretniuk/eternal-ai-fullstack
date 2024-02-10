@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import { PaymentCardInput } from "../PaymentCardInput/PaymentCardInput";
 import { isDateCorrect } from "@/utils/isCardDateCorrect";
+import { format } from "date-fns";
 export const AccountDetails = () => {
   let { data: session, update } = useSession();
   const [subscriber, setSubscriber] = useState<Subscriber | null>(null);
@@ -70,13 +71,18 @@ export const AccountDetails = () => {
     setDataSending(false);
   };
   const cancelSubscription = async () => {
-    await fetch("/api/payment/cancelSubscription", {
+    const res = await fetch("/api/payment/cancelSubscription", {
       method: "POST",
     });
+    const { canceled } = await res.json();
+    if (subscriber) {
+      setSubscriber({ ...subscriber, isCancelled: canceled });
+    }
   };
   useLayoutEffect(() => {
     getSubscriber();
   }, []);
+
   return (
     <section className="account-details">
       <div className="container">
@@ -167,7 +173,10 @@ export const AccountDetails = () => {
             <span className="pro gradient-border">PRO</span>
             <p className="account-details-price avenir-bold">$10 / month</p>
             <p className="account-details-next-payment base-text">
-              Next payment will be processed on April 6, 2023
+              {subscriber.isCancelled
+                ? "Subscription ends on"
+                : "Next payment will be processed on"}{" "}
+              {format(+subscriber.nextPaymentDate * 1000, "MMMM d, yyyy")}
             </p>
             {isPaymentInputActive ? (
               <div className="account-details-payment-input">

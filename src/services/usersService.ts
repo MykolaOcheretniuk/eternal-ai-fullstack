@@ -90,11 +90,15 @@ class UsersService implements IUsersService {
 
   getSubscriber = async (userId: string): Promise<Subscriber | null> => {
     const subscriber = await this.subscribersRepository.get(userId);
-    const { status: subStatus } = await this.stripeService.getSubscription(
-      userId
-    );
+    const subscription = await this.stripeService.getSubscription(userId);
+    const { status: subStatus, cancel_at_period_end: isCanceled } =
+      subscription;
     if (subscriber) {
-      return { ...subscriber, status: subStatus.toString() };
+      return {
+        ...subscriber,
+        status: subStatus.toString(),
+        isCancelled: isCanceled,
+      };
     } else {
       return null;
     }

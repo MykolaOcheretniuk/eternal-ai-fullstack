@@ -1,0 +1,239 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "ecfca3bd-d9f3-40bd-b70a-f41f8adee077",
+  "prevId": "539a7e48-04d4-4743-b15c-adef278a4e99",
+  "tables": {
+    "ChatLog": {
+      "name": "ChatLog",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "UserId": {
+          "name": "UserId",
+          "type": "varchar(70)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "Individual": {
+          "name": "Individual",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "Question": {
+          "name": "Question",
+          "type": "varchar(1000)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "Answer": {
+          "name": "Answer",
+          "type": "varchar(1000)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ChatLog_UserId_Users_Id_fk": {
+          "name": "ChatLog_UserId_Users_Id_fk",
+          "tableFrom": "ChatLog",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "ChatLog_Id": {
+          "name": "ChatLog_Id",
+          "columns": [
+            "Id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "Subscribers": {
+      "name": "Subscribers",
+      "columns": {
+        "UserId": {
+          "name": "UserId",
+          "type": "varchar(70)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "StripeSubId": {
+          "name": "StripeSubId",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "StripeCustomerId": {
+          "name": "StripeCustomerId",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nextPaymentDate": {
+          "name": "nextPaymentDate",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Subscribers_UserId_Users_Id_fk": {
+          "name": "Subscribers_UserId_Users_Id_fk",
+          "tableFrom": "Subscribers",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "UserIndividualChat": {
+      "name": "UserIndividualChat",
+      "columns": {
+        "UserId": {
+          "name": "UserId",
+          "type": "varchar(70)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "IndividualName": {
+          "name": "IndividualName",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "UserIndividualChat_UserId_Users_Id_fk": {
+          "name": "UserIndividualChat_UserId_Users_Id_fk",
+          "tableFrom": "UserIndividualChat",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Users": {
+      "name": "Users",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "varchar(70)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "Name": {
+          "name": "Name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "Email": {
+          "name": "Email",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "PasswordHash": {
+          "name": "PasswordHash",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "PhoneNumber": {
+          "name": "PhoneNumber",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "GoogleSub": {
+          "name": "GoogleSub",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "GoogleEmail": {
+          "name": "GoogleEmail",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "Questions": {
+          "name": "Questions",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "Users_Id": {
+          "name": "Users_Id",
+          "columns": [
+            "Id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

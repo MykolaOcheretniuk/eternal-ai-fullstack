@@ -1,3 +1,12 @@
+.individual-portrait-inner {
+  background-size: contain;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  max-height: 939px;
+  overflow: hidden;
+}
+
+
 .individual-portrait-img-container {
   max-height: 939px;
   max-width: 939px;
@@ -15,47 +24,4 @@
   right: 0;
   height: 300px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0), #0a0806);
-}
-.individual-portrait-inner {
-  max-width: 1117px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.individual-portrait-img {
-  height: auto;
-  width: 100%;
-  object-position: center;
-}
-.individual-description {
-  padding-top: 24px;
-  color: white;
-  max-width: 939px;
-  text-align: center;
-  text-transform: uppercase;
-  font-family: "Arquitecta";
-}
-.individual-name {
-  font-size: 24px;
-  letter-spacing: 2.4px;
-}
-.individual-career {
-  margin-top: 8px;
-  font-size: 14px;
-  letter-spacing: 2.1px;
-  opacity: 0.7;
-}
-
-@media (max-width: 930px) {
-  .individual-portrait-inner {
-    background-size: 380px 330px;
-    background-position: center;
-  }
-  .individual-portrait-inner {
-    position: relative;
-  }
-  .individual-description {
-    position: absolute;
-    top: 120px;
-  }
 }

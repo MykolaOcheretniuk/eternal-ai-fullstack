@@ -1,18 +1,23 @@
 import Image from "next/image";
-import SenderPortrait from "../../../../public/individuals/ElonMusk.png";
 import Volume from "../../../../public/volume.svg";
 import Share from "../../../../public/share.svg";
 import "./IndividualMessage.css";
 interface Props {
   message: string;
+  individualPortraitPath: string;
 }
-export const IndividualMessage = ({ message }: Props) => {
+export const IndividualMessage = ({
+  message,
+  individualPortraitPath,
+}: Props) => {
   return (
     <div className="individual-message">
       <div className="individual-message-inner">
         <Image
           className="individual-message-portrait"
-          src={SenderPortrait}
+          src={`/individuals/${individualPortraitPath}`}
+          width={60}
+          height={60}
           alt="portrait"
         />
         <div className="individual-message-content">

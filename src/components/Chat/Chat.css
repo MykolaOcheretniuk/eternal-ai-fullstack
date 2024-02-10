@@ -17,6 +17,22 @@
   display: flex;
   flex-direction: row;
 }
+.chat-individual-info {
+  color: white;
+  font-family: "Arquitecta";
+  text-transform: uppercase;
+  text-align: center;
+}
+.chat-individual-info-name {
+  font-size: 24px;
+  letter-spacing: 3.6px;
+}
+.chat-individual-info-career {
+  font-size: 14px;
+  letter-spacing: 2.1px;
+  opacity: 0.7;
+  margin-top: 10px;
+}
 @media (max-width: 1640px) {
   .chat-inner {
     flex-direction: column;
