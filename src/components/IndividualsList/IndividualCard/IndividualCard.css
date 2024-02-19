@@ -4,11 +4,16 @@
 .individual-portrait-container {
   border-radius: 16px;
   cursor: pointer;
+  width: 270px;
+  height: 300px;
+  overflow: hidden;
   background-color: gray;
 }
 .individual-portrait {
   object-fit: cover;
-  border-radius: 16px;
+  align-self: flex-start;
+  width: 100%;
+  height: 100%;
 }
 .individual-card-info {
   position: absolute;
@@ -73,17 +78,20 @@
   }
 }
 @media (max-width: 590px) {
+  .individual-card{
+    max-height: 266px;
+  }
   .individual-card-info {
-    max-width: 163px;
+    width: 163px;
+    height: 227px;
     padding: 0;
-    margin-top: 55px;
+    margin-top: 10px;
   }
-
-  .individual-portrait {
-    object-fit: cover;
-    width: auto;
-    height: auto;
+  .individual-portrait-container {
+    width: 163px;
+    height: 227px;
   }
+  
 }
 @media (max-width: 370px) {
   .individual-card {

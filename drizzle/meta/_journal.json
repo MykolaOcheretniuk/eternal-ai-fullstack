@@ -50,6 +50,20 @@
       "when": 1707570168187,
       "tag": "0006_black_karma",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1708341629822,
+      "tag": "0007_parallel_jack_power",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1708343743092,
+      "tag": "0008_familiar_senator_kelly",
+      "breakpoints": true
     }
   ]
 }

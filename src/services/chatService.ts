@@ -33,11 +33,17 @@ class ChatService implements IChatService {
   ) {}
   getChatLog = async (
     userId: string,
+    individual: string,
     page: number,
     limit: number
   ): Promise<ChatLog[]> => {
     const offset = (page - 1) * limit;
-    const chatLog = await this.chatRepository.get(userId, limit, offset);
+    const chatLog = await this.chatRepository.get(
+      userId,
+      individual,
+      limit,
+      offset
+    );
     return chatLog.map((log) => {
       return {
         answer: log.answer,
@@ -69,6 +75,7 @@ class ChatService implements IChatService {
       individual: individualName,
       question,
       answer,
+      created: Date.now(),
     };
     const subscriber = await this.subscribersRepository.get(userId);
     if (subscriber) {

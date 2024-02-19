@@ -3,7 +3,7 @@ import { IndividualPortrait } from "./IndividualPortrait/IndividualPortrait";
 import "./Chat.css";
 import { MessagesList } from "./MessagesList/MessagesList";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export const Chat = () => {
   const router = useRouter();
@@ -11,6 +11,7 @@ export const Chat = () => {
   const individual = searchParams.get("individual");
   const portrait = searchParams.get("portrait");
   const career = searchParams.get("career");
+
   useLayoutEffect(() => {
     const attachIndividualToUser = async () => {
       const res = await fetch("/api/user/setIndividual", {
@@ -35,7 +36,10 @@ export const Chat = () => {
             </div>
           </div>
           <div className="messages-list">
-            <MessagesList />
+            <MessagesList
+              individual={individual as string}
+              individualPortrait={portrait as string}
+            />
           </div>
         </div>
       </div>

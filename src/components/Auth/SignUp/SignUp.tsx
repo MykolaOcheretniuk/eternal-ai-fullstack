@@ -6,14 +6,13 @@ import EternalLogo from "../../../../public/EternalLogo.svg";
 import { AuthForm } from "../AuthForm/AuthForm";
 import { AuthButtons } from "../AuthButtons/AuthButtons";
 import { useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
 import { EMAIL_TEST_REGEX } from "@/enums/regex";
 import { useEscapeKeyHandler } from "@/utils/handleEscPush";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 export const SignUp = () => {
   const router = useRouter();
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [dataSending, setDataSending] = useState(false);

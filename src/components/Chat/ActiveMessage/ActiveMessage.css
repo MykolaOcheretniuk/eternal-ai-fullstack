@@ -38,3 +38,8 @@
     display: none;
   }
 }
+@media (max-width: 1640px) {
+  .active-response {
+    margin-top: 10px;
+  }
+}

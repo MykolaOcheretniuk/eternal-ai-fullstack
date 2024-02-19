@@ -15,7 +15,7 @@ export const IndividualCard = ({ individual }: Props) => {
       onClick={() => {
         router.push(
           `/chat?individual=${name}&portrait=${photoPath}&career=${career}`
-        );  
+        );
       }}
     >
       <div className="individual-portrait-container">

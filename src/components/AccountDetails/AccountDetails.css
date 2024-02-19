@@ -5,10 +5,13 @@
   justify-content: center;
   padding-top: 198px;
   padding-bottom: 24px;
+  overflow: hidden;
+  position: relative;
 }
 .account-details-title {
   font-size: 32px;
 }
+
 .account-details-info {
   display: flex;
   flex-direction: column;
@@ -98,6 +101,37 @@ input[type="number"] {
 }
 .account-details-payment-change-submit:disabled {
   opacity: 0.7;
+}
+.account-details-top-decor {
+  margin-left: 172px;
+  margin-top: -38px;
+  position: absolute;
+  width: 100dvw;
+  height: 510px;
+  border: 1px solid rgb(10, 8, 6);
+  filter: blur(336px);
+  background: linear-gradient(
+    84.4deg,
+    rgb(248, 45, 152) 26.752%,
+    rgb(88, 51, 239) 77.545%
+  );
+  opacity: 0.3;
+}
+.account-details-bottom-decor {
+  position: absolute;
+  width: 100dvw;
+  height: 510px;
+  left: -301px;
+  top: 711px;
+  box-sizing: border-box;
+  border: 1px solid rgb(10, 8, 6);
+  filter: blur(336px);
+  background: linear-gradient(
+    84.4deg,
+    rgb(248, 45, 152) 26.752%,
+    rgb(88, 51, 239) 77.545%
+  );
+  opacity: 0.1;
 }
 @media (max-width: 845px) {
   .account-details-info {

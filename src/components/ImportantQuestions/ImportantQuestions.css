@@ -46,6 +46,8 @@
   cursor: pointer;
 }
 .question-text {
+  color: white;
+  text-decoration: none;
   padding-left: 48px;
 }
 @media (max-width: 700px) {
@@ -66,7 +68,7 @@
 @media (max-width: 320px) {
   .question {
     width: 310px;
-   height: 58px;
+    height: 58px;
   }
   .title {
     max-width: 260px;

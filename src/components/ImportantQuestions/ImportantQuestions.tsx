@@ -1,4 +1,6 @@
+import Link from "next/link";
 import "./ImportantQuestions.css";
+
 export const ImportantQuestions = () => {
   return (
     <section className="important-question">
@@ -10,19 +12,49 @@ export const ImportantQuestions = () => {
           </p>
           <div className="questions-list">
             <div className="question gradient-border">
-              <p className="question-text base-text">
-                What did you want to be when you grew up?
-              </p>
+              <Link
+                href="#individuals"
+                onClick={() => {
+                  sessionStorage.setItem(
+                    "QUESTION",
+                    "What did you want to be when you grew up?"
+                  );
+                }}
+              >
+                <p className="question-text base-text">
+                  What did you want to be when you grew up?
+                </p>
+              </Link>
             </div>
             <div className="question gradient-border">
-              <p className="question-text base-text">
-                What is the meaning of life?
-              </p>
+              <Link
+                href="#individuals"
+                onClick={() => {
+                  sessionStorage.setItem(
+                    "QUESTION",
+                    "What is the meaning of life?"
+                  );
+                }}
+              >
+                <p className="question-text base-text">
+                  What is the meaning of life?
+                </p>
+              </Link>
             </div>
             <div className="question gradient-border">
-              <p className="question-text base-text">
-                What is your greatest accomplishment?
-              </p>
+              <Link
+                href="#individuals"
+                onClick={() => {
+                  sessionStorage.setItem(
+                    "QUESTION",
+                    "What is your greatest accomplishment?"
+                  );
+                }}
+              >
+                <p className="question-text base-text">
+                  What is your greatest accomplishment?
+                </p>
+              </Link>
             </div>
           </div>
         </div>

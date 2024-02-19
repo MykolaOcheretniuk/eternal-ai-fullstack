@@ -4,13 +4,14 @@ import individuals from "../../../public/individuals.json";
 import { useEffect, useState } from "react";
 import { Individual } from "@/models/individuals";
 import { IndividualCard } from "./IndividualCard/IndividualCard";
+
 export const IndividualsList = () => {
   const [individualsList, setIndividuals] = useState<Individual[]>([]);
   useEffect(() => {
     setIndividuals(individuals as Individual[]);
   }, []);
   return (
-    <section className="individuals">
+    <section className="individuals" id="individuals">
       <div className="container">
         <div className="individuals-inner">
           <h1 className="individuals-title">Individuals</h1>

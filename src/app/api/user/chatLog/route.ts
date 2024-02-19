@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
     const query = request.nextUrl.searchParams;
     const page = query.get("page");
     const limit = query.get("limit");
+    const individual = query.get("individual") as string;
     if (!page || !limit) {
       return Response.json(
         { message: "Incorrect query parameters" },
@@ -21,6 +22,7 @@ export async function GET(request: NextRequest) {
     }
     const messages = await chatService.getChatLog(
       id,
+      individual,
       parseInt(page),
       parseInt(limit)
     );
