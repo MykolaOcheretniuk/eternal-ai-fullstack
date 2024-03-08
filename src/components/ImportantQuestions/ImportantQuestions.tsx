@@ -11,52 +11,50 @@ export const ImportantQuestions = () => {
             Choose a question to quickly get a realistic response
           </p>
           <div className="questions-list">
-            <div className="question gradient-border">
-              <Link
-                
-                href="#individuals"
-                onClick={() => {
-                  sessionStorage.setItem(
-                    "QUESTION",
-                    "What did you want to be when you grew up?"
-                  );
-                }}
-              >
-                <p className="question-text base-text">
-                  What did you want to be when you grew up?
-                </p>
-              </Link>
-            </div>
-            <div className="question gradient-border">
-              <Link
-                href="#individuals"
-                onClick={() => {
-                  sessionStorage.setItem(
-                    "QUESTION",
-                    "What is the meaning of life?"
-                  );
-                }}
-              >
-                <p className="question-text base-text">
-                  What is the meaning of life?
-                </p>
-              </Link>
-            </div>
-            <div className="question gradient-border">
-              <Link
-                href="#individuals"
-                onClick={() => {
-                  sessionStorage.setItem(
-                    "QUESTION",
-                    "What is your greatest accomplishment?"
-                  );
-                }}
-              >
-                <p className="question-text base-text">
-                  What is your greatest accomplishment?
-                </p>
-              </Link>
-            </div>
+            <Link
+              className="question gradient-border"
+              href="#individuals"
+              onClick={() => {
+                console.log("question");
+                sessionStorage.setItem(
+                  "QUESTION",
+                  "What did you want to be when you grew up?"
+                );
+              }}
+            >
+              <p className="question-text base-text">
+                What did you want to be when you grew up?
+              </p>
+            </Link>
+            <Link
+              className="question gradient-border"
+              href="#individuals"
+              onClick={() => {
+                sessionStorage.setItem(
+                  "QUESTION",
+                  "What is the meaning of life?"
+                );
+              }}
+            >
+              <p className="question-text base-text">
+                What is the meaning of life?
+              </p>
+            </Link>
+
+            <Link
+              href="#individuals"
+              className="question gradient-border"
+              onClick={() => {
+                sessionStorage.setItem(
+                  "QUESTION",
+                  "What is your greatest accomplishment?"
+                );
+              }}
+            >
+              <p className="question-text base-text">
+                What is your greatest accomplishment?
+              </p>
+            </Link>
           </div>
         </div>
       </div>

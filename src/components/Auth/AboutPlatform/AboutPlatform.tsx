@@ -84,13 +84,14 @@ export const AboutPlatform = () => {
                 className="about-platform-checkbox"
                 type="checkbox"
                 id="ch1"
+                onClick={() => {
+                  setChecked(!checked);
+                }}
               ></input>
               <label
                 className="checkbox-label"
                 htmlFor={"ch1"}
-                onClick={() => {
-                  setChecked(!checked);
-                }}
+                onClick={() => {}}
               ></label>
             </div>
             <p className="about-check-text base-text">
