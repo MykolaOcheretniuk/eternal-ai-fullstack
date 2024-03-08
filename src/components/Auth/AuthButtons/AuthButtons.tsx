@@ -5,6 +5,9 @@ import Spinner from "../../../../public/ButtonSpinner.svg";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { OAuthResponse } from "@/models/auth";
+import { useRouter } from "next/navigation";
+import { GoogleLogin } from "@react-oauth/google";
 interface Props {
   isDisabled: boolean;
   dataSending: boolean;
@@ -17,6 +20,7 @@ export const AuthButtons = ({
   actionText,
   onClick,
 }: Props) => {
+  const router = useRouter();
   const [isGoogleDataSending, setIsGoogleDataSending] = useState(false);
   const googleSignIn = async () => {
     setIsGoogleDataSending(true);

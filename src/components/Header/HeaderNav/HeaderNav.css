@@ -23,6 +23,10 @@
   bottom: -32px;
   margin-top: 32px;
 }
+.header-nav-element-link:hover {
+  color: #f82d98;
+  transition: 0.5s ease;
+}
 .header-nav-element-link {
   font-family: Avenir;
   font-size: 32px;

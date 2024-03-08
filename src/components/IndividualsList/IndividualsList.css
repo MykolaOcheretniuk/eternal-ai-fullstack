@@ -11,6 +11,8 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 24px;
+  max-width: 1600;
+  padding-bottom: 6px;
 }
 .individuals-title {
   text-transform: uppercase;

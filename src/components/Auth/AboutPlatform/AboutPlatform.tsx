@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useEscapeKeyHandler } from "@/utils/handleEscPush";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
+import { BASE_URL, HEADERS } from "@/constants/api";
 export const AboutPlatform = () => {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
@@ -24,16 +25,18 @@ export const AboutPlatform = () => {
     setAuthDataSending(true);
     const registrationData = sessionStorage.getItem("REGISTER_DATA");
     if (registrationData) {
-      const res = await fetch(`/api/user`, {
+      const res = await fetch(`${BASE_URL}/sign-up`, {
         method: "POST",
+        headers: HEADERS,
         body: registrationData,
       });
+      const { message } = await res.json();
       if (!res.ok) {
-        return router.push("/?action=signUp");
+        return router.push(`/?action=signUp&errorMessage=${message}`);
       }
+      setAuthDataSending(false);
+      router.push(`/?action=signIn&successMessage=${message}`);
     }
-    setAuthDataSending(false);
-    router.push("/?action=signIn");
   };
   useEffect(() => {
     document.body.style.overflow = "hidden";

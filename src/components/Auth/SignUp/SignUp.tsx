@@ -5,18 +5,21 @@ import Image from "next/image";
 import EternalLogo from "../../../../public/EternalLogo.svg";
 import { AuthForm } from "../AuthForm/AuthForm";
 import { AuthButtons } from "../AuthButtons/AuthButtons";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
-import { EMAIL_TEST_REGEX } from "@/enums/regex";
+import { EMAIL_TEST_REGEX } from "@/constants/regex";
 import { useEscapeKeyHandler } from "@/utils/handleEscPush";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
+import { Toaster, toast } from "sonner";
 export const SignUp = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [dataSending, setDataSending] = useState(false);
   const signUpAreaRef = useRef(null);
+  const errorMessage = searchParams.get("errorMessage");
   useHandleOutsideClick(signUpAreaRef, () => {
     router.push("/");
   });
@@ -39,13 +42,26 @@ export const SignUp = () => {
   };
 
   useEffect(() => {
+    if (errorMessage) {
+      toast(errorMessage, {
+        style: {
+          background: "#F82D98",
+          border: "none",
+          fontSize: "18px",
+          color: "white",
+          fontFamily: "Avenir",
+        },
+      });
+      router.replace("/?action=signUp");
+    }
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "visible";
     };
-  }, []);
+  }, [errorMessage, router]);
   return (
     <>
+      <Toaster position="top-center" />
       <Image
         className="auth-pop-up-logo"
         src={EternalLogo}

@@ -9,7 +9,7 @@
 .messages-list::before {
   content: "";
   position: absolute;
-  top:-1px;
+  top: -1px;
   left: 0;
   right: 0;
   height: 20px;
@@ -17,6 +17,7 @@
   z-index: 999;
   pointer-events: none;
 }
+
 .messages-list-messages {
   display: flex;
   flex-direction: column-reverse;
@@ -53,7 +54,9 @@
   border: none;
   width: 75%;
   margin-left: 40px;
+  outline: none;
 }
+
 .messages-list-send-message-button {
   width: 157px;
   height: 62px;
@@ -69,4 +72,39 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+.messages-loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.messages-loading {
+  font-size: 120px;
+  color: white;
+}
+@media (max-width: 750px) {
+  .messages-list-send-message {
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 500px;
+  }
+  .messages-list-messages {
+    max-height: 400px;
+  }
+}
+@media (max-width: 510px) {
+  .messages-list-send-message-input {
+    font-size: 14px;
+  }
+  .messages-list-send-message {
+    width: 343px;
+    height: 56px;
+  }
+  .messages-list-send-message-button {
+    display: none;
+  }
+  .messages-list-messages {
+    max-height: 375px;
+  }
 }

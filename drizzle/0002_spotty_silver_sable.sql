@@ -1,1 +1,0 @@
-ALTER TABLE `Users` MODIFY COLUMN `PasswordHash` varchar(256);

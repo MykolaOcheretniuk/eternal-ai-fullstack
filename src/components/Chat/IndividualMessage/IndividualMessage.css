@@ -1,5 +1,6 @@
 .individual-message {
   color: white;
+  margin-right: 10px;
 }
 .individual-message-inner {
   display: flex;
@@ -35,4 +36,28 @@
 }
 .individual-message-tools span {
   cursor: pointer;
+}
+@media (max-width: 670px) {
+  .individual-message-text {
+    font-size: 14px;
+  }
+  .individual-message-portrait {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+}
+@media (max-width: 550px) {
+  .individual-message-portrait {
+    margin-left: 10px;
+  }
+  .individual-message-content {
+    padding: 24px;
+  }
+  .user-message-text {
+    max-width: 260px;
+  }
+  .individual-message-tools {
+    bottom: 8px;
+  }
 }

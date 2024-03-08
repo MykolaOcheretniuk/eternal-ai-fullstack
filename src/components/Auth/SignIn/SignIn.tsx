@@ -3,22 +3,24 @@ import XMark from "../../../../public/xMark.svg";
 import Image from "next/image";
 import EternalLogo from "../../../../public/EternalLogo.svg";
 import "./SignIn.css";
-import { AuthForm } from "../AuthForm/AuthForm";
-import { AuthButtons } from "../AuthButtons/AuthButtons";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
-import { EMAIL_TEST_REGEX } from "@/enums/regex";
+import { EMAIL_TEST_REGEX } from "@/constants/regex";
 import { signIn } from "next-auth/react";
 import { useEscapeKeyHandler } from "@/utils/handleEscPush";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
+import { AuthForm } from "../AuthForm/AuthForm";
+import { AuthButtons } from "../AuthButtons/AuthButtons";
+import { Toaster, toast } from "sonner";
 export const SignIn = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [dataSending, setDataSending] = useState(false);
   const signInAreaRef = useRef(null);
-
+  const successMessage = searchParams.get("successMessage");
   const submitLogin = async () => {
     setDataSending(true);
     const res = await signIn("credentials", {
@@ -27,7 +29,16 @@ export const SignIn = () => {
       password: password,
     });
     if (!res?.ok) {
-      console.log(res?.error);
+      toast(res?.error, {
+        style: {
+          background: "#F82D98",
+          border: "none",
+          fontSize: "18px",
+          color: "white",
+          fontFamily: "Avenir",
+          justifyContent: "center",
+        },
+      });
     } else {
       router.push("/");
     }
@@ -45,13 +56,27 @@ export const SignIn = () => {
     }
   });
   useEffect(() => {
+    if (successMessage) {
+      toast(successMessage, {
+        style: {
+          background: "#B5E42E",
+          color: "black",
+          border: "none",
+          fontSize: "18px",
+          fontFamily: "Avenir",
+          justifyContent: "center",
+        },
+      });
+      router.replace("/?action=signIn");
+    }
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "visible";
     };
-  }, []);
+  }, [router, successMessage]);
   return (
     <>
+      <Toaster position="top-center" />
       <Image
         className="auth-pop-up-logo"
         src={EternalLogo}

@@ -52,7 +52,7 @@
 }
 @media (max-width: 885px) {
   .individual-card-info {
-    gap: 4px;
+    margin-top: 8px;
     display: flex;
     flex-direction: column;
     height: 77px;
@@ -78,7 +78,7 @@
   }
 }
 @media (max-width: 590px) {
-  .individual-card{
+  .individual-card {
     max-height: 266px;
   }
   .individual-card-info {
@@ -91,7 +91,6 @@
     width: 163px;
     height: 227px;
   }
-  
 }
 @media (max-width: 370px) {
   .individual-card {

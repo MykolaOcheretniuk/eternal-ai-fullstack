@@ -1,6 +1,6 @@
-import { AboutPlatform } from "./AboutPlatform/AboutPlatform";
-import { SignIn } from "./SignIn/SignIn";
+import { SignIn } from "@/components/Auth/SignIn/SignIn";
 import { SignUp } from "./SignUp/SignUp";
+import { AboutPlatform } from "./AboutPlatform/AboutPlatform";
 
 interface Props {
   action: string;

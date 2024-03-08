@@ -2,45 +2,40 @@
   margin-top: 134px;
 }
 .chat-inner {
-  background-image: url(../../../public/ChatIndividualBg.svg);
-  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: row;
+  position: relative;
 }
-.chat-background-img {
-  min-width: 282px;
-  min-height: 280px;
+.chat-eternal-logo {
+  position: absolute;
+  top: 200px;
+  left: 200px;
 }
 .chat-individual {
   padding-top: 70px;
 }
-
-.chat-inner {
-  display: flex;
-  flex-direction: row;
-}
-.chat-individual-info {
-  color: white;
-  font-family: "Arquitecta";
-  text-transform: uppercase;
-  text-align: center;
-}
-.chat-individual-info-name {
-  font-size: 24px;
-  letter-spacing: 3.6px;
-}
-.chat-individual-info-career {
-  font-size: 14px;
-  letter-spacing: 2.1px;
-  opacity: 0.7;
-  margin-top: 10px;
+.loader-text {
+  font-size: 54px;
+  color: red;
 }
 @media (max-width: 1640px) {
+  .chat-eternal-logo {
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .chat-inner {
     flex-direction: column;
-    background-position-x: center;
     align-items: center;
     justify-content: center;
   }
   .messages-list {
     margin: 0 auto;
+  }
+}
+@media (max-width: 500px) {
+  .chat-eternal-logo {
+    top: 150px;
   }
 }

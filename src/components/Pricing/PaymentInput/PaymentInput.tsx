@@ -6,7 +6,7 @@ import { PricingHead } from "../PricingHead";
 import { PaymentCardInput } from "@/components/PaymentCardInput/PaymentCardInput";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CREDIT_CARD_DATE_REGEX, CREDIT_CARD_REGEX } from "@/enums/regex";
+import { CREDIT_CARD_DATE_REGEX, CREDIT_CARD_REGEX } from "@/constants/regex";
 import Spinner from "../../../../public/ButtonSpinner.svg";
 import { isDateCorrect } from "@/utils/isCardDateCorrect";
 export const PaymentInput = () => {

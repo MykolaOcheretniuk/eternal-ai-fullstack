@@ -1,11 +1,8 @@
-.individual-portrait-inner {
-  background-size: contain;
-  background-position-y: center;
-  background-repeat: no-repeat;
-  max-height: 939px;
-  overflow: hidden;
-}
 
+.individual-portrait-inner {
+  overflow: hidden;
+  position: relative;
+}
 
 .individual-portrait-img-container {
   max-height: 939px;
@@ -24,4 +21,50 @@
   right: 0;
   height: 300px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0), #0a0806);
+}
+.individual-info {
+  z-index: 50;
+  position: absolute;
+  bottom: 0;
+  color: white;
+  font-family: "Arquitecta";
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 10px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.individual-info-career {
+  font-size: 14px;
+  letter-spacing: 2.1px;
+  opacity: 0.7;
+}
+.info-name {
+  font-size: 24px;
+  letter-spacing: 3.6px;
+}
+@media (max-width: 550px) {
+  .individual-info-career {
+    font-size: 11px;
+  }
+  .info-name {
+    font-size: 14px;
+  }
+  .individual-message-portrait {
+    margin-left: 10px;
+  }
+  .individual-message-content {
+    padding: 24px;
+  }
+  .user-message-text {
+    max-width: 260px;
+  }
+  .individual-message-tools {
+    bottom: 8px;
+  }
+  .individual-portrait-img-container::after {
+    height: 150px;
+  }
 }

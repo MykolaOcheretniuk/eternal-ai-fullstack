@@ -6,47 +6,71 @@ import { UserMessage } from "../UserMessage/UserMessage";
 import "./MessagesList.css";
 import Spinner from "../../../../public/ButtonSpinner.svg";
 import Image from "next/image";
-import { ChatLog } from "@/models/message";
+import { ChatMessage, Message } from "@/models/message";
 import { useInView } from "react-intersection-observer";
-const limit = 3;
+import { BASE_URL } from "@/constants/api";
+import { useSession } from "next-auth/react";
+import { Toaster, toast } from "sonner";
+import ClipLoader from "react-spinners/ClipLoader";
+const limit = 10;
 interface Props {
   individual: string;
   individualPortrait: string;
 }
 export const MessagesList = ({ individual, individualPortrait }: Props) => {
-  const [messages, setMessages] = useState<ChatLog[]>([]);
+  let { data: session } = useSession();
+  const [messages, setMessages] = useState<Message[]>([]);
   let [page, setPage] = useState(1);
   const [question, setQuestion] = useState("");
   const [activeAnswer, setAnswer] = useState<null | string>(null);
   const [isMoreMessages, setIsMoreMessages] = useState(true);
   const [isDataSending, setDataSending] = useState(false);
+  const [isMessagesLoading, setIsMessagesLoading] = useState(true);
   const { ref, inView } = useInView();
   const getAnswer = async () => {
     setDataSending(true);
-    if (activeAnswer) {
-      messages[0].answer = activeAnswer;
-    }
-    const updatedChatLog = [{ question, answer: null } as ChatLog, ...messages];
-    setMessages(updatedChatLog);
-    const res = await fetch("/api/user/getAnswer", {
+    messages.push({ text: question, fromUser: true });
+    const res = await fetch(`${BASE_URL}/message`, {
       method: "POST",
-      body: JSON.stringify({ question }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.user.token}`,
+      },
+      body: JSON.stringify({ message: question, famousPersonName: individual }),
     });
-    const { answer } = await res.json();
-    setAnswer(answer);
+    const response = await res.json();
+    if (!res.ok) {
+      toast(response.message, {
+        style: {
+          background: "#F82D98",
+          border: "none",
+          fontSize: "18px",
+          color: "white",
+          fontFamily: "Avenir",
+          justifyContent: "center",
+        },
+      });
+      messages.pop();
+    }
+    setAnswer(response.answer);
     setQuestion("");
     setPage(page + 1);
     setDataSending(false);
   };
   const fetchMessages = async () => {
     const res = await fetch(
-      `/api/user/chatLog?page=${page}&limit=${limit}&individual=${individual}`,
+      `${BASE_URL}/messages-by-famous-person?page=${page}&limit=${limit}&famous-person-name=${individual}`,
       {
+        headers: {
+          Authorization: `Bearer ${session?.user.token}`,
+        },
         method: "GET",
       }
     );
-    const chatLog = (await res.json()) as ChatLog[];
-    return chatLog;
+    const chatLog = (await res.json()) as ChatMessage[];
+    return chatLog.map((message) => {
+      return { text: message.content, fromUser: message.fromUser };
+    });
   };
   useLayoutEffect(() => {
     const getChatLog = async () => {
@@ -60,11 +84,11 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
       setQuestion(preparedQuestion);
       sessionStorage.removeItem("QUESTION");
     }
+    setIsMessagesLoading(false);
   }, []);
   useEffect(() => {
     const getChatLog = async () => {
       const chatLog = await fetchMessages();
-      console.log(chatLog);
       if (chatLog.length < limit) {
         setIsMoreMessages(false);
       }
@@ -73,37 +97,45 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     };
     if (inView) {
       if (isMoreMessages) {
-        console.log("Fetching more messages");
         getChatLog();
       }
     }
   }, [inView]);
   return (
     <div className="messages-list">
+      <Toaster position="top-center" />
       <div className="messages-list-messages">
-        {messages.map((message, i) => {
-          const {
-            question,
-            answer: individualMessage,
-            individualIcon,
-          } = message;
-
-          return (
-            <div
-              className="messages-container"
-              key={i}
-              ref={i === messages.length - 1 ? ref : undefined}
-            >
-              <UserMessage message={question} />
-              {individualMessage && (
-                <IndividualMessage
-                  message={individualMessage}
-                  individualPortraitPath={individualPortrait}
-                />
-              )}
+        <>
+          {isMessagesLoading ? (
+            <div className="messages-loader-container">
+              <ClipLoader color="#36d7b7" />
             </div>
-          );
-        })}
+          ) : (
+            <>
+              {messages
+                .map((message, i) => {
+                  const { fromUser, text } = message;
+                  return (
+                    <div
+                      className="messages-container"
+                      key={i}
+                      ref={i === messages.length - 1 ? ref : undefined}
+                    >
+                      {fromUser ? (
+                        <UserMessage message={text} />
+                      ) : (
+                        <IndividualMessage
+                          message={text}
+                          individualPortraitPath={individualPortrait}
+                        />
+                      )}
+                    </div>
+                  );
+                })
+                .reverse()}
+            </>
+          )}
+        </>
       </div>
       {activeAnswer && <ActiveMessage message={activeAnswer} />}
       <div className="messages-list-send-message gradient-border">

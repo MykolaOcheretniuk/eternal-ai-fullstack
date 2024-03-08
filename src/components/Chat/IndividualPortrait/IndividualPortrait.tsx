@@ -1,21 +1,26 @@
+/* eslint-disable @next/next/no-img-element */
+import { SetStateAction } from "react";
 import "./IndividualPortrait.css";
-import Image from "next/image";
 
 interface Props {
   portrait: string;
+  individual: string;
+  career: string;
 }
-export const IndividualPortrait = ({ portrait }: Props) => {
+export const IndividualPortrait = ({ portrait, individual, career }: Props) => {
   return (
     <div className="individual-portrait">
       <div className="individual-portrait-inner">
         <div className="individual-portrait-img-container">
-          <Image
+          <img
             className="individual-portrait"
             src={`/individuals/${portrait}`}
             alt="Portrait"
-            width={900}
-            height={900}
           />
+        </div>
+        <div className="individual-info">
+          <p className="info-name">{individual}</p>
+          <p className="individual-info-career">{career}</p>
         </div>
       </div>
     </div>

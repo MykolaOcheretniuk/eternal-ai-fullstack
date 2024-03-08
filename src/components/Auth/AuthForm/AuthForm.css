@@ -14,9 +14,13 @@
   margin-top: 8px;
   width: 625px;
   height: 59px;
+  outline: none;
 }
 .auth-input:invalid {
   background-color: #2e0202;
+}
+.auth-input:focus {
+  outline: 1px solid #f82d98;
 }
 @media (max-width: 740px) {
   .auth-input {

@@ -2,7 +2,7 @@ import "./PaymentCardInput.css";
 import Image from "next/image";
 import CardSvg from "../../../public/CreditCards.svg";
 import InputMask from "react-input-mask";
-import { CREDIT_CARD_DATE_REGEX, CREDIT_CARD_REGEX } from "@/enums/regex";
+import { CREDIT_CARD_DATE_REGEX, CREDIT_CARD_REGEX } from "@/constants/regex";
 import { useState } from "react";
 
 interface Props {

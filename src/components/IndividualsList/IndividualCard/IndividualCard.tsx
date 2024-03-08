@@ -18,7 +18,12 @@ export const IndividualCard = ({ individual }: Props) => {
         );
       }}
     >
-      <div className="individual-portrait-container">
+      <div
+        className={`individual-portrait-container ${name.replace(
+          /[.\s]/g,
+          ""
+        )}-bg`}
+      >
         <Image
           className="individual-portrait"
           src={`/individuals/${photoPath}`}

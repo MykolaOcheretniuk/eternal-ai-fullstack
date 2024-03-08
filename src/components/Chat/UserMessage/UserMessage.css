@@ -1,13 +1,29 @@
 .user-message {
   margin-top: 20px;
+  margin-right: 10px;
   font-family: "Avenir";
   font-size: 24px;
-  max-width: 643px;
-  width: max-content;
   background-color: white;
   border-radius: 16px;
   padding: 32px;
-  text-align: right;
-  align-self:flex-end;
-  margin-right: 32px;
+  align-self: flex-end;
+  text-align: left;
 }
+
+.user-message-text {
+  max-width: 480px;
+}
+@media (max-width: 670px) {
+  .user-message {
+    font-size: 14px;
+  }
+}
+@media (max-width: 550px) {
+  .user-message{
+    padding: 24px;
+  }
+  .user-message-text {
+    max-width: 260px;
+  }
+}
+

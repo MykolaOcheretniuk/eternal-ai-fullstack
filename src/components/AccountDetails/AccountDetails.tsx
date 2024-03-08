@@ -1,24 +1,25 @@
 "use client";
 import { useSession } from "next-auth/react";
 import "./AccountDetails.css";
-import { useLayoutEffect, useState } from "react";
-import { SessionUser, Subscriber, UpdateUser } from "@/models/user";
+import { useState } from "react";
+import { UpdateUser, User } from "@/models/user";
 import Spinner from "../../../public/ButtonSpinner.svg";
 import {
   CREDIT_CARD_DATE_REGEX,
   CREDIT_CARD_REGEX,
   EMAIL_TEST_REGEX,
-} from "@/enums/regex";
+} from "@/constants/regex";
 import Image from "next/image";
 import { PaymentCardInput } from "../PaymentCardInput/PaymentCardInput";
 import { isDateCorrect } from "@/utils/isCardDateCorrect";
 import { format } from "date-fns";
+import { Toaster, toast } from "sonner";
+import { BASE_URL } from "@/constants/api";
 export const AccountDetails = () => {
   let { data: session, update } = useSession();
-  const [subscriber, setSubscriber] = useState<Subscriber | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
-  const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+  const [phone, setPhone] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
   const [dataSending, setDataSending] = useState(false);
   const [isPaymentInputActive, setIsPaymentInputActive] = useState(false);
@@ -35,36 +36,40 @@ export const AccountDetails = () => {
     setDate(e.target.value);
   };
 
-  const getSubscriber = async () => {
-    const response = await fetch("/api/user/subscriber", { method: "GET" });
-    const subscriber = (await response.json()) as Subscriber;
-    if (subscriber) {
-      setSubscriber(subscriber);
-    } else {
-      setSubscriber(null);
-    }
-  };
   const clearInputs = () => {
     setUserName(null);
     setEmail(null);
-    setPhoneNumber(null);
+    setPhone(null);
     setPassword(null);
   };
   const updateUser = async () => {
     setDataSending(true);
     const updateRequest: UpdateUser = {
-      name: userName,
-      email,
-      password,
-      phoneNumber,
+      name: userName ? userName : undefined,
+      email: email ? email : undefined,
+      password: password ? password : undefined,
+      phone: phone ? `+${phone}` : undefined,
     };
-    const res = await fetch("/api/user", {
-      method: "PATCH",
+
+    const res = await fetch(`${BASE_URL}/user`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + session?.user.token,
+      },
       body: JSON.stringify(updateRequest),
     });
-    const updatedUser = (await res.json()) as SessionUser;
+    const updatedUser = await res.json();
     if (session) {
-      session.user = updatedUser;
+      let prevUser = session.user.user;
+      Object.keys(updatedUser).forEach((key) => {
+        if (
+          updateRequest.hasOwnProperty(key) &&
+          updatedUser[key] !== undefined
+        ) {
+          (prevUser as any)[key] = updatedUser[key] as User[keyof User];
+        }
+      });
       await update(session);
     }
     clearInputs();
@@ -75,119 +80,119 @@ export const AccountDetails = () => {
       method: "POST",
     });
     const { canceled } = await res.json();
-    if (subscriber) {
-      setSubscriber({ ...subscriber, isCancelled: canceled });
-    }
   };
-  useLayoutEffect(() => {
-    getSubscriber();
-  }, []);
-
   return (
-    <>
-      <section className="account-details">
-        <div className="container">
+    <section className="account-details">
+      <div className="container">
+        <Toaster position="top-center" />
         <span className="account-details-top-decor"></span>
-        <span className="account-details-bottom-decor"></span>
-          <div className="account-details-inner">
-            <div className="account-details-info gradient-border">
-              <h1 className="account-details-title avenir-bold">
-                Account Details
-              </h1>
-              <div className="account-details-input-container">
-                <p className="account-details-input-text avenir-bold">Name</p>
-                <input
-                  className="account-details-input base-input"
-                  placeholder={
-                    session?.user.name ? session.user.name : "Justin Mac"
-                  }
-                  onChange={(e) => {
-                    setUserName(e.target.value);
-                  }}
-                  value={userName ? userName : ""}
-                  type="text"
-                ></input>
-              </div>
-              <div className="account-details-input-container">
-                <p className="account-details-input-text avenir-bold">Email</p>
-                <input
-                  className="account-details-input base-input"
-                  placeholder={
-                    session?.user.email
-                      ? session.user.email
-                      : "justin@gmail.com"
-                  }
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                  value={email ? email : ""}
-                  pattern={`${EMAIL_TEST_REGEX}`}
-                  type="email"
-                ></input>
-              </div>
-              <div className="account-details-input-container">
-                <p className="account-details-input-text avenir-bold">
-                  Phone number
-                </p>
-                <input
-                  className="account-details-input base-input"
-                  placeholder={
-                    session?.user.phoneNumber
-                      ? session.user.phoneNumber
-                      : "8329822222"
-                  }
-                  value={phoneNumber ? phoneNumber : ""}
-                  onChange={(e) => {
-                    setPhoneNumber(e.target.value);
-                  }}
-                  type="number"
-                ></input>
-              </div>
-              <div className="account-details-input-container">
-                <p className="account-details-input-text avenir-bold">
-                  Password
-                </p>
-                <input
-                  className="account-details-input base-input"
-                  placeholder="•••••••••••••••••••"
-                  type="password"
-                  value={password ? password : ""}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                ></input>
-              </div>
-              <button
-                className="account-details-save-button gradient-button"
-                disabled={
-                  (!userName && !email && !phoneNumber && !password) ||
-                  (email ? !EMAIL_TEST_REGEX.test(email as string) : false)
+        <div className="account-details-inner">
+          <div className="account-details-info gradient-border">
+            <h1 className="account-details-title avenir-bold">
+              Account Details
+            </h1>
+            <div className="account-details-input-container">
+              <p className="account-details-input-text avenir-bold">Name</p>
+              <input
+                className="account-details-input base-input"
+                placeholder={
+                  session?.user.user.name
+                    ? session.user.user.name
+                    : "Justin Mac"
                 }
-                onClick={async () => {
-                  await updateUser();
+                onChange={(e) => {
+                  setUserName(e.target.value);
                 }}
-              >
-                {dataSending ? (
-                  <Image
-                    className="button-spinner"
-                    src={Spinner}
-                    alt="loading"
-                  />
-                ) : (
-                  <>continue</>
-                )}
-              </button>
+                value={userName ? userName : ""}
+                type="text"
+              ></input>
             </div>
+            <div className="account-details-input-container">
+              <p className="account-details-input-text avenir-bold">Email</p>
+              <input
+                className="account-details-input base-input"
+                placeholder={
+                  session?.user.user.email
+                    ? session.user.user.email
+                    : "justin@gmail.com"
+                }
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                value={email ? email : ""}
+                pattern={`${EMAIL_TEST_REGEX}`}
+                type="email"
+              ></input>
+            </div>
+            <div className="account-details-input-container">
+              <p className="account-details-input-text avenir-bold">
+                Phone number
+              </p>
+              <input
+                className="account-details-input base-input"
+                placeholder={
+                  session?.user.user.phone
+                    ? session.user.user.phone
+                    : "8329822222"
+                }
+                value={phone ? phone : ""}
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                }}
+                type="number"
+              ></input>
+            </div>
+            <div className="account-details-input-container">
+              <p className="account-details-input-text avenir-bold">Password</p>
+              <input
+                className="account-details-input base-input"
+                placeholder="•••••••••••••••••••"
+                type="password"
+                value={password ? password : ""}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              ></input>
+            </div>
+            <button
+              className="account-details-save-button gradient-button"
+              disabled={
+                (!userName && !email && !phone && !password) ||
+                (email ? !EMAIL_TEST_REGEX.test(email as string) : false)
+              }
+              onClick={async () => {
+                await updateUser();
+                toast("User info updated.", {
+                  style: {
+                    background: "#B5E42E",
+                    border: "none",
+                    fontSize: "18px",
+                    fontFamily: "Avenir",
+                    justifyContent: "center",
+                  },
+                });
+              }}
+            >
+              {dataSending ? (
+                <Image className="button-spinner" src={Spinner} alt="loading" />
+              ) : (
+                <>continue</>
+              )}
+            </button>
           </div>
-          {subscriber && subscriber.status === "active" && (
+        </div>
+        {session && session.user.user.subscriptionId !== 0 && (
+          <>
+            <span className="account-details-bottom-decor"></span>
             <div className="account-details-subscription gradient-border">
               <span className="pro gradient-border">PRO</span>
               <p className="account-details-price avenir-bold">$10 / month</p>
               <p className="account-details-next-payment base-text">
-                {subscriber.isCancelled
-                  ? "Subscription ends on"
-                  : "Next payment will be processed on"}{" "}
-                {format(+subscriber.nextPaymentDate * 1000, "MMMM d, yyyy")}
+                Next payment will be processed on
+                {format(
+                  +session.user.user.subscriptionExpireDate * 1000,
+                  "MMMM d, yyyy"
+                )}
               </p>
               {isPaymentInputActive ? (
                 <div className="account-details-payment-input">
@@ -206,6 +211,17 @@ export const AccountDetails = () => {
                       !isDateCorrect(date) ||
                       dataSending
                     }
+                    onClick={() => {
+                      toast("Payment method updated.", {
+                        style: {
+                          background: "#B5E42E",
+                          border: "none",
+                          fontSize: "18px",
+                          color: "white",
+                          fontFamily: "Avenir",
+                        },
+                      });
+                    }}
                   >
                     {dataSending ? (
                       <Image
@@ -231,6 +247,14 @@ export const AccountDetails = () => {
                   <button
                     className="account-details-button account-details-cancel-subscription"
                     onClick={async () => {
+                      toast("Subscription canceled.", {
+                        style: {
+                          border: "none",
+                          fontSize: "18px",
+                          color: "white",
+                          fontFamily: "Avenir",
+                        },
+                      });
                       await cancelSubscription();
                     }}
                   >
@@ -239,9 +263,9 @@ export const AccountDetails = () => {
                 </div>
               )}
             </div>
-          )}
-        </div>
-      </section>
-    </>
+          </>
+        )}
+      </div>
+    </section>
   );
 };

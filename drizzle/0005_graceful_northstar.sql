@@ -1,1 +1,0 @@
-ALTER TABLE `Users` ADD `GoogleEmail` varchar(256);

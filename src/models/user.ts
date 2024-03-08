@@ -1,23 +1,23 @@
-import { SelectSubscriber } from "@/db/schema/subscribers";
-import { SelectUser } from "@/db/schema/users";
-
-export interface AuthRequest {
-  email: string;
-  password: string;
-}
 export interface GoogleUser {
   googleEmail: string;
   googleSub: string;
   name: string | null;
 }
 export interface UpdateUser {
-  email: string | null;
-  phoneNumber: string | null;
-  name: string | null;
-  password: string | null;
+  email: string | null | undefined;
+  phone: string | null | undefined;
+  name: string | null | undefined;
+  password: string | null | undefined;
 }
-export interface SessionUser extends Omit<SelectUser, "passwordHash"> {}
-export interface Subscriber extends SelectSubscriber {
-  status: string;
-  isCancelled: boolean;
+export interface User {
+  userId: number;
+  email: string;
+  name: string;
+  phone: string;
+  subscriptionId: number;
+  subscriptionExpireDate: string;
+}
+export interface SessionUser {
+  token: string;
+  user: User;
 }

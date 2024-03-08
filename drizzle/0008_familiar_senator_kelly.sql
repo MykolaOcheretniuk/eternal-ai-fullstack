@@ -1,1 +1,0 @@
-ALTER TABLE `ChatLog` MODIFY COLUMN `Created` bigint NOT NULL;

@@ -1,10 +1,17 @@
+"use client";
 import { Chat } from "@/components/Chat/Chat";
-import { Header } from "@/components/Header/Header";
+import { useSession } from "next-auth/react";
+import Loading from "../loading";
 
 export default function ChatPage() {
+  const { status } = useSession({
+    required: true,
+  });
+  if (status === "loading") {
+    return <Loading />;
+  }
   return (
     <div className="wrapper">
-      <Header />
       <Chat />
     </div>
   );

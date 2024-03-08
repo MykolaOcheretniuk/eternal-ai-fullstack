@@ -1,1 +1,0 @@
-ALTER TABLE `ChatLog` ADD `Created` varchar(256) NOT NULL;

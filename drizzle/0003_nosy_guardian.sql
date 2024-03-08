@@ -1,1 +1,0 @@
-ALTER TABLE `Users` ADD `GoogleSub` varchar(256);

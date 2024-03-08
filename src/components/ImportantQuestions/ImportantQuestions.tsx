@@ -13,6 +13,7 @@ export const ImportantQuestions = () => {
           <div className="questions-list">
             <div className="question gradient-border">
               <Link
+                
                 href="#individuals"
                 onClick={() => {
                   sessionStorage.setItem(

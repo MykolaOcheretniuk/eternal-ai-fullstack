@@ -12,7 +12,14 @@
   font-size: 13px;
   letter-spacing: 3.9px;
 }
+.header-auth-login:hover {
+  color: #f82d98;
+  transition: 0.5s ease;
+}
 @media (max-width: 1024px) {
+  .header-auth-start {
+    margin-left: 0;
+  }
   .header-auth-buttons {
     display: flex;
     flex-direction: column;

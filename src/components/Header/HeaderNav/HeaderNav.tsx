@@ -5,11 +5,13 @@ import "./HeaderNav.css";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 interface Props {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const HeaderNav = ({ setVisible }: Props) => {
   const menuAreaRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
   const { data: session } = useSession();
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -46,6 +48,11 @@ export const HeaderNav = ({ setVisible }: Props) => {
                   <Link
                     className="header-nav-element-link"
                     href="/accountDetails"
+                    onClick={() => {
+                      if (pathname === "/accountDetails") {
+                        setVisible(false);
+                      }
+                    }}
                   >
                     My account
                   </Link>

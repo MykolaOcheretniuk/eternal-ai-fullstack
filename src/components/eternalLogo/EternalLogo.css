@@ -1,0 +1,268 @@
+.ellipse {
+  border-radius: 50%;
+}
+@keyframes rotate360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+.eternal-logo-green-ellipse {
+  position: absolute;
+  transform: rotate(45deg);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  animation: rotate360 5s linear infinite;
+}
+.loader-green-ellipse {
+  width: 173.22px;
+  height: 200.4px;
+  border: 20.22px solid rgb(150, 242, 32);
+  filter: blur(5px);
+}
+.chat-green-ellipse {
+  width: 511.15px;
+  height: 591.38px;
+  border: 59.66px solid rgb(181, 228, 46);
+  filter: blur(10px);
+}
+.eternal-logo-green-ellipse-blur {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  animation: rotate360 5s linear infinite;
+}
+.chat-green-ellipse-blur {
+  width: 490.21px;
+  height: 598.58px;
+  border: 59.66px solid rgb(181, 228, 46);
+  transform: rotate(-45deg);
+  filter: blur(54.23px);
+}
+.loader-green-ellipse-blur {
+  width: 166.12px;
+  height: 202.84px;
+  border: 15px solid rgb(150, 242, 32);
+  transform: rotate(45deg);
+  filter: blur(18.38px);
+}
+.eternal-logo-pink-ellipse {
+  position: absolute;
+  transform: rotate(-52.26deg);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  animation: rotate 5s linear infinite;
+}
+.loader-pink-ellipse {
+  width: 166.12px;
+  height: 202.47px;
+  border: 20.22px solid rgb(248, 45, 152);
+  filter: blur(5px);
+}
+.chat-pink-ellipse {
+  width: 490.21px;
+  height: 597.48px;
+  border: 59.66px solid rgb(248, 45, 152);
+  filter: blur(10px);
+}
+.eternal-logo-pink-ellipse-blur {
+  position: absolute;
+  transform: rotate(-52.26deg);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  animation: rotate360 5s linear infinite;
+}
+.chat-pink-ellipse-blur {
+  width: 490.21px;
+  height: 597.48px;
+  border: 59.66px solid rgb(248, 45, 152);
+  filter: blur(54.23px);
+}
+.loader-pink-ellipse-blur {
+  width: 166.12px;
+  height: 202.47px;
+  border: 15px solid rgb(248, 45, 152);
+  filter: blur(18.38px);
+}
+.eternal-logo-white-ellipse {
+  position: absolute;
+  transform: rotate(45deg);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  animation: rotate360 5s linear infinite;
+}
+.chat-white-ellipse {
+  width: 490.21px;
+  height: 619.46px;
+  border: 59.66px solid rgb(255, 255, 255);
+  filter: blur(14.23px);
+}
+.loader-white-ellipse {
+  width: 166.12px;
+  height: 209.92px;
+  border: 20.22px solid rgb(255, 255, 255);
+  filter: blur(3px);
+}
+.eternal-logo-white-ellipse-blur {
+  position: absolute;
+  transform: rotate(57.23deg);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  animation: rotate360 5s linear infinite;
+}
+.loader-white-ellipse-blur {
+  width: 166.12px;
+  height: 209.74px;
+  border: 15px solid rgb(255, 254, 240);
+  filter: blur(18.38px);
+}
+.chat-white-ellipse-blur {
+  width: 490.21px;
+  height: 618.93px;
+  border: 59.66px solid rgb(255, 255, 255);
+  filter: blur(54.23px);
+}
+.eternal-logo-purple-ellipse {
+  position: absolute;
+  transform: rotate(90deg);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  animation: rotate360 5s linear infinite;
+}
+.chat-purple-ellipse {
+  width: 488.1px;
+  height: 661.65px;
+  border: 103.04px solid rgb(88, 51, 239);
+  filter: blur(97.62px);
+}
+.loader-purple-ellipse {
+  width: 165.41px;
+  height: 191.14px;
+  border: 15px solid rgb(147, 62, 255);
+  filter: blur(18.38px);
+}
+.eternal-logo-purple-ellipse-blur {
+  position: absolute;
+  transform: rotate(90deg);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  animation: rotate360 5s linear infinite;
+}
+.loader-purple-ellipse-blur {
+  width: 165.41px;
+  height: 224.22px;
+  filter: blur(33.08px);
+  border: 34px solid rgb(147, 62, 255);
+}
+.chat-purple-ellipse-blur {
+  width: 488.1px;
+  height: 564.03px;
+  border: 59.66px solid rgb(248, 45, 152);
+  filter: blur(54.23px);
+}
+@media (max-width: 930px) {
+  .chat-purple-ellipse-blur {
+    width: 271.74px;
+    height: 398.46px;
+    border: 20.99px solid rgb(248, 45, 152);
+    filter: blur(19.08px);
+  }
+  .chat-purple-ellipse {
+    width: 271.74px;
+    height: 332.81px;
+    border: 36.26px solid rgb(88, 51, 239);
+    filter: blur(34.35px);
+  }
+  .chat-white-ellipse {
+    width: 272.48px;
+    height: 317.77px;
+    border: 20.99px solid rgb(255, 255, 255);
+    filter: blur(19.08px);
+  }
+  .chat-white-ellipse-blur {
+    width: 272.48px;
+    height: 317.96px;
+    border: 20.99px solid rgb(255, 255, 255);
+  }
+  .chat-pink-ellipse-blur {
+    width: 272.48px;
+    height: 310.23px;
+    border: 20.99px solid rgb(248, 45, 152);
+    filter: blur(19.08px);
+  }
+  .chat-pink-ellipse {
+    width: 272.48px;
+    height: 310.23px;
+    border: 20.99px solid rgb(248, 45, 152);
+  }
+  .chat-green-ellipse {
+    width: 279.85px;
+    height: 308.08px;
+    border: 20.99px solid rgb(181, 228, 46);
+  }
+  .chat-green-ellipse-blur {
+    width: 272.48px;
+    height: 310.61px;
+    filter: blur(19.08px);
+  }
+}
+@media (max-width: 500px) {
+  .chat-purple-ellipse-blur {
+    width: 171.74px;
+    height: 198.46px;
+  }
+  .chat-purple-ellipse {
+    width: 171.74px;
+    height: 232.81px;
+  }
+  .chat-white-ellipse {
+    width: 172.48px;
+    height: 217.77px;
+  }
+  .chat-white-ellipse-blur {
+    width: 172.48px;
+    height: 217.96px;
+  }
+  .chat-pink-ellipse-blur {
+    width: 172.48px;
+    height: 210.23px;
+  }
+  .chat-pink-ellipse {
+    width: 172.48px;
+    height: 210.23px;
+  }
+  .chat-green-ellipse {
+    width: 179.85px;
+    height: 208.08px;
+  }
+  .chat-green-ellipse-blur {
+    width: 172.48px;
+    height: 210.61px;
+  }
+}

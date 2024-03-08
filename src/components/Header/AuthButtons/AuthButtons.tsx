@@ -9,7 +9,7 @@ export const AuthButtons = () => {
     <div className="header-auth-buttons">
       {!session?.user ? (
         <button
-          className="header-auth-login"
+          className="header-auth-login auth-button"
           onClick={() => {
             router.push("/?action=signIn");
           }}
@@ -19,7 +19,7 @@ export const AuthButtons = () => {
       ) : (
         <>
           <button
-            className="header-auth-login"
+            className="header-auth-login auth-button"
             onClick={() => {
               signOut();
             }}
@@ -29,7 +29,7 @@ export const AuthButtons = () => {
         </>
       )}
       <button
-        className="header-auth-start gradient-button"
+        className="header-auth-start gradient-button auth-button"
         onClick={() => {
           if (session?.user) {
             return router.push("/?pricing=info");

@@ -12,17 +12,15 @@ export const IndividualsList = () => {
   }, []);
   return (
     <section className="individuals" id="individuals">
-      <div className="container">
-        <div className="individuals-inner">
-          <h1 className="individuals-title">Individuals</h1>
-          <p className="individuals-text base-text">
-            Ask a question to your favorite person and get a realistic response
-          </p>
-          <div className="individuals-container">
-            {individualsList.map((individual, i) => {
-              return <IndividualCard individual={individual} key={i} />;
-            })}
-          </div>
+      <div className="individuals-inner">
+        <h1 className="individuals-title">Individuals</h1>
+        <p className="individuals-text base-text">
+          Ask a question to your favorite person and get a realistic response
+        </p>
+        <div className="individuals-container">
+          {individualsList.map((individual, i) => {
+            return <IndividualCard individual={individual} key={i} />;
+          })}
         </div>
       </div>
     </section>

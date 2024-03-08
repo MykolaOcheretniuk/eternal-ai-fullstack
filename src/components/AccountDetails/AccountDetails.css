@@ -24,7 +24,13 @@
   height: 59px;
   margin-top: 8px;
   color: white;
+  outline: none;
+  cursor: pointer;
 }
+.account-details-input:focus {
+  outline: 1px solid #f82d98;
+}
+
 .account-details-input:invalid {
   background-color: #2e0202 !important;
 }
@@ -32,6 +38,7 @@
   font-size: 18px;
 }
 .account-details-save-button {
+  z-index: 10;
   align-self: flex-end;
   width: 210px;
   height: 62px;
@@ -64,6 +71,7 @@
   text-transform: uppercase;
 }
 .account-details-button {
+  z-index: 10;
   letter-spacing: 3.9px;
 }
 .account-details-update-payment {
@@ -89,7 +97,11 @@ input[type="number"] {
   -webkit-appearance: textfield;
   appearance: textfield;
 }
+.account-details-input-container {
+  z-index: 10;
+}
 .account-details-payment-input {
+  outline: none;
   margin-top: 32px;
   display: flex;
   flex-direction: row;
@@ -133,6 +145,7 @@ input[type="number"] {
   );
   opacity: 0.1;
 }
+
 @media (max-width: 845px) {
   .account-details-info {
     padding: 24px;

@@ -118,8 +118,8 @@ a {
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(77px);
   position: fixed;
-  z-index: 100;
   overflow: auto;
+  z-index: 999;
 }
 .close-button {
   width: 56px;
@@ -151,6 +151,34 @@ a {
 }
 .incorrect-input {
   background-color: #2e0202 !important;
+}
+.loader-inner {
+  width: 500px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+.loading-logo-container {
+  position: relative;
+  margin: 0 auto;
+  width: 166px;
+  height: 209px;
+}
+.loader-text {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 58px;
+}
+@media (max-width: 700px) {
+  .loader-text {
+    max-width: 260px;
+  }
+  .loader-inner {
+    width: 270px;
+  }
 }
 @media (max-width: 700px) {
   .base-text {
