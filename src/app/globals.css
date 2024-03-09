@@ -33,8 +33,9 @@ a {
 
 .container {
   max-width: 1400px;
-  overflow: hidden;
   margin: 0 auto;
+  padding-bottom: 40px;
+
 }
 .fluid-container {
   max-width: 1642px;
@@ -172,6 +173,7 @@ a {
   padding-right: 5px;
   margin-top: 58px;
 }
+
 @media (max-width: 700px) {
   .loader-text {
     max-width: 260px;

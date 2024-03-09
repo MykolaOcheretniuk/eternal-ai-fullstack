@@ -7,7 +7,7 @@ interface Props {
 }
 export const AuthPopUp = ({ action }: Props) => {
   return (
-    <>
+    <div className="auth-pop-up">
       {action === "signIn" && (
         <section className="auth-pop-up container-with-blur">
           <SignIn />
@@ -23,6 +23,6 @@ export const AuthPopUp = ({ action }: Props) => {
           <AboutPlatform />
         </section>
       )}
-    </>
+    </div>
   );
 };
