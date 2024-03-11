@@ -50,6 +50,9 @@
   font-size: 11px;
   letter-spacing: 2.2px;
 }
+.drmartinlutherkingjr-bg {
+  background-image: url(/individualsBg/MartinLutherBg.png);
+}
 @media (max-width: 885px) {
   .individual-card-info {
     margin-top: 8px;

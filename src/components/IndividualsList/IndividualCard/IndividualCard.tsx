@@ -9,6 +9,7 @@ interface Props {
 export const IndividualCard = ({ individual }: Props) => {
   const { name, career, photoPath } = individual;
   const router = useRouter();
+  console.log(`${name.replace(/[.\s]/g, "")}-bg`);
   return (
     <div
       className="individual-card"
