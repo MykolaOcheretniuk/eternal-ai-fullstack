@@ -5,10 +5,17 @@ import EternalLogo from "../../../../public/EternalLogo.svg";
 import { PricingHead } from "../PricingHead";
 import "./Price.css";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 export const Price = () => {
   const router = useRouter();
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, []);
   return (
-    <>
+    <div>
       <Image className="auth-pop-up-logo" src={EternalLogo} alt="logo" />
       <button
         className="close-button"
@@ -59,15 +66,18 @@ export const Price = () => {
                   </p>
                 </li>
               </ul>
-              <button className="price-amount-subscribe gradient-button" onClick={()=>{
-                router.push("/?pricing=pay")
-              }}>
+              <button
+                className="price-amount-subscribe gradient-button"
+                onClick={() => {
+                  router.push("/?pricing=pay");
+                }}
+              >
                 subscribe
               </button>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

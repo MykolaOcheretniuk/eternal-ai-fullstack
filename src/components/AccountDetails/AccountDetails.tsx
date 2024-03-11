@@ -176,7 +176,7 @@ export const AccountDetails = () => {
               {dataSending ? (
                 <Image className="button-spinner" src={Spinner} alt="loading" />
               ) : (
-                <>continue</>
+                <>Save</>
               )}
             </button>
           </div>
