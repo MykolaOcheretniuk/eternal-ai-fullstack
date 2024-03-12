@@ -12,6 +12,7 @@ import { BASE_URL } from "@/constants/api";
 import { useSession } from "next-auth/react";
 import { Toaster, toast } from "sonner";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 const limit = 10;
 interface Props {
   individual: string;
@@ -29,6 +30,10 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
   const { ref, inView } = useInView();
   const getAnswer = async () => {
     setDataSending(true);
+    if (activeAnswer) {
+      messages.push({ text: activeAnswer, fromUser: false });
+      setAnswer(null);
+    }
     messages.push({ text: question, fromUser: true });
     const res = await fetch(`${BASE_URL}/message`, {
       method: "POST",
@@ -57,6 +62,11 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     setPage(page + 1);
     setDataSending(false);
   };
+  useEnterKeyHandler(() => {
+    if (question.length !== 0) {
+      getAnswer();
+    }
+  });
   const fetchMessages = async () => {
     const res = await fetch(
       `${BASE_URL}/messages-by-famous-person?page=${page}&limit=${limit}&famous-person-name=${individual}`,
@@ -73,10 +83,13 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     });
   };
   useLayoutEffect(() => {
+    console.log("start messages lading");
     const getChatLog = async () => {
       const chatLog = await fetchMessages();
       setMessages(chatLog);
       setPage(page + 1);
+      setIsMessagesLoading(false);
+      console.log("end messages lading");
     };
     getChatLog();
     const preparedQuestion = sessionStorage.getItem("QUESTION");
@@ -84,7 +97,6 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
       setQuestion(preparedQuestion);
       sessionStorage.removeItem("QUESTION");
     }
-    setIsMessagesLoading(false);
   }, []);
   useEffect(() => {
     const getChatLog = async () => {
@@ -108,7 +120,7 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
         <>
           {isMessagesLoading ? (
             <div className="messages-loader-container">
-              <ClipLoader color="#36d7b7" />
+              <ClipLoader className="messages-spinner" color="#ffffff" />
             </div>
           ) : (
             <>

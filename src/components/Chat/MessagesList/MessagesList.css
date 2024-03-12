@@ -82,6 +82,9 @@
   font-size: 120px;
   color: white;
 }
+.messages-spinner{
+  z-index: 999;
+}
 @media (max-width: 750px) {
   .messages-list-send-message {
     margin: 0 auto;

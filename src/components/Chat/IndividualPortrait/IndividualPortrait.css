@@ -2,6 +2,7 @@
 .individual-portrait-inner {
   overflow: hidden;
   position: relative;
+  margin-top: 180px;
 }
 
 .individual-portrait-img-container {
