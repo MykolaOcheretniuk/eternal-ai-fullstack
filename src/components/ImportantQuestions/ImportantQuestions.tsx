@@ -1,7 +1,9 @@
 import Link from "next/link";
 import "./ImportantQuestions.css";
-
-export const ImportantQuestions = () => {
+interface Props {
+  isNavOpen: boolean;
+}
+export const ImportantQuestions = ({ isNavOpen }: Props) => {
   return (
     <section className="important-question">
       <div className="container">
@@ -21,6 +23,7 @@ export const ImportantQuestions = () => {
                   "What did you want to be when you grew up?"
                 );
               }}
+              tabIndex={isNavOpen ? -1 : 0}
             >
               <p className="question-text base-text">
                 What did you want to be when you grew up?
@@ -35,6 +38,7 @@ export const ImportantQuestions = () => {
                   "What is the meaning of life?"
                 );
               }}
+              tabIndex={isNavOpen ? -1 : 0}
             >
               <p className="question-text base-text">
                 What is the meaning of life?
@@ -50,6 +54,7 @@ export const ImportantQuestions = () => {
                   "What is your greatest accomplishment?"
                 );
               }}
+              tabIndex={isNavOpen ? -1 : 0}
             >
               <p className="question-text base-text">
                 What is your greatest accomplishment?

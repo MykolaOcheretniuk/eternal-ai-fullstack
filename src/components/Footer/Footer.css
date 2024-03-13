@@ -32,12 +32,12 @@
   display: inherit;
   gap: 8px;
 }
-.footer-social-media {
+.footer-social-media-link {
   cursor: pointer;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  display: inherit;
+  display: flex;
   justify-content: center;
   align-items: center;
   background: var(

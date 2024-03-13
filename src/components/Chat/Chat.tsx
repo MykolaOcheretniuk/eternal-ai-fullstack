@@ -5,16 +5,17 @@ import { MessagesList } from "./MessagesList/MessagesList";
 import { useSearchParams } from "next/navigation";
 import { Header } from "../Header/Header";
 import { EternalLogoChat } from "../eternalLogo/EternalLogoChat";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 
 export const Chat = () => {
   const searchParams = useSearchParams();
   const individual = searchParams.get("individual");
   const portrait = searchParams.get("portrait");
   const career = searchParams.get("career");
+  const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <>
-      <Header />
+      <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
       <section className="chat">
         <div className="fluid-container chat-container">
           <div className="chat-inner">

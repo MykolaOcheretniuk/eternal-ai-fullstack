@@ -1,13 +1,17 @@
 .individual-card {
   position: relative;
+  border-radius: 16px;
+  color: white;
 }
+
 .individual-portrait-container {
   border-radius: 16px;
   cursor: pointer;
   width: 270px;
   height: 300px;
   overflow: hidden;
-  background-color: gray;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .individual-portrait {
   object-fit: cover;
@@ -20,7 +24,6 @@
   background: rgba(88, 48, 102, 0.2);
   backdrop-filter: blur(22px);
   width: 100%;
-  max-width: 269px;
   height: 77px;
   border-radius: 16px;
   bottom: 0;
@@ -32,7 +35,8 @@
   transition: opacity 0.5s ease, height 0.2s ease;
 }
 .individual-portrait-container:hover + .individual-card-info,
-.individual-card-info:hover {
+.individual-card-info:hover,
+.individual-card:focus .individual-card-info {
   display: flex;
   flex-direction: column;
   height: 77px;
@@ -52,6 +56,45 @@
 }
 .drmartinlutherkingjr-bg {
   background-image: url(/individualsBg/MartinLutherBg.png);
+}
+.SteveJobs-bg {
+  background-image: url(/individualsBg/SteveJobsBg.png);
+}
+.ElonMusk-bg {
+  background-image: url(/individualsBg/ElonMuskBg.png);
+}
+.AlbertEinstein-bg {
+  background-image: url(/individualsBg/AlbertEinsteinBg.png);
+}
+.MotherTeresa-bg {
+  background-image: url(/individualsBg/MotherTeresaBg.png);
+}
+.JesusChrist-bg {
+  background-image: url(/individualsBg/JesusChristBg.png);
+}
+.LeonardodaVinci-bg {
+  background-image: url(/individualsBg/DaVinciBg.png);
+}
+.QueenElizabeth-bg {
+  background-image: url(/individualsBg/QueenElizabethBg.png);
+}
+.WilliamShakespeare-bg {
+  background-image: url(/individualsBg/WilliamShakespeareBg.png);
+}
+.NelsonMandela-bg {
+  background-image: url(/individualsBg/NelsonMandelaBg.png);
+}
+.BetsyRoss-bg {
+  background-image: url(/individualsBg/BetsyRossBg.png);
+}
+.Gandhi-bg {
+  background-image: url(/individualsBg/GandhiBg.png);
+}
+.AbrahamLincoln-bg {
+  background-image: url(/individualsBg/AbrahamLincolnBg.png);
+}
+.RonSwanson-bg {
+  background-image: url(/individualsBg/RonSwansonBg.png);
 }
 @media (max-width: 885px) {
   .individual-card-info {

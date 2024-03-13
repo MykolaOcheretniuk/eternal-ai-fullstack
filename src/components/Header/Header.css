@@ -18,6 +18,12 @@
 .logo-container {
   padding-left: 230px;
 }
+.header-menu-button {
+  background-color: transparent;
+  border: none;
+  width: 56px;
+  height: 56px;
+}
 .menu-icon {
   cursor: pointer;
 }

@@ -7,11 +7,16 @@ import Image from "next/image";
 import { HeaderNav } from "./HeaderNav/HeaderNav";
 import { AuthButtons } from "./AuthButtons/AuthButtons";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+3;
 import XMark from "../../../public/xMark.svg";
-export const Header = () => {
+import Link from "next/link";
+interface Props {
+  isNavOpen: boolean;
+  setIsNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const Header = ({ isNavOpen, setIsNavOpen }: Props) => {
   const router = useRouter();
-  const [isNavOpen, setIsNavOpen] = useState(false);
+
   return (
     <>
       {isNavOpen && <HeaderNav setVisible={setIsNavOpen} />}
@@ -19,14 +24,14 @@ export const Header = () => {
         <div className="fluid-container">
           <div className="header-inner">
             {!isNavOpen ? (
-              <Image
-                className="menu-icon"
-                src={MenuIcon}
-                alt="menu"
+              <button
+                className="header-menu-button"
                 onClick={() => {
                   setIsNavOpen(true);
                 }}
-              />
+              >
+                <Image className="menu-icon" src={MenuIcon} alt="menu" />
+              </button>
             ) : (
               <div className="menu-close-container">
                 <button className="menu-close" onClick={() => router.push("/")}>
@@ -41,19 +46,17 @@ export const Header = () => {
                 </button>
               </div>
             )}
-            <a
-              className="logo-container"
-              onClick={() => {
-                router.push("/");
-              }}
-            >
-              <Image
-                className="header-logo"
-                src={EternalLogo}
-                alt="logo"
-                priority={true}
-              />
-            </a>
+            <div className="logo-container">
+              <Link href={"/"}>
+                <Image
+                  className="header-logo"
+                  src={EternalLogo}
+                  alt="logo"
+                  priority={true}
+                />
+              </Link>
+            </div>
+
             <div className="header-buttons">
               <AuthButtons />
             </div>

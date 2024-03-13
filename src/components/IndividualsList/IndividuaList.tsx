@@ -4,8 +4,10 @@ import individuals from "../../../public/individuals.json";
 import { useEffect, useState } from "react";
 import { Individual } from "@/models/individuals";
 import { IndividualCard } from "./IndividualCard/IndividualCard";
-
-export const IndividualsList = () => {
+interface Props {
+  isNavOpen: boolean;
+}
+export const IndividualsList = ({ isNavOpen }: Props) => {
   const [individualsList, setIndividuals] = useState<Individual[]>([]);
   useEffect(() => {
     setIndividuals(individuals as Individual[]);
@@ -19,7 +21,13 @@ export const IndividualsList = () => {
         </p>
         <div className="individuals-container">
           {individualsList.map((individual, i) => {
-            return <IndividualCard individual={individual} key={i} />;
+            return (
+              <IndividualCard
+                individual={individual}
+                isNavOpen={isNavOpen}
+                key={i}
+              />
+            );
           })}
         </div>
       </div>

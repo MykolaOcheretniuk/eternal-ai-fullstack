@@ -4,7 +4,10 @@ import twitter from "../../../public/twitter.svg";
 import facebook from "../../../public/facebook.svg";
 import youtube from "../../../public/youtube.svg";
 import Image from "next/image";
-export const Footer = () => {
+interface Props {
+  isNavOpen: boolean;
+}
+export const Footer = ({ isNavOpen }: Props) => {
   return (
     <footer className="footer">
       <div className="fluid-container">
@@ -17,7 +20,11 @@ export const Footer = () => {
             <p className="footer-text">Follow us</p>
             <ul className="footer-social-medias">
               <li className="footer-social-media">
-                <a className="footer-social-media-link">
+                <a
+                  className="footer-social-media-link"
+                  href="#"
+                  tabIndex={isNavOpen ? -1 : 0}
+                >
                   <Image
                     className="footer-social-media-img"
                     src={twitter}
@@ -26,7 +33,11 @@ export const Footer = () => {
                 </a>
               </li>
               <li className="footer-social-media">
-                <a className="footer-social-media-link">
+                <a
+                  className="footer-social-media-link"
+                  href="#"
+                  tabIndex={isNavOpen ? -1 : 0}
+                >
                   <Image
                     className="footer-social-media-img"
                     src={facebook}
@@ -35,7 +46,11 @@ export const Footer = () => {
                 </a>
               </li>
               <li className="footer-social-media">
-                <a className="footer-social-media-link">
+                <a
+                  className="footer-social-media-link"
+                  href="#"
+                  tabIndex={isNavOpen ? -1 : 0}
+                >
                   <Image
                     className="footer-social-media-img"
                     src={youtube}

@@ -1,13 +1,14 @@
 "use client";
 import "./AuthButtons.css";
 import GoogleIcon from "../../../../public/googleIcon.svg";
-import Spinner from "../../../../public/ButtonSpinner.svg";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { OAuthResponse } from "@/models/auth";
 import { useRouter } from "next/navigation";
 import { GoogleLogin } from "@react-oauth/google";
+import ClipLoader from "react-spinners/ClipLoader";
+import Spinner from "../../../../public/ButtonSpinner.svg";
 interface Props {
   isDisabled: boolean;
   dataSending: boolean;
@@ -36,7 +37,7 @@ export const AuthButtons = ({
           await googleSignIn();
         }}
       >
-        {isGoogleDataSending ? (
+        { isGoogleDataSending ? (
           <Image className="button-spinner" src={Spinner} alt="loading" />
         ) : (
           <>

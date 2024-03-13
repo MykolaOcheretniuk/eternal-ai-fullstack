@@ -61,17 +61,17 @@ export const SignUp = () => {
   }, [errorMessage, router]);
   return (
     <>
+      <Toaster position="top-center" />
+      <Image
+        className="auth-pop-up-logo"
+        src={EternalLogo}
+        alt="logo"
+        onClick={() => {
+          saveRegisterData();
+          router.push("/?action=about");
+        }}
+      />
       <div>
-        <Toaster position="top-center" />
-        <Image
-          className="auth-pop-up-logo"
-          src={EternalLogo}
-          alt="logo"
-          onClick={() => {
-            saveRegisterData();
-            router.push("/?action=about");
-          }}
-        />
         <button
           className="close-button"
           onClick={() => {

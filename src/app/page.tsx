@@ -6,19 +6,20 @@ import { ImportantQuestions } from "@/components/ImportantQuestions/ImportantQue
 import { IndividualsList } from "@/components/IndividualsList/IndividuaList";
 import { PricingPopUp } from "@/components/Pricing/PricingPopUp";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 export default function Home() {
   const searchParams = useSearchParams();
   const authAction = searchParams.get("action");
   const pricingAction = searchParams.get("pricing");
-
+  const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <div className="wrapper">
-      <Header />
+      <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
       {authAction && <AuthPopUp action={authAction} />}
       {pricingAction && <PricingPopUp action={pricingAction} />}
-      <ImportantQuestions />
-      <IndividualsList />
-      <Footer />
+      <ImportantQuestions isNavOpen={isNavOpen} />
+      <IndividualsList isNavOpen={isNavOpen} />
+      <Footer isNavOpen={isNavOpen} />
     </div>
   );
 }

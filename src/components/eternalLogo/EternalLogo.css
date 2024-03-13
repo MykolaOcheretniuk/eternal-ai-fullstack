@@ -24,7 +24,7 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  animation: rotate360 5s linear infinite;
+  animation: rotate360 8s linear infinite;
 }
 .loader-green-ellipse {
   width: 173.22px;
@@ -44,7 +44,7 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  animation: rotate360 5s linear infinite;
+  animation: rotate360 8s linear infinite;
 }
 .chat-green-ellipse-blur {
   width: 490.21px;
@@ -67,7 +67,7 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  animation: rotate 5s linear infinite;
+  animation: rotate 8s linear infinite;
 }
 .loader-pink-ellipse {
   width: 166.12px;
@@ -109,7 +109,7 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  animation: rotate360 5s linear infinite;
+  animation: rotate360 8s linear infinite;
 }
 .chat-white-ellipse {
   width: 490.21px;
@@ -130,7 +130,7 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  animation: rotate360 5s linear infinite;
+  animation: rotate360 8s linear infinite;
 }
 .loader-white-ellipse-blur {
   width: 166.12px;
@@ -151,7 +151,7 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  animation: rotate360 5s linear infinite;
+  animation: rotate360 8s linear infinite;
 }
 .chat-purple-ellipse {
   width: 488.1px;
@@ -172,7 +172,7 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  animation: rotate360 5s linear infinite;
+  animation: rotate360 8s linear infinite;
 }
 .loader-purple-ellipse-blur {
   width: 165.41px;

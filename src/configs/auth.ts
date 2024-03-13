@@ -14,7 +14,6 @@ export const authConfig: AuthOptions = {
       clientId: getEnv("GOOGLE_CLIENT_ID"),
       clientSecret: getEnv("GOOGLE_CLIENT_SECRET"),
       profile: async (profile) => {
-        const { sub, email, name } = profile;
         console.log(profile);
         return profile;
       },

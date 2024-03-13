@@ -6,6 +6,11 @@ import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import Facebook from "../../../../public/facebook.svg";
+import Instagram from "../../../../public/instagram.svg";
+import Twitter from "../../../../public/twitter.svg";
+import Discord from "../../../../public/discord.svg";
 interface Props {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -62,17 +67,41 @@ export const HeaderNav = ({ setVisible }: Props) => {
           </nav>
           <div className="header-nav-social-medias">
             <ul className="header-nav-social-list">
-              <li className="header-nav-social-media header-nav-facebook">
-                <a className="header-nav-social-link" href="#"></a>
+              <li className="header-nav-social-media ">
+                <a className="header-nav-social-link" href="#">
+                  <Image
+                    className="header-nav-social-icon"
+                    src={Facebook}
+                    alt="facebook"
+                  ></Image>
+                </a>
               </li>
-              <li className="header-nav-social-media header-nav-instagram">
-                <a className="header-nav-social-link" href="#"></a>
+              <li className="header-nav-social-media">
+                <a className="header-nav-social-link" href="#">
+                  <Image
+                    className="header-nav-social-icon"
+                    src={Instagram}
+                    alt="instagram"
+                  ></Image>
+                </a>
               </li>
-              <li className="header-nav-social-media header-nav-twitter">
-                <a className="header-nav-social-link" href="#"></a>
+              <li className="header-nav-social-media">
+                <a className="header-nav-social-link" href="#">
+                  <Image
+                    className="header-nav-social-icon"
+                    src={Twitter}
+                    alt="twitter"
+                  ></Image>
+                </a>
               </li>
-              <li className="header-nav-social-media header-nav-discord">
-                <a className="header-nav-social-link" href="#"></a>
+              <li className="header-nav-social-media">
+                <a className="header-nav-social-link" href="#">
+                  <Image
+                    className="header-nav-social-icon"
+                    src={Discord}
+                    alt="discord"
+                  ></Image>
+                </a>
               </li>
             </ul>
           </div>

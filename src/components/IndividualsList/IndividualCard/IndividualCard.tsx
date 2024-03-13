@@ -2,28 +2,25 @@
 import { Individual } from "@/models/individuals";
 import "./IndividualCard.css";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 interface Props {
   individual: Individual;
+  isNavOpen: boolean;
 }
-export const IndividualCard = ({ individual }: Props) => {
+export const IndividualCard = ({ individual, isNavOpen }: Props) => {
   const { name, career, photoPath } = individual;
-  const router = useRouter();
-  console.log(`${name.replace(/[.\s]/g, "")}-bg`);
+
   return (
-    <div
+    <Link
       className="individual-card"
-      onClick={() => {
-        router.push(
-          `/chat?individual=${name}&portrait=${photoPath}&career=${career}`
-        );
-      }}
+      href={`/chat?individual=${name}&portrait=${photoPath}&career=${career}`}
+      tabIndex={isNavOpen ? -1 : 0}
     >
       <div
         className={`individual-portrait-container ${name.replace(
           /[.\s]/g,
           ""
-        )}-bg`}
+        )}-bg `}
       >
         <Image
           className="individual-portrait"
@@ -38,6 +35,6 @@ export const IndividualCard = ({ individual }: Props) => {
         <p className="individual-card-name">{name}</p>
         <p className="individual-card-career">{career}</p>
       </div>
-    </div>
+    </Link>
   );
 };

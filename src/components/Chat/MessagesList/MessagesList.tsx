@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { ActiveMessage } from "../ActiveMessage/ActiveMessage";
 import { IndividualMessage } from "../IndividualMessage/IndividualMessage";
 import { UserMessage } from "../UserMessage/UserMessage";
 import "./MessagesList.css";
@@ -11,7 +10,6 @@ import { useInView } from "react-intersection-observer";
 import { BASE_URL } from "@/constants/api";
 import { useSession } from "next-auth/react";
 import { Toaster, toast } from "sonner";
-import ClipLoader from "react-spinners/ClipLoader";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 const limit = 10;
 interface Props {
@@ -23,18 +21,14 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
   const [messages, setMessages] = useState<Message[]>([]);
   let [page, setPage] = useState(1);
   const [question, setQuestion] = useState("");
-  const [activeAnswer, setAnswer] = useState<null | string>(null);
   const [isMoreMessages, setIsMoreMessages] = useState(true);
   const [isDataSending, setDataSending] = useState(false);
   const [isMessagesLoading, setIsMessagesLoading] = useState(true);
   const { ref, inView } = useInView();
   const getAnswer = async () => {
     setDataSending(true);
-    if (activeAnswer) {
-      messages.push({ text: activeAnswer, fromUser: false });
-      setAnswer(null);
-    }
-    messages.push({ text: question, fromUser: true });
+    setQuestion("");
+    messages.unshift({ text: question, fromUser: true });
     const res = await fetch(`${BASE_URL}/message`, {
       method: "POST",
       headers: {
@@ -57,8 +51,11 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
       });
       messages.pop();
     }
-    setAnswer(response.answer);
-    setQuestion("");
+    messages.unshift({
+      text: response.answer,
+      fromUser: false,
+    });
+    setMessages(messages);
     setPage(page + 1);
     setDataSending(false);
   };
@@ -83,13 +80,11 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     });
   };
   useLayoutEffect(() => {
-    console.log("start messages lading");
     const getChatLog = async () => {
       const chatLog = await fetchMessages();
       setMessages(chatLog);
       setPage(page + 1);
       setIsMessagesLoading(false);
-      console.log("end messages lading");
     };
     getChatLog();
     const preparedQuestion = sessionStorage.getItem("QUESTION");
@@ -120,36 +115,33 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
         <>
           {isMessagesLoading ? (
             <div className="messages-loader-container">
-              <ClipLoader className="messages-spinner" color="#ffffff" />
+              <Image className="messages-spinner" src={Spinner} alt="loading" />
             </div>
           ) : (
             <>
-              {messages
-                .map((message, i) => {
-                  const { fromUser, text } = message;
-                  return (
-                    <div
-                      className="messages-container"
-                      key={i}
-                      ref={i === messages.length - 1 ? ref : undefined}
-                    >
-                      {fromUser ? (
-                        <UserMessage message={text} />
-                      ) : (
-                        <IndividualMessage
-                          message={text}
-                          individualPortraitPath={individualPortrait}
-                        />
-                      )}
-                    </div>
-                  );
-                })
-                .reverse()}
+              {messages.map((message, i) => {
+                const { fromUser, text } = message;
+                return (
+                  <div
+                    className="messages-container"
+                    key={i}
+                    ref={i === messages.length - 1 ? ref : undefined}
+                  >
+                    {fromUser ? (
+                      <UserMessage message={text} />
+                    ) : (
+                      <IndividualMessage
+                        message={text}
+                        individualPortraitPath={individualPortrait}
+                      />
+                    )}
+                  </div>
+                );
+              })}
             </>
           )}
         </>
       </div>
-      {activeAnswer && <ActiveMessage message={activeAnswer} />}
       <div className="messages-list-send-message gradient-border">
         <input
           className="messages-list-send-message-input"
