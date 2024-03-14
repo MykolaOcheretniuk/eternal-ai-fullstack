@@ -11,15 +11,15 @@ export default function Home() {
   const searchParams = useSearchParams();
   const authAction = searchParams.get("action");
   const pricingAction = searchParams.get("pricing");
-  const [isNavOpen, setIsNavOpen] = useState(false);
+
   return (
     <div className="wrapper">
-      <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+      <Header />
       {authAction && <AuthPopUp action={authAction} />}
       {pricingAction && <PricingPopUp action={pricingAction} />}
-      <ImportantQuestions isNavOpen={isNavOpen} />
-      <IndividualsList isNavOpen={isNavOpen} />
-      <Footer isNavOpen={isNavOpen} />
+      <ImportantQuestions />
+      <IndividualsList />
+      <Footer />
     </div>
   );
 }

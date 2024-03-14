@@ -12,10 +12,9 @@ export const Chat = () => {
   const individual = searchParams.get("individual");
   const portrait = searchParams.get("portrait");
   const career = searchParams.get("career");
-  const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <>
-      <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+      <Header />
       <section className="chat">
         <div className="fluid-container chat-container">
           <div className="chat-inner">

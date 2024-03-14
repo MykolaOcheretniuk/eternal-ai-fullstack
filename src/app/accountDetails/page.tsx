@@ -16,9 +16,9 @@ export default function AccountDetailsPage() {
   }
   return (
     <div className="wrapper">
-      <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+      <Header />
       <AccountDetails />
-      <Footer isNavOpen={isNavOpen} />
+      <Footer />
     </div>
   );
 }

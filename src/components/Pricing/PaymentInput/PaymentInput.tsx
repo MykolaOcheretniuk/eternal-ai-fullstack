@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { CREDIT_CARD_DATE_REGEX, CREDIT_CARD_REGEX } from "@/constants/regex";
 import Spinner from "../../../../public/ButtonSpinner.svg";
 import { isDateCorrect } from "@/utils/isCardDateCorrect";
+import Link from "next/link";
 export const PaymentInput = () => {
   const router = useRouter();
   const [card, setCard] = useState("");
@@ -52,7 +53,9 @@ export const PaymentInput = () => {
 
   return (
     <>
-      <Image className="auth-pop-up-logo" src={EternalLogo} alt="logo" />
+      <Link className="auth-pop-up-logo" href="/">
+        <Image src={EternalLogo} alt="logo" />
+      </Link>
       <button
         className="close-button"
         onClick={() => {

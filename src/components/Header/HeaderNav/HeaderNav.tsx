@@ -11,6 +11,7 @@ import Facebook from "../../../../public/facebook.svg";
 import Instagram from "../../../../public/instagram.svg";
 import Twitter from "../../../../public/twitter.svg";
 import Discord from "../../../../public/discord.svg";
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 interface Props {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -18,6 +19,7 @@ export const HeaderNav = ({ setVisible }: Props) => {
   const menuAreaRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const { data: session } = useSession();
+  const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -25,6 +27,7 @@ export const HeaderNav = ({ setVisible }: Props) => {
     };
   }, []);
   useHandleOutsideClick(menuAreaRef, () => {
+    setIsPopUpOpen(false);
     setVisible(false);
   });
   return (
@@ -55,6 +58,7 @@ export const HeaderNav = ({ setVisible }: Props) => {
                     href="/accountDetails"
                     onClick={() => {
                       if (pathname === "/accountDetails") {
+                        setIsPopUpOpen(false);
                         setVisible(false);
                       }
                     }}

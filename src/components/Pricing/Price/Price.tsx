@@ -7,8 +7,10 @@ import "./Price.css";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 export const Price = () => {
   const router = useRouter();
+  const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -23,6 +25,7 @@ export const Price = () => {
       <button
         className="close-button"
         onClick={() => {
+          setIsPopUpOpen(false);
           router.back();
         }}
       >

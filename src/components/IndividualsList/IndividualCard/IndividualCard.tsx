@@ -3,13 +3,13 @@ import { Individual } from "@/models/individuals";
 import "./IndividualCard.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 interface Props {
   individual: Individual;
-  isNavOpen: boolean;
 }
-export const IndividualCard = ({ individual, isNavOpen }: Props) => {
+export const IndividualCard = ({ individual }: Props) => {
   const { name, career, photoPath } = individual;
-
+  const { isOpened: isNavOpen } = useIsPopUpOpen();
   return (
     <Link
       className="individual-card"

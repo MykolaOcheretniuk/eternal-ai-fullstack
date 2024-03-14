@@ -4,10 +4,9 @@ import twitter from "../../../public/twitter.svg";
 import facebook from "../../../public/facebook.svg";
 import youtube from "../../../public/youtube.svg";
 import Image from "next/image";
-interface Props {
-  isNavOpen: boolean;
-}
-export const Footer = ({ isNavOpen }: Props) => {
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
+export const Footer = () => {
+  const { isOpened: isNavOpen } = useIsPopUpOpen();
   return (
     <footer className="footer">
       <div className="fluid-container">

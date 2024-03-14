@@ -5,8 +5,9 @@
 }
 
 .individual-portrait-img-container {
-  max-width: 939px;
-  max-width: 939px;
+  width: 920px;
+  width: 920px;
+  
   display: flex;
   justify-content: center;
   align-items: center;

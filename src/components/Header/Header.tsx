@@ -7,16 +7,15 @@ import Image from "next/image";
 import { HeaderNav } from "./HeaderNav/HeaderNav";
 import { AuthButtons } from "./AuthButtons/AuthButtons";
 import { useRouter } from "next/navigation";
-3;
 import XMark from "../../../public/xMark.svg";
 import Link from "next/link";
-interface Props {
-  isNavOpen: boolean;
-  setIsNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-export const Header = ({ isNavOpen, setIsNavOpen }: Props) => {
-  const router = useRouter();
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
+import { useState } from "react";
 
+export const Header = () => {
+  const router = useRouter();
+  const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
+  const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <>
       {isNavOpen && <HeaderNav setVisible={setIsNavOpen} />}
@@ -27,6 +26,7 @@ export const Header = ({ isNavOpen, setIsNavOpen }: Props) => {
               <button
                 className="header-menu-button"
                 onClick={() => {
+                  setIsPopUpOpen(true);
                   setIsNavOpen(true);
                 }}
               >

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import "./ImportantQuestions.css";
-interface Props {
-  isNavOpen: boolean;
-}
-export const ImportantQuestions = ({ isNavOpen }: Props) => {
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
+
+export const ImportantQuestions = () => {
+  const { isOpened: isPopUpOpen } = useIsPopUpOpen();
   return (
     <section className="important-question">
       <div className="container">
@@ -23,7 +23,7 @@ export const ImportantQuestions = ({ isNavOpen }: Props) => {
                   "What did you want to be when you grew up?"
                 );
               }}
-              tabIndex={isNavOpen ? -1 : 0}
+              tabIndex={isPopUpOpen ? -1 : 0}
             >
               <p className="question-text base-text">
                 What did you want to be when you grew up?
@@ -38,7 +38,7 @@ export const ImportantQuestions = ({ isNavOpen }: Props) => {
                   "What is the meaning of life?"
                 );
               }}
-              tabIndex={isNavOpen ? -1 : 0}
+              tabIndex={isPopUpOpen ? -1 : 0}
             >
               <p className="question-text base-text">
                 What is the meaning of life?
@@ -54,7 +54,7 @@ export const ImportantQuestions = ({ isNavOpen }: Props) => {
                   "What is your greatest accomplishment?"
                 );
               }}
-              tabIndex={isNavOpen ? -1 : 0}
+              tabIndex={isPopUpOpen ? -1 : 0}
             >
               <p className="question-text base-text">
                 What is your greatest accomplishment?

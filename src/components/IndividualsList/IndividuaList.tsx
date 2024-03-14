@@ -4,10 +4,8 @@ import individuals from "../../../public/individuals.json";
 import { useEffect, useState } from "react";
 import { Individual } from "@/models/individuals";
 import { IndividualCard } from "./IndividualCard/IndividualCard";
-interface Props {
-  isNavOpen: boolean;
-}
-export const IndividualsList = ({ isNavOpen }: Props) => {
+
+export const IndividualsList = () => {
   const [individualsList, setIndividuals] = useState<Individual[]>([]);
   useEffect(() => {
     setIndividuals(individuals as Individual[]);
@@ -24,7 +22,6 @@ export const IndividualsList = ({ isNavOpen }: Props) => {
             return (
               <IndividualCard
                 individual={individual}
-                isNavOpen={isNavOpen}
                 key={i}
               />
             );
