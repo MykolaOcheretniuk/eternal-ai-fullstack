@@ -6,6 +6,7 @@ import { PricingHead } from "../PricingHead";
 import "./Price.css";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Link from "next/link";
 export const Price = () => {
   const router = useRouter();
   useEffect(() => {
@@ -16,7 +17,9 @@ export const Price = () => {
   }, []);
   return (
     <>
-      <Image className="auth-pop-up-logo" src={EternalLogo} alt="logo" />
+      <Link className="auth-pop-up-logo" href="/">
+        <Image src={EternalLogo} alt="logo" />
+      </Link>
       <button
         className="close-button"
         onClick={() => {

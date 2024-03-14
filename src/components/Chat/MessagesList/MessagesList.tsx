@@ -29,6 +29,10 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     setDataSending(true);
     setQuestion("");
     messages.unshift({ text: question, fromUser: true });
+    messages.unshift({
+      text: null,
+      fromUser: false,
+    });
     const res = await fetch(`${BASE_URL}/message`, {
       method: "POST",
       headers: {
@@ -51,10 +55,7 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
       });
       messages.pop();
     }
-    messages.unshift({
-      text: response.answer,
-      fromUser: false,
-    });
+    messages[0].text = response.answer;
     setMessages(messages);
     setPage(page + 1);
     setDataSending(false);
@@ -128,7 +129,7 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
                     ref={i === messages.length - 1 ? ref : undefined}
                   >
                     {fromUser ? (
-                      <UserMessage message={text} />
+                      <UserMessage message={text as string} />
                     ) : (
                       <IndividualMessage
                         message={text}

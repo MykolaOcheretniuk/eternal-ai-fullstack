@@ -13,6 +13,6 @@ export interface ChatMessage {
   content: string;
 }
 export interface Message {
-  text: string;
+  text: string | null;
   fromUser: boolean;
 }

@@ -1,8 +1,14 @@
 .header-nav {
   z-index: 80 !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.header-nav-inner {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 .header-nav-navigation {
   padding: 32px;

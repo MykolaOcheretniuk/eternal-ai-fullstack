@@ -60,6 +60,7 @@
   }
   .logo-container {
     padding: 0;
+    order: -1;
   }
   .mobile-menu-icon {
     display: block;

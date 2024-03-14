@@ -2,18 +2,16 @@
 .individual-portrait-inner {
   overflow: hidden;
   position: relative;
-  margin-top: 180px;
 }
 
 .individual-portrait-img-container {
-  max-height: 939px;
+  max-width: 939px;
   max-width: 939px;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  position: relative;
 }
+
 .individual-portrait-img-container::after {
   content: "";
   position: absolute;

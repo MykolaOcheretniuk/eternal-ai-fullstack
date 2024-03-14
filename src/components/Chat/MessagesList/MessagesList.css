@@ -5,7 +5,8 @@
   flex-direction: column;
   align-self: flex-end;
   position: relative;
-  max-height: 90vh;
+  max-height: 85vh;
+  margin: 0 auto;
 }
 .messages-list::before {
   content: "";
@@ -31,9 +32,6 @@
 
 .messages-list-messages::-webkit-scrollbar {
   display: none;
-}
-.messages-list-active-message {
-  margin-top: 184px;
 }
 .messages-list-send-message {
   border-radius: 120px;
@@ -61,7 +59,6 @@
 .messages-list-send-message-button {
   width: 157px;
   height: 62px;
-  margin-left: 8px;
 }
 .messages-list-send-message-button:disabled {
   opacity: 0.7;
