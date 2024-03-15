@@ -4,6 +4,7 @@ import getEnv from "@/utils/getEnv";
 import type { AuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import jwt from "jsonwebtoken";
 export const authConfig: AuthOptions = {
   pages: {
     signIn: "/?action=signIn",
@@ -15,6 +16,10 @@ export const authConfig: AuthOptions = {
       clientSecret: getEnv("GOOGLE_CLIENT_SECRET"),
       profile: async (profile) => {
         console.log(profile);
+        const profileEncodedData = jwt.sign(
+          profile,
+          getEnv("GOOGLE_CLIENT_SECRET")
+        );
         return profile;
       },
     }),

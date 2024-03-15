@@ -7,7 +7,6 @@ import { useState } from "react";
 import { OAuthResponse } from "@/models/auth";
 import { useRouter } from "next/navigation";
 import { GoogleLogin } from "@react-oauth/google";
-import ClipLoader from "react-spinners/ClipLoader";
 import Spinner from "../../../../public/ButtonSpinner.svg";
 interface Props {
   isDisabled: boolean;

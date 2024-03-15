@@ -11,6 +11,15 @@
   top: 200px;
   left: 200px;
 }
+.chat-individual::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(-90deg, rgba(0, 0, 0, 0), #0a0806);
+}
 .loader-text {
   font-size: 54px;
   color: red;

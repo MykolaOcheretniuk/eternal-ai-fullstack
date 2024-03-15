@@ -16,6 +16,7 @@ export default function AccountDetailsPage() {
   }
   return (
     <div className="wrapper">
+    
       <Header />
       <AccountDetails />
       <Footer />

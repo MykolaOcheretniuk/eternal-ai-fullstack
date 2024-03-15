@@ -1,13 +1,14 @@
 "use client";
 import { useSession } from "next-auth/react";
 import "./AccountDetails.css";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { UpdateUser, User } from "@/models/user";
 import Spinner from "../../../public/ButtonSpinner.svg";
 import { EMAIL_TEST_REGEX } from "@/constants/regex";
 import Image from "next/image";
 import { Toaster, toast } from "sonner";
 import { BASE_URL } from "@/constants/api";
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 export const AccountDetails = () => {
   let { data: session, update } = useSession();
   const [userName, setUserName] = useState<string | null>(null);
@@ -15,7 +16,7 @@ export const AccountDetails = () => {
   const [phone, setPhone] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
   const [dataSending, setDataSending] = useState(false);
-
+  const { setIsOpen: setIsPopUpOpen, isOpened: isPopUpOpen } = useIsPopUpOpen();
   const clearInputs = () => {
     setUserName(null);
     setEmail(null);
@@ -73,6 +74,9 @@ export const AccountDetails = () => {
     });
     const { canceled } = await res.json();
   };
+  useLayoutEffect(() => {
+    setIsPopUpOpen(false);
+  }, [setIsPopUpOpen]);
   return (
     <section className="account-details">
       <div className="container">
@@ -97,6 +101,7 @@ export const AccountDetails = () => {
                 }}
                 value={userName ? userName : ""}
                 type="text"
+                tabIndex={isPopUpOpen ? -1 : 0}
               ></input>
             </div>
             <div className="account-details-input-container">
@@ -114,6 +119,7 @@ export const AccountDetails = () => {
                 value={email ? email : ""}
                 pattern={`${EMAIL_TEST_REGEX}`}
                 type="email"
+                tabIndex={isPopUpOpen ? -1 : 0}
               ></input>
             </div>
             <div className="account-details-input-container">
@@ -132,6 +138,7 @@ export const AccountDetails = () => {
                   setPhone(e.target.value);
                 }}
                 type="number"
+                tabIndex={isPopUpOpen ? -1 : 0}
               ></input>
             </div>
             <div className="account-details-input-container">
@@ -144,6 +151,7 @@ export const AccountDetails = () => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
+                tabIndex={isPopUpOpen ? -1 : 0}
               ></input>
             </div>
             <button
@@ -164,6 +172,7 @@ export const AccountDetails = () => {
                   },
                 });
               }}
+              tabIndex={isPopUpOpen ? -1 : 0}
             >
               {dataSending ? (
                 <Image className="button-spinner" src={Spinner} alt="loading" />
