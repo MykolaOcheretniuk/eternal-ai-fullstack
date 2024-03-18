@@ -5,7 +5,6 @@ import { MessagesList } from "./MessagesList/MessagesList";
 import { useSearchParams } from "next/navigation";
 import { Header } from "../Header/Header";
 import { EternalLogoChat } from "../eternalLogo/EternalLogoChat";
-import { Suspense, useState } from "react";
 
 export const Chat = () => {
   const searchParams = useSearchParams();
@@ -28,14 +27,12 @@ export const Chat = () => {
                 career={career as string}
               />
             </div>{" "}
-            <Suspense fallback={<p className="loader-text">Loading feed...</p>}>
-              <div className="messages-list">
-                <MessagesList
-                  individual={individual as string}
-                  individualPortrait={portrait as string}
-                />
-              </div>
-            </Suspense>
+            <div className="messages-list">
+              <MessagesList
+                individual={individual as string}
+                individualPortrait={portrait as string}
+              />
+            </div>
           </div>
         </div>
       </section>

@@ -10,7 +10,10 @@ import { CREDIT_CARD_DATE_REGEX, CREDIT_CARD_REGEX } from "@/constants/regex";
 import Spinner from "../../../../public/ButtonSpinner.svg";
 import { isDateCorrect } from "@/utils/isCardDateCorrect";
 import Link from "next/link";
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
+import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 export const PaymentInput = () => {
+  const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   const router = useRouter();
   const [card, setCard] = useState("");
   const [cvc, setCvc] = useState("");
@@ -25,35 +28,37 @@ export const PaymentInput = () => {
   const inputDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
   };
-
   const subscribeUser = async () => {
     setDataSending(true);
-    const response = await fetch("/api/payment/subscribe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        card,
-        cvc,
-        date,
-      }),
-    });
     setDataSending(false);
-    if (response.status === 200) {
-      router.push("/?pricing=success");
-    }
+    router.push("/pricing?pricing=success");
   };
+  useEnterKeyHandler(() => {
+    if (
+      CREDIT_CARD_REGEX.test(card) ||
+      cvc.length === 3 ||
+      CREDIT_CARD_DATE_REGEX.test(date) ||
+      isDateCorrect(date) ||
+      dataSending
+    ) {
+      subscribeUser();
+    }
+  });
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "visible";
     };
   }, []);
-
   return (
     <>
-      <Link className="auth-pop-up-logo" href="/">
+      <Link
+        className="auth-pop-up-logo"
+        href="/"
+        onClick={() => {
+          setIsPopUpOpen(false);
+        }}
+      >
         <Image src={EternalLogo} alt="logo" />
       </Link>
       <button

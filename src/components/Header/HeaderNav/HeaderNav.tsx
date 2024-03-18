@@ -42,7 +42,10 @@ export const HeaderNav = ({ setVisible }: Props) => {
                 </a>
               </li>
               <li className="header-nav-element">
-                <Link className="header-nav-element-link" href="/?pricing=info">
+                <Link
+                  className="header-nav-element-link"
+                  href="/pricing?pricing=info"
+                >
                   Pricing
                 </Link>
               </li>

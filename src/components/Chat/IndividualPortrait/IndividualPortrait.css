@@ -17,7 +17,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 200px;
+  height: 100px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0), #0a0806);
 }
 .individual-portrait-img-container::before {

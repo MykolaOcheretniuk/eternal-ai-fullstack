@@ -4,11 +4,18 @@ import "./AccountDetails.css";
 import { useLayoutEffect, useState } from "react";
 import { UpdateUser, User } from "@/models/user";
 import Spinner from "../../../public/ButtonSpinner.svg";
-import { EMAIL_TEST_REGEX } from "@/constants/regex";
+import {
+  CREDIT_CARD_DATE_REGEX,
+  CREDIT_CARD_REGEX,
+  EMAIL_TEST_REGEX,
+} from "@/constants/regex";
 import Image from "next/image";
 import { Toaster, toast } from "sonner";
 import { BASE_URL } from "@/constants/api";
 import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
+import { format } from "date-fns";
+import { PaymentCardInput } from "../PaymentCardInput/PaymentCardInput";
+import { isDateCorrect } from "@/utils/isCardDateCorrect";
 export const AccountDetails = () => {
   let { data: session, update } = useSession();
   const [userName, setUserName] = useState<string | null>(null);
@@ -17,6 +24,20 @@ export const AccountDetails = () => {
   const [password, setPassword] = useState<string | null>(null);
   const [dataSending, setDataSending] = useState(false);
   const { setIsOpen: setIsPopUpOpen, isOpened: isPopUpOpen } = useIsPopUpOpen();
+  const [isPaymentInputActive, setIsPaymentInputActive] = useState(false);
+  const [card, setCard] = useState("");
+  const [cvc, setCvc] = useState("");
+  const [date, setDate] = useState("");
+  const inputCard = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCard(e.target.value.replace(/\s/g, ""));
+  };
+  const inputCvc = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCvc(e.target.value);
+  };
+  const inputDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
+  };
+
   const clearInputs = () => {
     setUserName(null);
     setEmail(null);
@@ -182,6 +203,90 @@ export const AccountDetails = () => {
             </button>
           </div>
         </div>
+        {session && session.user.user.subscriptionId !== 0 && (
+          <>
+            <span className="account-details-bottom-decor"></span>
+            <div className="account-details-subscription gradient-border">
+              <span className="pro gradient-border">PRO</span>
+              <p className="account-details-price avenir-bold">$10 / month</p>
+              <p className="account-details-next-payment base-text">
+                Next payment will be processed on
+                {format(
+                  new Date(session.user.user.subscriptionExpireDate),
+                  "MMMM d, yyyy"
+                )}
+              </p>
+              {isPaymentInputActive ? (
+                <div className="account-details-payment-input">
+                  <PaymentCardInput
+                    setCard={inputCard}
+                    setCvc={inputCvc}
+                    setDate={inputDate}
+                    actualDateValidator={isDateCorrect}
+                  />
+                  <button
+                    className="account-details-payment-change-submit gradient-button"
+                    disabled={
+                      !CREDIT_CARD_REGEX.test(card) ||
+                      cvc.length !== 3 ||
+                      !CREDIT_CARD_DATE_REGEX.test(date) ||
+                      !isDateCorrect(date) ||
+                      dataSending
+                    }
+                    onClick={() => {
+                      toast("Payment method updated.", {
+                        style: {
+                          background: "#B5E42E",
+                          border: "none",
+                          fontSize: "18px",
+                          color: "white",
+                          fontFamily: "Avenir",
+                        },
+                      });
+                    }}
+                  >
+                    {dataSending ? (
+                      <Image
+                        className="button-spinner"
+                        src={Spinner}
+                        alt="loading"
+                      />
+                    ) : (
+                      <> Save</>
+                    )}
+                  </button>
+                </div>
+              ) : (
+                <div className="account-details-buttons">
+                  <button
+                    className="account-details-button account-details-update-payment"
+                    onClick={() => {
+                      setIsPaymentInputActive(true);
+                    }}
+                  >
+                    update payment
+                  </button>
+                  <button
+                    className="account-details-button account-details-cancel-subscription"
+                    onClick={async () => {
+                      toast("Subscription canceled.", {
+                        style: {
+                          border: "none",
+                          fontSize: "18px",
+                          color: "white",
+                          fontFamily: "Avenir",
+                        },
+                      });
+                      await cancelSubscription();
+                    }}
+                  >
+                    cancel subscription
+                  </button>
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

@@ -4,18 +4,27 @@ import XMark from "../../../../public/xMark.svg";
 import Image from "next/image";
 import EternalLogo from "../../../../public/EternalLogo.svg";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
+import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 export const SuccessPayment = () => {
   const router = useRouter();
+  const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
+  useEnterKeyHandler(() => {
+    setIsPopUpOpen(false);
+    router.push("/");
+  });
   return (
     <>
-      <Image
+      <Link
         className="auth-pop-up-logo"
-        src={EternalLogo}
-        alt="logo"
+        href="/"
         onClick={() => {
-          router.push("/");
+          setIsPopUpOpen(false);
         }}
-      />
+      >
+        <Image src={EternalLogo} alt="logo" />
+      </Link>
       <button className="close-button">
         <Image
           className="close-button-ig"
@@ -47,7 +56,8 @@ export const SuccessPayment = () => {
             <button
               className="success-payment-start gradient-button"
               onClick={() => {
-                router.push("/chat");
+                setIsPopUpOpen(false);
+                router.push("/");
               }}
             >
               start chatting

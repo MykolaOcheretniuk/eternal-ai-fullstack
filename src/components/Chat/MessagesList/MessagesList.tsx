@@ -17,7 +17,7 @@ interface Props {
   individualPortrait: string;
 }
 export const MessagesList = ({ individual, individualPortrait }: Props) => {
-  let { data: session } = useSession();
+  let { data: session } = useSession({ required: false });
   const [messages, setMessages] = useState<Message[]>([]);
   let [page, setPage] = useState(1);
   const [question, setQuestion] = useState("");

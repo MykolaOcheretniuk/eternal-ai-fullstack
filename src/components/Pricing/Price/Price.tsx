@@ -19,7 +19,13 @@ export const Price = () => {
   }, []);
   return (
     <>
-      <Link className="auth-pop-up-logo" href="/">
+      <Link
+        className="auth-pop-up-logo"
+        href="/"
+        onClick={() => {
+          setIsPopUpOpen(false);
+        }}
+      >
         <Image src={EternalLogo} alt="logo" />
       </Link>
       <button
@@ -76,7 +82,7 @@ export const Price = () => {
                 <button
                   className="price-amount-subscribe gradient-button"
                   onClick={() => {
-                    router.push("/?pricing=pay");
+                    router.push("/pricing?pricing=pay");
                   }}
                 >
                   subscribe
