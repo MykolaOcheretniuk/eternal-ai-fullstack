@@ -1,4 +1,5 @@
 export type EnvVariables =
   | "GOOGLE_CLIENT_ID"
   | "GOOGLE_CLIENT_SECRET"
-  | "NEXTAUTH_SECRET";
+  | "NEXTAUTH_SECRET"
+  | "NEXT_PUBLIC_STRIPE_API_KEY";

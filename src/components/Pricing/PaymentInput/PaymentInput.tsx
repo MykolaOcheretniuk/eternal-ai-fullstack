@@ -12,6 +12,10 @@ import { isDateCorrect } from "@/utils/isCardDateCorrect";
 import Link from "next/link";
 import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { PaymentElement } from "@stripe/react-stripe-js";
+import getEnv from "@/utils/getEnv";
 export const PaymentInput = () => {
   const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   const router = useRouter();
@@ -19,6 +23,7 @@ export const PaymentInput = () => {
   const [cvc, setCvc] = useState("");
   const [date, setDate] = useState("");
   const [dataSending, setDataSending] = useState(false);
+  const stripePromise = loadStripe(getEnv("NEXT_PUBLIC_STRIPE_API_KEY"));
   const inputCard = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCard(e.target.value.replace(/\s/g, ""));
   };
@@ -32,6 +37,10 @@ export const PaymentInput = () => {
     setDataSending(true);
     setDataSending(false);
     router.push("/pricing?pricing=success");
+  };
+  const options = {
+    clientSecret: "",
+    appearance: {},
   };
   useEnterKeyHandler(() => {
     if (
@@ -73,39 +82,44 @@ export const PaymentInput = () => {
         <div className="container">
           <div className="payment-input-inner">
             <PricingHead />
-            <div className="payment-input-main gradient-border">
-              <span className="pro payment-input-pro gradient-border">pro</span>
-              <p className="payment-input-price avenir-bold">$10 / month</p>
-              <PaymentCardInput
-                setCard={inputCard}
-                setCvc={inputCvc}
-                setDate={inputDate}
-                actualDateValidator={isDateCorrect}
-              />
-              <button
-                className="payment-input-submit gradient-button"
-                disabled={
-                  !CREDIT_CARD_REGEX.test(card) ||
-                  cvc.length !== 3 ||
-                  !CREDIT_CARD_DATE_REGEX.test(date) ||
-                  !isDateCorrect(date) ||
-                  dataSending
-                }
-                onClick={async () => {
-                  await subscribeUser();
-                }}
-              >
-                {dataSending ? (
-                  <Image
-                    className="button-spinner"
-                    src={Spinner}
-                    alt="loading"
-                  />
-                ) : (
-                  <> submit payment</>
-                )}
-              </button>
-            </div>
+            <Elements stripe={stripePromise} options={options}>
+              <div className="payment-input-main gradient-border">
+                <PaymentElement />
+                <span className="pro payment-input-pro gradient-border">
+                  pro
+                </span>
+                <p className="payment-input-price avenir-bold">$10 / month</p>
+                <PaymentCardInput
+                  setCard={inputCard}
+                  setCvc={inputCvc}
+                  setDate={inputDate}
+                  actualDateValidator={isDateCorrect}
+                />
+                <button
+                  className="payment-input-submit gradient-button"
+                  disabled={
+                    !CREDIT_CARD_REGEX.test(card) ||
+                    cvc.length !== 3 ||
+                    !CREDIT_CARD_DATE_REGEX.test(date) ||
+                    !isDateCorrect(date) ||
+                    dataSending
+                  }
+                  onClick={async () => {
+                    await subscribeUser();
+                  }}
+                >
+                  {dataSending ? (
+                    <Image
+                      className="button-spinner"
+                      src={Spinner}
+                      alt="loading"
+                    />
+                  ) : (
+                    <> submit payment</>
+                  )}
+                </button>
+              </div>
+            </Elements>
           </div>
         </div>
       </div>

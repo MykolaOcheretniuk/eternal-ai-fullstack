@@ -10,17 +10,30 @@ export const authConfig: AuthOptions = {
     signIn: "/?action=signIn",
     error: "/?action=signIn",
   },
+  session: {
+    strategy: "jwt",
+    maxAge: 1 * 24 * 60 * 60,
+  },
   providers: [
     GoogleProvider({
       clientId: getEnv("GOOGLE_CLIENT_ID"),
       clientSecret: getEnv("GOOGLE_CLIENT_SECRET"),
       profile: async (profile) => {
-        console.log(profile);
         const profileEncodedData = jwt.sign(
           profile,
           getEnv("GOOGLE_CLIENT_SECRET")
         );
-        return profile;
+        const authResponse = await fetch(`${BASE_URL}/oauth/google`, {
+          method: "POST",
+          headers: HEADERS,
+          body: JSON.stringify({ user: profileEncodedData }),
+        });
+        if (!authResponse.ok) {
+          const { message } = await authResponse.json();
+          throw new Error(message);
+        }
+        const { token, userInfo: user } = await authResponse.json();
+        return { token, user, id: profile.sub } as any;
       },
     }),
     Credentials({
