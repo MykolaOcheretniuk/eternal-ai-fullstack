@@ -1,0 +1,38 @@
+.payment-form-inner {
+  display: flex;
+  flex-direction: row;
+  letter-spacing: -1%;
+  font-family: Avenir;
+  border: 1px solid #2f2535;
+  border-radius: 16px;
+  background: #060608;
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+}
+.card-input {
+  width: 340px;
+  height: 27px;
+  opacity: 0.7;
+}
+.date-input {
+  width: 72px;
+  opacity: 0.7;
+}
+.cvc-input {
+  margin-left: 16px;
+  width: 36px;
+  opacity: 0.7;
+}
+.StripeElement {
+  width: 100%;
+}
+
+.FormRowInput {
+  font-size: 16px;
+  width: 100%;
+}
+
+.payment-input-submit {
+  margin-top: 24px;
+}
