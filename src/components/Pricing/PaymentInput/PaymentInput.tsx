@@ -65,7 +65,7 @@ export const PaymentInput = () => {
                   fonts: [
                     {
                       family: "Avenir",
-                      src: "url(../../../../public/fonts/Avenir-Book.woff2) format(woff2)",
+                      src: "url(public/fonts/Avenir-Book.woff2) format(woff2)",
                       weight: "400",
                     },
                   ],
