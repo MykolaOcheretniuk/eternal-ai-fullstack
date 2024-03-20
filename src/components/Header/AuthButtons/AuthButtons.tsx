@@ -13,6 +13,7 @@ export const AuthButtons = () => {
         <button
           className="header-auth-login auth-button"
           onClick={() => {
+            setIsPopUpOpen(true);
             router.push("/?action=signIn");
           }}
         >

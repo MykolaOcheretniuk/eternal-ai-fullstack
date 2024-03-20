@@ -4,9 +4,7 @@ import GoogleIcon from "../../../../public/googleIcon.svg";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { OAuthResponse } from "@/models/auth";
 import { useRouter } from "next/navigation";
-import { GoogleLogin } from "@react-oauth/google";
 import Spinner from "../../../../public/ButtonSpinner.svg";
 interface Props {
   isDisabled: boolean;
