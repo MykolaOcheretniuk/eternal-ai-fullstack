@@ -108,6 +108,9 @@
   }
 }
 @media (max-width: 430px) {
+  .price-share-inner {
+    border: 1px solid white;
+  }
   .price-main {
     flex-direction: column;
     gap: 10px;

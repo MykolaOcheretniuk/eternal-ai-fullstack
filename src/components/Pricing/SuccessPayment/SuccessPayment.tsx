@@ -1,3 +1,4 @@
+"use client";
 import "./SuccessPayment.css";
 import check from "../../../../public/check.svg";
 import XMark from "../../../../public/xMark.svg";
@@ -14,6 +15,7 @@ export const SuccessPayment = () => {
     setIsPopUpOpen(false);
     router.push("/");
   });
+
   return (
     <>
       <Link
@@ -55,7 +57,7 @@ export const SuccessPayment = () => {
             </div>
             <button
               className="success-payment-start gradient-button"
-              onClick={() => {
+              onClick={async () => {
                 setIsPopUpOpen(false);
                 router.push("/");
               }}

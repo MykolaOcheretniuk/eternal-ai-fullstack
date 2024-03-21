@@ -17,7 +17,7 @@ import { format } from "date-fns";
 import { PaymentCardInput } from "../PaymentCardInput/PaymentCardInput";
 import { isDateCorrect } from "@/utils/isCardDateCorrect";
 export const AccountDetails = () => {
-  let { data: session, update } = useSession();
+  let { data: session, update, status } = useSession();
   const [userName, setUserName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [phone, setPhone] = useState<string | null>(null);
@@ -68,7 +68,7 @@ export const AccountDetails = () => {
           background: "#B5E42E",
           border: "none",
           fontSize: "18px",
-          color: "white",
+          color: "black",
           fontFamily: "Avenir",
           justifyContent: "center",
         },
@@ -183,15 +183,6 @@ export const AccountDetails = () => {
               }
               onClick={async () => {
                 await updateUser();
-                toast("User info updated.", {
-                  style: {
-                    background: "#B5E42E",
-                    border: "none",
-                    fontSize: "18px",
-                    fontFamily: "Avenir",
-                    justifyContent: "center",
-                  },
-                });
               }}
               tabIndex={isPopUpOpen ? -1 : 0}
             >

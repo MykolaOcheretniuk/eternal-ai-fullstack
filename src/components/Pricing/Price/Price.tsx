@@ -8,8 +8,10 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
+import { useSession } from "next-auth/react";
 export const Price = () => {
   const router = useRouter();
+  let { data: session } = useSession();
   const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   useEffect(() => {
     document.body.style.overflow = "hidden";

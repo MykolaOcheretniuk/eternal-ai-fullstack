@@ -72,7 +72,8 @@ export const authConfig: AuthOptions = {
       }
       return token;
     },
-    async session({ token, session, trigger }) {
+    async session({ token, session }) {
+ 
       session.user = token.user as SessionUser;
       return session;
     },

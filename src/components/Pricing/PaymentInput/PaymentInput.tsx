@@ -12,6 +12,7 @@ import { BASE_URL } from "@/constants/api";
 import { useSession } from "next-auth/react";
 import { PaymentForm } from "../paymentForm/PaymentForm";
 import Spinner from "../../../../public/ButtonSpinner.svg";
+import { PricingHead } from "../PricingHead";
 export const PaymentInput = () => {
   const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   let { data: session } = useSession({ required: true });
@@ -56,34 +57,42 @@ export const PaymentInput = () => {
       <div className="payment-input">
         <div className="container">
           <div className="payment-input-inner">
-            {stripeClientSecret ? (
-              <Elements
-                stripe={stripePromise}
-                options={{
-                  clientSecret: stripeClientSecret,
-                  appearance: { theme: "stripe" },
-                  fonts: [
-                    {
-                      family: "Avenir",
-                      src: "url(public/fonts/Avenir-Book.woff2) format(woff2)",
-                      weight: "400",
+            <PricingHead />
+            <div className="payment-input-main gradient-border">
+              <span className="pro payment-input-pro gradient-border">pro</span>
+              <p className="payment-input-price avenir-bold">$10 / month</p>
+              {stripeClientSecret ? (
+                <Elements
+                  stripe={stripePromise}
+                  options={{
+                    clientSecret: stripeClientSecret,
+                    appearance: {
+                      theme: "stripe",
+                      variables: {
+                        fontFamily: "Avenir",
+                      },
                     },
-                  ],
-                }}
-              >
-                <div className="payment-input-main gradient-border">
-                  <span className="pro payment-input-pro gradient-border">
-                    pro
-                  </span>
-                  <p className="payment-input-price avenir-bold">$10 / month</p>
+                    fonts: [
+                      {
+                        family: "Avenir",
+                        src: "url(public/fonts/Avenir-Book.woff2)",
+                        weight: "400",
+                      },
+                    ],
+                  }}
+                >
                   <PaymentForm clientSecret={stripeClientSecret} />
+                </Elements>
+              ) : (
+                <div className="form-loading payment-input-submit">
+                  <Image
+                    className="button-spinner"
+                    src={Spinner}
+                    alt="loading"
+                  />
                 </div>
-              </Elements>
-            ) : (
-              <div className="form-loading">
-                <Image className="button-spinner" src={Spinner} alt="loading" />
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>

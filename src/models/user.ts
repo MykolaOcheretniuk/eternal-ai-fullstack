@@ -21,3 +21,7 @@ export interface SessionUser {
   token: string;
   user: User;
 }
+export interface Subscription {
+  subscriptionId: number;
+  subscriptionExpireDate: string;
+}
