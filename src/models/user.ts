@@ -15,7 +15,8 @@ export interface User {
   name: string;
   phone: string;
   subscriptionId: number;
-  subscriptionExpireDate: string;
+  subscriptionExpireDate: string | null;
+  cancelSubscriptionAtPeriodEnd: boolean;
 }
 export interface SessionUser {
   token: string;

@@ -37,7 +37,7 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${session?.user.token}`,
+        Authorization: `${session ? `Bearer ${session?.user.token}` : ""}`,
       },
       body: JSON.stringify({ message: question, famousPersonName: individual }),
     });

@@ -5,7 +5,7 @@ import Loading from "../loading";
 
 export default function ChatPage() {
   const { status } = useSession({
-    required: true,
+    required: false,
   });
   if (status === "loading") {
     return <Loading />;

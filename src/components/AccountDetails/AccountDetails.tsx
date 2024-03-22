@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import "./AccountDetails.css";
-import { useLayoutEffect, useState } from "react";
+import { use, useLayoutEffect, useState } from "react";
 import { UpdateUser, User } from "@/models/user";
 import Spinner from "../../../public/ButtonSpinner.svg";
 import {
@@ -16,7 +16,11 @@ import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 import { format } from "date-fns";
 import { PaymentCardInput } from "../PaymentCardInput/PaymentCardInput";
 import { isDateCorrect } from "@/utils/isCardDateCorrect";
-export const AccountDetails = () => {
+interface Props {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
+export const AccountDetails = ({ user, setUser }: Props) => {
   let { data: session, update, status } = useSession();
   const [userName, setUserName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
@@ -74,26 +78,29 @@ export const AccountDetails = () => {
         },
       });
     }
-    if (session) {
-      let prevUser = session.user.user;
-      Object.keys(updatedUser).forEach((key) => {
-        if (
-          updateRequest.hasOwnProperty(key) &&
-          updatedUser[key] !== undefined
-        ) {
-          (prevUser as any)[key] = updatedUser[key] as User[keyof User];
-        }
-      });
-      await update(session);
-    }
+    let prevUser = user;
+    Object.keys(updatedUser).forEach((key) => {
+      if (updateRequest.hasOwnProperty(key) && updatedUser[key] !== undefined) {
+        (prevUser as any)[key] = updatedUser[key] as User[keyof User];
+      }
+    });
+    setUser(prevUser);
     clearInputs();
     setDataSending(false);
   };
   const cancelSubscription = async () => {
-    const res = await fetch("/api/payment/cancelSubscription", {
+    const res = await fetch(`${BASE_URL}/cancel-subscription`, {
       method: "POST",
+      headers: {
+        Authorization: "Bearer " + session?.user.token,
+      },
     });
-    const { canceled } = await res.json();
+    console.log(res);
+    const response = await res.json();
+    console.log(response);
+    if (user) {
+      setUser(user);
+    }
   };
   useLayoutEffect(() => {
     setIsPopUpOpen(false);
@@ -112,11 +119,7 @@ export const AccountDetails = () => {
               <p className="account-details-input-text avenir-bold">Name</p>
               <input
                 className="account-details-input base-input"
-                placeholder={
-                  session?.user.user.name
-                    ? session.user.user.name
-                    : "Justin Mac"
-                }
+                placeholder={user?.name ? user.name : "Justin Mac"}
                 onChange={(e) => {
                   setUserName(e.target.value);
                 }}
@@ -129,11 +132,7 @@ export const AccountDetails = () => {
               <p className="account-details-input-text avenir-bold">Email</p>
               <input
                 className="account-details-input base-input"
-                placeholder={
-                  session?.user.user.email
-                    ? session.user.user.email
-                    : "justin@gmail.com"
-                }
+                placeholder={user?.email ? user.email : "justin@gmail.com"}
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -149,11 +148,7 @@ export const AccountDetails = () => {
               </p>
               <input
                 className="account-details-input base-input"
-                placeholder={
-                  session?.user.user.phone
-                    ? session.user.user.phone
-                    : "8329822222"
-                }
+                placeholder={user?.phone ? user.phone : "8329822222"}
                 value={phone ? phone : ""}
                 onChange={(e) => {
                   setPhone(e.target.value);
@@ -194,16 +189,18 @@ export const AccountDetails = () => {
             </button>
           </div>
         </div>
-        {session && session.user.user.subscriptionId !== 0 && (
+        {user && user.subscriptionId !== 0 && (
           <>
             <span className="account-details-bottom-decor"></span>
             <div className="account-details-subscription gradient-border">
               <span className="pro gradient-border">PRO</span>
               <p className="account-details-price avenir-bold">$10 / month</p>
               <p className="account-details-next-payment base-text">
-                Next payment will be processed on
+                {user.cancelSubscriptionAtPeriodEnd
+                  ? "Your subscription ends on "
+                  : "Next payment will be processed on "}
                 {format(
-                  new Date(session.user.user.subscriptionExpireDate),
+                  new Date(user.subscriptionExpireDate as string),
                   "MMMM d, yyyy"
                 )}
               </p>
@@ -264,12 +261,14 @@ export const AccountDetails = () => {
                         style: {
                           border: "none",
                           fontSize: "18px",
-                          color: "white",
+                          color: "black",
+                          background: "#B5E42E",
                           fontFamily: "Avenir",
                         },
                       });
                       await cancelSubscription();
                     }}
+                    disabled={user.cancelSubscriptionAtPeriodEnd}
                   >
                     cancel subscription
                   </button>
