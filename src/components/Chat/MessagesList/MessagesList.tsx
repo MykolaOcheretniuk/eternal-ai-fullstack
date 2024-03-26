@@ -62,6 +62,12 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     setPage(page + 1);
     setDataSending(false);
   };
+  const getAnswerUnauthorized = async () => {
+    const result = await fetch(`https://api.ipify.org`);
+    const ip = await result.text();
+    console.log(ip);
+    console.log(window.navigator.userAgent);
+  };
   useEnterKeyHandler(() => {
     if (question.length !== 0) {
       getAnswer();
@@ -162,7 +168,11 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
           className="messages-list-send-message-button gradient-button"
           disabled={question.length === 0}
           onClick={() => {
-            getAnswer();
+            if (session) {
+              getAnswer();
+            } else {
+              getAnswerUnauthorized();
+            }
           }}
         >
           {isDataSending ? (

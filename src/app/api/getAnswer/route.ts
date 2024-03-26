@@ -1,8 +1,9 @@
-import { NextRequest } from "next/server";
+import { NextApiRequest } from "next";
 
-export async function GET(request: NextRequest) {
+
+export async function GET(request: NextApiRequest) {
   try {
-    console.log(request.headers.get("x-forwarded-for"));
+
     return new Response(null, { status: 200 });
   } catch (err) {
     console.log(err);

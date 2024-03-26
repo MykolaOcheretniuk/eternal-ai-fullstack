@@ -41,7 +41,7 @@ export const AccountDetails = ({ user, setUser }: Props) => {
       name: userName ? userName : undefined,
       email: email ? email : undefined,
       password: password ? password : undefined,
-      phone: phone ? `+${phone}` : undefined,
+      phone: phone ? `${phone}` : undefined,
     };
 
     const res = await fetch(`${BASE_URL}/user`, {

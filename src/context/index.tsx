@@ -9,7 +9,6 @@ import React, {
   useContext,
   useCallback,
 } from "react";
-
 interface ContextType {
   user: User | null;
   updateUser: React.Dispatch<React.SetStateAction<User | null>>;
@@ -18,6 +17,7 @@ interface ContextType {
 const AppContext = createContext<ContextType | null>(null);
 export function AppWrapper({ children }: { children: React.ReactNode }) {
   let [appUser, setAppUser] = useState<User | null>(null);
+
   const { status, data: session } = useSession();
   const getUser = useCallback(async () => {
     const res = await fetch(`${BASE_URL}/user`, {
@@ -28,23 +28,37 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
     });
     if (res.ok) {
       const user = (await res.json()) as User;
-      console.log(user);
       setAppUser(user);
     }
   }, [session]);
+  const updateUser = useCallback(async () => {
+    if (appUser) {
+      const res = await fetch(`${BASE_URL}/user`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${session?.user.token}`,
+        },
+      });
+      if (res.ok) {
+        const user = (await res.json()) as User;
+        console.log(user);
+        setAppUser(user);
+      }
+    }
+  }, [session, appUser]);
   useEffect(() => {
-    if (status === "authenticated" && !appUser) {
-      console.log("getUser");
-      getUser();
+    if (status === "authenticated") {
+      if (!appUser) {
+        getUser();
+      }
     }
   }, [appUser, status, session, getUser]);
-
   return (
     <AppContext.Provider
       value={{
         user: appUser,
         updateUser: setAppUser,
-        refetchUser: getUser,
+        refetchUser: updateUser,
       }}
     >
       {children}

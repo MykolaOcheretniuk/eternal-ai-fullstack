@@ -5,14 +5,22 @@ import { Header } from "@/components/Header/Header";
 import { useSession } from "next-auth/react";
 import Loading from "../loading";
 import { useAppContext } from "@/context";
+import { useShouldUserBeUpdated } from "@/store/useShouldBeUpdated";
+import { useEffect } from "react";
 
 export default function AccountDetailsPage() {
   const { status } = useSession({ required: true });
   const context = useAppContext();
-
+  const { needToBeUpdated, setIsNeedToBeUpdated } = useShouldUserBeUpdated();
+  useEffect(() => {
+    if (needToBeUpdated) {
+      context?.refetchUser();
+      setIsNeedToBeUpdated(false);
+    }
+  }, [needToBeUpdated, setIsNeedToBeUpdated, context]);
   return (
     <>
-      {status === "loading" || !context?.user ? (
+      {status === "loading" || !context?.user || needToBeUpdated ? (
         <Loading />
       ) : (
         <div className="wrapper">

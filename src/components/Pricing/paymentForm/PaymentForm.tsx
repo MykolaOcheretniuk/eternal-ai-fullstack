@@ -6,6 +6,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { StripeCardElement } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "sonner";
+import { useShouldUserBeUpdated } from "@/store/useShouldBeUpdated";
 
 interface Props {
   isEdit: boolean;
@@ -22,7 +23,7 @@ export const PaymentForm = ({
   const router = useRouter();
   const [dataSending, setDataSending] = useState(false);
   const [isFormComplete, setIsFormComplete] = useState(false);
-
+  const { setIsNeedToBeUpdated } = useShouldUserBeUpdated();
   const inputStyle = {
     iconColor: "#f9f9f9",
     color: "white",
@@ -45,13 +46,14 @@ export const PaymentForm = ({
     }
 
     if (isEdit) {
-      setDataSending(true);
-      const { error } = await stripe.confirmCardSetup(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement) as StripeCardElement,
-        },
-      });
-
+      const { error, setupIntent } = await stripe.confirmCardSetup(
+        clientSecret,
+        {
+          payment_method: {
+            card: elements.getElement(CardElement) as StripeCardElement,
+          },
+        }
+      );
       if (error) {
         toast(error.message, {
           style: {
@@ -77,7 +79,6 @@ export const PaymentForm = ({
           setIsPaymentInputActive(false);
         }
       }
-      setDataSending(false);
     } else {
       setDataSending(true);
       const { error } = await stripe.confirmCardPayment(clientSecret, {
@@ -99,6 +100,7 @@ export const PaymentForm = ({
         });
       }
       if (!error) {
+        setIsNeedToBeUpdated(true);
         router.push(`${window.location.origin}/pricing?pricing=success`);
       }
     }
