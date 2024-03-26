@@ -1,7 +1,9 @@
-export async function GET(request: Request) {
+import { NextRequest } from "next/server";
+
+export async function GET(request: NextRequest) {
   try {
-    const ip = request.headers.get("x-forwarded-for");
-    return new Response(ip, { status: 200 });
+    console.log(request)
+    return new Response(JSON.stringify(request.ip), { status: 200 });
   } catch (err) {
     console.log(err);
     return Response.json({ message: JSON.stringify(err) });
