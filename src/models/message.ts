@@ -16,3 +16,8 @@ export interface Message {
   text: string | null;
   fromUser: boolean;
 }
+export interface UnauthorizedUserAnswer {
+  message: string;
+  famousPersonName: string;
+  ipV4UserAgentToken: string;
+}

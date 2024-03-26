@@ -81,7 +81,11 @@ export const PaymentInput = () => {
                     ],
                   }}
                 >
-                  <PaymentForm clientSecret={stripeClientSecret} />
+                  <PaymentForm
+                    clientSecret={stripeClientSecret}
+                    isEdit={false}
+                  
+                  />
                 </Elements>
               ) : (
                 <div className="form-loading payment-input-submit">

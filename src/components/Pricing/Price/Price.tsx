@@ -8,10 +8,10 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
-import { useSession } from "next-auth/react";
+import { useAppContext } from "@/context";
 export const Price = () => {
   const router = useRouter();
-  let { data: session } = useSession();
+  const context = useAppContext();
   const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -59,37 +59,39 @@ export const Price = () => {
                   <button className="price-share-button">share</button>
                 </div>
               </div>
-              <div className="price-amount gradient-border">
-                <div className="price-amount-pro">
-                  <span className="pro gradient-border price-amount-pro">
-                    Pro
-                  </span>
+              {context && context.user && context.user.subscriptionId <= 0 && (
+                <div className="price-amount gradient-border">
+                  <div className="price-amount-pro">
+                    <span className="pro gradient-border price-amount-pro">
+                      Pro
+                    </span>
+                  </div>
+                  <p className="price-amount-text avenir-bold">$10 / month</p>
+                  <ul className="price-amount-features-list">
+                    <li className="price-amount-feature">
+                      <p className="price-amount-feature-text">
+                        Unlimited questions
+                      </p>
+                    </li>
+                    <li className="price-amount-feature">
+                      <p className="price-amount-feature-text">SMS texting</p>
+                    </li>
+                    <li className="price-amount-feature">
+                      <p className="price-amount-feature-text">
+                        Access to all characters
+                      </p>
+                    </li>
+                  </ul>
+                  <button
+                    className="price-amount-subscribe gradient-button"
+                    onClick={() => {
+                      router.push("/pricing?pricing=pay");
+                    }}
+                  >
+                    subscribe
+                  </button>
                 </div>
-                <p className="price-amount-text avenir-bold">$10 / month</p>
-                <ul className="price-amount-features-list">
-                  <li className="price-amount-feature">
-                    <p className="price-amount-feature-text">
-                      Unlimited questions
-                    </p>
-                  </li>
-                  <li className="price-amount-feature">
-                    <p className="price-amount-feature-text">SMS texting</p>
-                  </li>
-                  <li className="price-amount-feature">
-                    <p className="price-amount-feature-text">
-                      Access to all characters
-                    </p>
-                  </li>
-                </ul>
-                <button
-                  className="price-amount-subscribe gradient-button"
-                  onClick={() => {
-                    router.push("/pricing?pricing=pay");
-                  }}
-                >
-                  subscribe
-                </button>
-              </div>
+              )}
             </div>
           </div>
         </div>

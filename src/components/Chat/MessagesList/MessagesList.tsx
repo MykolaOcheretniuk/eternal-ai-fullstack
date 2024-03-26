@@ -53,9 +53,11 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
           justifyContent: "center",
         },
       });
-      messages.pop();
+      messages.splice(0, 2);
+      console.log(messages);
+    } else {
+      messages[0].text = response.answer;
     }
-    messages[0].text = response.answer;
     setMessages(messages);
     setPage(page + 1);
     setDataSending(false);
@@ -87,7 +89,11 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
       setPage(page + 1);
       setIsMessagesLoading(false);
     };
-    getChatLog();
+    if (session) {
+      getChatLog();
+    } else {
+      setIsMessagesLoading(false);
+    }
     const preparedQuestion = sessionStorage.getItem("QUESTION");
     if (preparedQuestion) {
       setQuestion(preparedQuestion);
@@ -111,7 +117,7 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
   }, [inView]);
   return (
     <div className="messages-list">
-      <Toaster position="top-center" />
+      <Toaster position="top-left" />
       <div className="messages-list-messages">
         <>
           {isMessagesLoading ? (

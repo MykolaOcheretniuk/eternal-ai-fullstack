@@ -1,27 +1,24 @@
 "use client";
 import { useSession } from "next-auth/react";
 import "./AccountDetails.css";
-import { use, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { UpdateUser, User } from "@/models/user";
 import Spinner from "../../../public/ButtonSpinner.svg";
-import {
-  CREDIT_CARD_DATE_REGEX,
-  CREDIT_CARD_REGEX,
-  EMAIL_TEST_REGEX,
-} from "@/constants/regex";
+import { EMAIL_TEST_REGEX } from "@/constants/regex";
 import Image from "next/image";
 import { Toaster, toast } from "sonner";
 import { BASE_URL } from "@/constants/api";
 import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 import { format } from "date-fns";
-import { PaymentCardInput } from "../PaymentCardInput/PaymentCardInput";
-import { isDateCorrect } from "@/utils/isCardDateCorrect";
+import { Stripe, loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { PaymentForm } from "../Pricing/paymentForm/PaymentForm";
 interface Props {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 export const AccountDetails = ({ user, setUser }: Props) => {
-  let { data: session, update, status } = useSession();
+  let { data: session } = useSession();
   const [userName, setUserName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [phone, setPhone] = useState<string | null>(null);
@@ -29,19 +26,9 @@ export const AccountDetails = ({ user, setUser }: Props) => {
   const [dataSending, setDataSending] = useState(false);
   const { setIsOpen: setIsPopUpOpen, isOpened: isPopUpOpen } = useIsPopUpOpen();
   const [isPaymentInputActive, setIsPaymentInputActive] = useState(false);
-  const [card, setCard] = useState("");
-  const [cvc, setCvc] = useState("");
-  const [date, setDate] = useState("");
-  const inputCard = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCard(e.target.value.replace(/\s/g, ""));
-  };
-  const inputCvc = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCvc(e.target.value);
-  };
-  const inputDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(e.target.value);
-  };
-
+  const [stripePromise, setStripePromise] =
+    useState<Promise<Stripe | null> | null>(null);
+  const [stripeClientSecret, setStripeClientSecret] = useState("");
   const clearInputs = () => {
     setUserName(null);
     setEmail(null);
@@ -105,6 +92,20 @@ export const AccountDetails = ({ user, setUser }: Props) => {
   useLayoutEffect(() => {
     setIsPopUpOpen(false);
   }, [setIsPopUpOpen]);
+  const changePaymentMethod = async () => {
+    setStripePromise(
+      loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY as string)
+    );
+    fetch(`${BASE_URL}/get-setup-intent-secret`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${session?.user.token}`,
+      },
+    }).then(async (res) => {
+      const { clientSecret } = await res.json();
+      setStripeClientSecret(clientSecret);
+    });
+  };
   return (
     <section className="account-details">
       <div className="container">
@@ -206,50 +207,49 @@ export const AccountDetails = ({ user, setUser }: Props) => {
               </p>
               {isPaymentInputActive ? (
                 <div className="account-details-payment-input">
-                  <PaymentCardInput
-                    setCard={inputCard}
-                    setCvc={inputCvc}
-                    setDate={inputDate}
-                    actualDateValidator={isDateCorrect}
-                  />
-                  <button
-                    className="account-details-payment-change-submit gradient-button"
-                    disabled={
-                      !CREDIT_CARD_REGEX.test(card) ||
-                      cvc.length !== 3 ||
-                      !CREDIT_CARD_DATE_REGEX.test(date) ||
-                      !isDateCorrect(date) ||
-                      dataSending
-                    }
-                    onClick={() => {
-                      toast("Payment method updated.", {
-                        style: {
-                          background: "#B5E42E",
-                          border: "none",
-                          fontSize: "18px",
-                          color: "white",
-                          fontFamily: "Avenir",
+                  {stripeClientSecret ? (
+                    <Elements
+                      stripe={stripePromise}
+                      options={{
+                        clientSecret: stripeClientSecret,
+                        appearance: {
+                          theme: "stripe",
+                          variables: {
+                            fontFamily: "Avenir",
+                          },
                         },
-                      });
-                    }}
-                  >
-                    {dataSending ? (
+                        fonts: [
+                          {
+                            family: "Avenir",
+                            src: "url(public/fonts/Avenir-Book.woff2)",
+                            weight: "400",
+                          },
+                        ],
+                      }}
+                    >
+                      <PaymentForm
+                        clientSecret={stripeClientSecret}
+                        isEdit={true}
+                        setIsPaymentInputActive={setIsPaymentInputActive}
+                      />
+                    </Elements>
+                  ) : (
+                    <div className="form-loading payment-input-submit">
                       <Image
                         className="button-spinner"
                         src={Spinner}
                         alt="loading"
                       />
-                    ) : (
-                      <> Save</>
-                    )}
-                  </button>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="account-details-buttons">
                   <button
                     className="account-details-button account-details-update-payment"
-                    onClick={() => {
+                    onClick={async () => {
                       setIsPaymentInputActive(true);
+                      await changePaymentMethod();
                     }}
                   >
                     update payment

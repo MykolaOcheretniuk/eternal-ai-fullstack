@@ -35,12 +35,11 @@
   .payment-input-submit {
     width: 375px;
   }
-}
-@media (max-width: 640px) {
   .payment-input-submit {
     width: 295px;
   }
 }
+
 @media (max-width: 360px) {
   .payment-input-main {
     padding: 8px;
