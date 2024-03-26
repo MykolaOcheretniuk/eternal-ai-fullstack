@@ -1,10 +1,7 @@
-import { NextApiRequest } from "next";
-
-
-export async function GET(request: NextApiRequest) {
+export async function GET(request: Request) {
   try {
-
-    return new Response(null, { status: 200 });
+    const ip = request.headers.get("x-forwarded-for");
+    return new Response(ip, { status: 200 });
   } catch (err) {
     console.log(err);
     return Response.json({ message: JSON.stringify(err) });
