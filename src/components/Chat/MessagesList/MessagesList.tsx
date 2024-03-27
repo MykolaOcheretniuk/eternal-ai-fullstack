@@ -11,6 +11,8 @@ import { BASE_URL } from "@/constants/api";
 import { useSession } from "next-auth/react";
 import { Toaster, toast } from "sonner";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
+import { useMessagesHistory } from "@/store/useMessagesHistory";
+
 const limit = 10;
 interface Props {
   individual: string;
@@ -54,7 +56,6 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
         },
       });
       messages.splice(0, 2);
-      console.log(messages);
     } else {
       messages[0].text = response.answer;
     }
@@ -63,14 +64,46 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     setDataSending(false);
   };
   const getAnswerUnauthorized = async () => {
-    const result = await fetch(`https://api.ipify.org`);
-    const ip = await result.text();
-    console.log(ip);
-    console.log(window.navigator.userAgent);
+    setDataSending(true);
+    setQuestion("");
+    messages.unshift({ text: question, fromUser: true });
+    messages.unshift({
+      text: null,
+      fromUser: false,
+    });
+    const res = await fetch("/api/getAnswer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: question, famousPersonName: individual }),
+    });
+    const answer = await res.json();
+    if (!res.ok) {
+      toast(answer.message, {
+        style: {
+          background: "#F82D98",
+          border: "none",
+          fontSize: "18px",
+          color: "white",
+          fontFamily: "Avenir",
+          justifyContent: "center",
+        },
+      });
+      messages.splice(0, 2);
+    } else {
+      messages[0].text = answer.answer;
+    }
+    sessionStorage.setItem(`messages-${individual}`, JSON.stringify(messages));
+    setDataSending(false);
   };
   useEnterKeyHandler(() => {
     if (question.length !== 0) {
-      getAnswer();
+      if (session) {
+        getAnswer();
+      } else {
+        getAnswerUnauthorized();
+      }
     }
   });
   const fetchMessages = async () => {
@@ -98,6 +131,11 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     if (session) {
       getChatLog();
     } else {
+      const messages = sessionStorage.getItem(`messages-${individual}`);
+      if (messages) {
+        setMessages(JSON.parse(messages) as Message[]);
+        console.log(messages);
+      }
       setIsMessagesLoading(false);
     }
     const preparedQuestion = sessionStorage.getItem("QUESTION");
@@ -117,7 +155,9 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     };
     if (inView) {
       if (isMoreMessages) {
-        getChatLog();
+        if (session) {
+          getChatLog();
+        }
       }
     }
   }, [inView]);
