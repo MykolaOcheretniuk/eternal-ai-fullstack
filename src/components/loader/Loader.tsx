@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { EternalLogoLoader } from "@/components/eternalLogo/EternalLogoLoader";
-import LoaderText from "../../public/EternalLoaderText.png";
+import LoaderText from "../../../public/EternalLoaderText.png";
+import { EternalLogoLoader } from "../eternalLogo/EternalLogoLoader";
 export default function Loading() {
   return (
     <div className="loader">

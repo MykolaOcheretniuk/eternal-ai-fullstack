@@ -17,7 +17,6 @@ interface ContextType {
 const AppContext = createContext<ContextType | null>(null);
 export function AppWrapper({ children }: { children: React.ReactNode }) {
   let [appUser, setAppUser] = useState<User | null>(null);
-
   const { status, data: session } = useSession();
   const getUser = useCallback(async () => {
     const res = await fetch(`${BASE_URL}/user`, {

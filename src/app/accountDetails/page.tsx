@@ -3,10 +3,10 @@ import { AccountDetails } from "@/components/AccountDetails/AccountDetails";
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { useSession } from "next-auth/react";
-import Loading from "../loading";
 import { useAppContext } from "@/context";
 import { useShouldUserBeUpdated } from "@/store/useShouldBeUpdated";
 import { useEffect } from "react";
+import Loading from "@/components/loader/Loader";
 
 export default function AccountDetailsPage() {
   const { status } = useSession({ required: true });

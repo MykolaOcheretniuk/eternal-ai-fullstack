@@ -4,9 +4,10 @@ import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { ImportantQuestions } from "@/components/ImportantQuestions/ImportantQuestions";
 import { IndividualsList } from "@/components/IndividualsList/IndividuaList";
+import Loading from "@/components/loader/Loader";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import Loading from "./loading";
+
 export default function Home() {
   const searchParams = useSearchParams();
   const authAction = searchParams.get("action");
