@@ -1,11 +1,11 @@
 "use client";
 import { useSession } from "next-auth/react";
-import Loading from "../loading";
 import { useSearchParams } from "next/navigation";
 import { PricingPopUp } from "@/components/Pricing/PricingPopUp";
 import { useAppContext } from "@/context";
 import { useEffect } from "react";
 import { useShouldUserBeUpdated } from "@/store/useShouldBeUpdated";
+import Loading from "@/components/loader/Loader";
 
 export default function AccountDetailsPage() {
   const searchParams = useSearchParams();
