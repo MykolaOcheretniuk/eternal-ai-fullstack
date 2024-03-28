@@ -15,7 +15,6 @@
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
   bottom: 0;
   width: 100px;
   background: linear-gradient(-90deg, rgba(0, 0, 0, 0), #0a0806);
@@ -25,6 +24,7 @@
   color: red;
 }
 @media (max-width: 1640px) {
+
   .chat-eternal-logo {
     left: 0;
     right: 0;
@@ -32,16 +32,22 @@
     margin-right: auto;
   }
   .chat-inner {
+    height: 100%;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
   }
   .messages-list {
     margin: 0 auto;
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 630px) {
   .chat-eternal-logo {
-    top: 150px;
+    top: 80px;
+  }
+}
+@media (max-width: 330px) {
+  .chat-eternal-logo {
+    top: 40px;
   }
 }
