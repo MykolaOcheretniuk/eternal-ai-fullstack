@@ -125,11 +125,12 @@
 }
 @media (max-width: 590px) {
   .individual-card {
-    max-height: 266px;
+    height: 100%;
+    margin: 0 auto;
   }
   .individual-card-info {
+    height: 100%;
     width: 163px;
-    height: 227px;
     padding: 0;
     margin-top: 10px;
   }
@@ -146,5 +147,13 @@
   }
   .individual-portrait {
     width: 270px;
+  }
+}
+@media (max-width: 361px) {
+  .individual-portrait-container {
+    margin: 0 auto;
+  }
+  .individual-card-info {
+    margin: 0 auto;
   }
 }

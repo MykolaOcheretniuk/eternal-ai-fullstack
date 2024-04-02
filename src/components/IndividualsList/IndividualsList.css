@@ -25,6 +25,8 @@
 }
 @media (max-width: 1380px) {
   .individuals-container {
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -57,5 +59,11 @@
   }
   .individuals-text {
     max-width: 270px;
+  }
+}
+@media (max-width: 361px) {
+  .individuals-container {
+    align-items: center;
+    justify-content: center;
   }
 }
