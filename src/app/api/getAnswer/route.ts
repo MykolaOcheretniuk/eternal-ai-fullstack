@@ -1,5 +1,5 @@
 import { BASE_URL } from "@/constants/api";
-
+import getEnv from "@/utils/getEnv";
 import jwt from "jsonwebtoken";
 
 interface RequestBody {
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     const { message, famousPersonName } = (await request.json()) as RequestBody;
     const ipToken = jwt.sign(
       { ipV4: ipData.query, userAgent: request.headers.get("user-agent") },
-      process.env.UNAUTHORIZED_USER_SECRET as string,
+      getEnv("UNAUTHORIZED_USER_SECRET"),
       { expiresIn: "1h" }
     );
     const answerResponse = await fetch(`${BASE_URL}/message`, {
