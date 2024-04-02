@@ -7,7 +7,7 @@
   height: 910px;
 }
 .messages-list::before {
-  z-index: 90;
+  z-index: 5;
   content: "";
   position: absolute;
   top: -1px;
