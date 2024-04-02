@@ -22,10 +22,13 @@
   width: 100px;
   background: linear-gradient(-90deg, rgba(0, 0, 0, 0), #0a0806);
 }
-
+.messages-list {
+  align-self: flex-end;
+}
 @media (max-width: 1640px) {
   .chat-individual {
     width: auto;
+    min-height: 50vh;
   }
 
   .chat-eternal-logo {
