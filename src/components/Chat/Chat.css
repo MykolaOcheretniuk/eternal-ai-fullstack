@@ -12,7 +12,7 @@
   left: 200px;
 }
 .chat-individual {
-  width: 50%;
+  width: 52%;
 }
 .chat-individual::after {
   content: "";

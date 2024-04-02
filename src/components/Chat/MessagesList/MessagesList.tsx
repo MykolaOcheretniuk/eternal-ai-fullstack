@@ -162,7 +162,7 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     }
   }, [inView]);
   return (
-    <div className="messages-list">
+    <div className="messages">
       <Toaster position="top-left" />
       <div className="messages-list-messages">
         <>
