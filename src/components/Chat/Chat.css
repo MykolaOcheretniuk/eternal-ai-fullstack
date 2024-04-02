@@ -5,7 +5,6 @@
   display: flex;
   flex-direction: row;
   position: relative;
-  
 }
 .chat-eternal-logo {
   position: absolute;
@@ -28,6 +27,9 @@
   align-self: flex-end;
 }
 @media (max-width: 1640px) {
+  .chat-individual::after {
+    display: none;
+  }
   .chat-individual {
     width: auto;
     min-height: 50vh;
