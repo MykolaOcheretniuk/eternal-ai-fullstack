@@ -11,6 +11,9 @@
   top: 200px;
   left: 200px;
 }
+.chat-individual {
+  width: 50%;
+}
 .chat-individual::after {
   content: "";
   position: absolute;
@@ -19,11 +22,11 @@
   width: 100px;
   background: linear-gradient(-90deg, rgba(0, 0, 0, 0), #0a0806);
 }
-.loader-text {
-  font-size: 54px;
-  color: red;
-}
+
 @media (max-width: 1640px) {
+  .chat-individual {
+    width: auto;
+  }
 
   .chat-eternal-logo {
     left: 0;
@@ -32,12 +35,11 @@
     margin-right: auto;
   }
   .chat-inner {
-    height: 100%;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
   }
   .messages-list {
+    align-self: flex-end;
     margin: 0 auto;
   }
 }

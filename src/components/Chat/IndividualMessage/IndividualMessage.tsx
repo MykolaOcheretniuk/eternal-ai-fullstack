@@ -37,8 +37,8 @@ export const IndividualMessage = ({
             <>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
+                width="32"
+                height="32"
                 viewBox="0 0 24 24"
               >
                 <circle cx="18" cy="12" r="0" fill="currentColor">

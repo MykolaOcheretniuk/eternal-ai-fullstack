@@ -19,7 +19,11 @@
   backdrop-filter: blur(8px);
   padding: 42px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .individual-message-text {
   max-width: 480px;
   font-family: "Avenir";
@@ -37,6 +41,7 @@
 .individual-message-tools span {
   cursor: pointer;
 }
+
 @media (max-width: 670px) {
   .individual-message-text {
     font-size: 14px;
