@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: row;
   position: relative;
+  
 }
 .chat-eternal-logo {
   position: absolute;
@@ -20,6 +21,7 @@
   top: 0;
   bottom: 0;
   width: 100px;
+  z-index: 110;
   background: linear-gradient(-90deg, rgba(0, 0, 0, 0), #0a0806);
 }
 .messages-list {
