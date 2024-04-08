@@ -27,7 +27,6 @@ export const PaymentInput = ({
   const router = useRouter();
   useEffect(() => {
     if (!wasFetched) {
-      console.log("setup stripe");
       setupStripe();
     }
   }, []);
