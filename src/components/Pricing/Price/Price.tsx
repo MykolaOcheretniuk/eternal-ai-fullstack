@@ -10,9 +10,8 @@ import Link from "next/link";
 import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 interface Props {
   isSubscriber: boolean;
-  setupStripe: () => void;
 }
-export const Price = ({ isSubscriber, setupStripe }: Props) => {
+export const Price = ({ isSubscriber }: Props) => {
   const router = useRouter();
   const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   useEffect(() => {
@@ -86,9 +85,8 @@ export const Price = ({ isSubscriber, setupStripe }: Props) => {
                   </ul>
                   <button
                     className="price-amount-subscribe gradient-button"
-                    onClick={async () => {
-                      await setupStripe();
-                      router.push("/pricing?pricing=pay");
+                    onClick={() => {
+                      router.push("/pricing/pay");
                     }}
                   >
                     subscribe
