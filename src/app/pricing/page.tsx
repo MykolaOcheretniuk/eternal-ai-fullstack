@@ -21,12 +21,17 @@ export default function AccountDetailsPage() {
       setIsNeedToBeUpdated(false);
     }
   }, [needToBeUpdated, setIsNeedToBeUpdated, context]);
-  if (status === "loading" || needToBeUpdated) {
+  if (status === "loading" || needToBeUpdated || !context?.user) {
     return <Loading />;
   }
   return (
     <div className="wrapper">
-      {pricingAction && <PricingPopUp action={pricingAction} />}
+      {pricingAction && (
+        <PricingPopUp
+          action={pricingAction}
+          isSubscriber={(context?.user?.subscriptionId as number) <= 0}
+        />
+      )}
     </div>
   );
 }

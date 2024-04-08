@@ -3,38 +3,34 @@ import Image from "next/image";
 import EternalLogo from "../../../../public/EternalLogo.svg";
 import "./PaymentInput.css";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
-import { Stripe, loadStripe } from "@stripe/stripe-js";
+import { Stripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { BASE_URL } from "@/constants/api";
-import { useSession } from "next-auth/react";
 import { PaymentForm } from "../paymentForm/PaymentForm";
 import Spinner from "../../../../public/ButtonSpinner.svg";
 import { PricingHead } from "../PricingHead";
-export const PaymentInput = () => {
+import { useEffect } from "react";
+interface Props {
+  stripePromise: Promise<Stripe | null> | null;
+  stripeClientSecret: string;
+  setupStripe: () => void;
+  wasFetched: boolean;
+}
+export const PaymentInput = ({
+  stripeClientSecret,
+  stripePromise,
+  wasFetched,
+  setupStripe,
+}: Props) => {
   const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
-  let { data: session } = useSession({ required: true });
   const router = useRouter();
-  const [stripePromise, setStripePromise] =
-    useState<Promise<Stripe | null> | null>(null);
-  const [stripeClientSecret, setStripeClientSecret] = useState("");
   useEffect(() => {
-    setStripePromise(
-      loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY as string)
-    );
-    fetch(`${BASE_URL}/create-subscription`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${session?.user.token}`,
-      },
-    }).then(async (res) => {
-      const { clientSecret } = await res.json();
-      setStripeClientSecret(clientSecret);
-    });
+    if (!wasFetched) {
+      console.log("setup stripe");
+      setupStripe();
+    }
   }, []);
-
   return (
     <>
       <Link
@@ -84,7 +80,6 @@ export const PaymentInput = () => {
                   <PaymentForm
                     clientSecret={stripeClientSecret}
                     isEdit={false}
-                  
                   />
                 </Elements>
               ) : (

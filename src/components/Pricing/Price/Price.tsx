@@ -8,10 +8,12 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
-import { useAppContext } from "@/context";
-export const Price = () => {
+interface Props {
+  isSubscriber: boolean;
+  setupStripe: () => void;
+}
+export const Price = ({ isSubscriber, setupStripe }: Props) => {
   const router = useRouter();
-  const context = useAppContext();
   const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -59,7 +61,7 @@ export const Price = () => {
                   <button className="price-share-button">share</button>
                 </div>
               </div>
-              {context && context.user && context.user.subscriptionId <= 0 && (
+              {isSubscriber && (
                 <div className="price-amount gradient-border">
                   <div className="price-amount-pro">
                     <span className="pro gradient-border price-amount-pro">
@@ -84,7 +86,8 @@ export const Price = () => {
                   </ul>
                   <button
                     className="price-amount-subscribe gradient-button"
-                    onClick={() => {
+                    onClick={async () => {
+                      await setupStripe();
                       router.push("/pricing?pricing=pay");
                     }}
                   >

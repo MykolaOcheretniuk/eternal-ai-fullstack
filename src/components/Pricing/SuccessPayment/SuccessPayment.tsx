@@ -9,7 +9,6 @@ import Link from "next/link";
 import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 
-
 export const SuccessPayment = () => {
   const router = useRouter();
   const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
@@ -35,7 +34,7 @@ export const SuccessPayment = () => {
           src={XMark}
           alt="x mark"
           onClick={() => {
-            router.push("/pricing?pricing=info");
+            router.push("/");
           }}
         />
       </button>

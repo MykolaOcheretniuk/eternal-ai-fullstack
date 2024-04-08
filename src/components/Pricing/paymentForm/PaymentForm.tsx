@@ -46,14 +46,11 @@ export const PaymentForm = ({
     }
 
     if (isEdit) {
-      const { error, setupIntent } = await stripe.confirmCardSetup(
-        clientSecret,
-        {
-          payment_method: {
-            card: elements.getElement(CardElement) as StripeCardElement,
-          },
-        }
-      );
+      const { error } = await stripe.confirmCardSetup(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement) as StripeCardElement,
+        },
+      });
       if (error) {
         toast(error.message, {
           style: {
