@@ -4,6 +4,9 @@
   margin-top: 25%;
   padding: 48px;
 }
+.about-platform-inner::before {
+  border-radius: 32px;
+}
 .about-platform-text {
   margin-top: 34px;
   max-width: 625px;
@@ -26,6 +29,8 @@
   margin-top: 32px;
   height: 62px;
   width: 625px;
+  position: relative;
+  z-index: 9999 !important;
 }
 .about-platform-checkbox {
   cursor: pointer;

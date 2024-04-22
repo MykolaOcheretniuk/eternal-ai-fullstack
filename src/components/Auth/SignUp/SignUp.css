@@ -6,8 +6,14 @@
   border-radius: 32px;
   color: white;
 }
+.sign-up-inner.gradient-border::before{
+  border-radius: 32px;
+}
 .sign-up-title {
   font-size: 32px;
+}
+.sign-up-form-container{
+  z-index: 10;
 }
 .sign-up-text {
   opacity: 0.7;
@@ -17,6 +23,7 @@
   font-size: 18px;
   margin-top: 64px;
   text-align: center;
+  z-index: 10;
 }
 .sign-up-buttons {
   margin-top: 32px;

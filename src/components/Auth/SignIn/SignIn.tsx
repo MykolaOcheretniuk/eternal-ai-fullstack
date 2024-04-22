@@ -76,7 +76,7 @@ export const SignIn = () => {
   }, [router, successMessage]);
   return (
     <>
-      <Toaster position="top-center" />
+      <Toaster position="top-left" />
       <Image
         className="auth-pop-up-logo"
         src={EternalLogo}
