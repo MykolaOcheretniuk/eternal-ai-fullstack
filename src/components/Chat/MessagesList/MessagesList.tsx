@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { IndividualMessage } from "../IndividualMessage/IndividualMessage";
 import { UserMessage } from "../UserMessage/UserMessage";
 import "./MessagesList.css";
@@ -20,6 +20,7 @@ interface Props {
 }
 export const MessagesList = ({ individual, individualPortrait }: Props) => {
   let { data: session } = useSession({ required: false });
+  const inputRef = useRef<HTMLInputElement>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   let [page, setPage] = useState(1);
   const [question, setQuestion] = useState("");
@@ -122,6 +123,7 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
     });
   };
   useLayoutEffect(() => {
+    inputRef.current?.focus();
     const getChatLog = async () => {
       const chatLog = await fetchMessages();
       setMessages(chatLog);
@@ -198,6 +200,7 @@ export const MessagesList = ({ individual, individualPortrait }: Props) => {
       <div className="messages-list-send-message gradient-border">
         <input
           className="messages-list-send-message-input"
+          ref={inputRef}
           placeholder="Enter your message..."
           value={question}
           onChange={(e) => {

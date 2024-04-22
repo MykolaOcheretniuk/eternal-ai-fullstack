@@ -40,9 +40,10 @@ a {
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1410px;
   margin: 0 auto;
   padding-bottom: 40px;
+  margin: 5px;
   position: relative;
 }
 .fluid-container {
@@ -138,7 +139,7 @@ a {
   text-transform: uppercase;
   border-radius: 16px;
 }
-.pro.gradient-border{
+.pro.gradient-border {
   background: transparent;
 }
 .container-with-blur {
@@ -178,6 +179,7 @@ a {
   padding-right: 15px;
   cursor: pointer;
   z-index: 999;
+  user-select: none;
 }
 .purple-text {
   color: #f82d98;

@@ -99,7 +99,14 @@ export const SignIn = () => {
                 email={email}
               />
             </div>
-            <a className="sign-in-forgot-pass base-text">Forgot password?</a>
+            <a
+              className="sign-in-forgot-pass base-text"
+              onClick={() => {
+                router.push("/?action=password-reset-email-input");
+              }}
+            >
+              Forgot password?
+            </a>
             <div className="sign-in-auth-buttons">
               <AuthButtons
                 actionText="sign in"
