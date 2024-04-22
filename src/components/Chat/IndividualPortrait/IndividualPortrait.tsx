@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { SetStateAction } from "react";
 import "./IndividualPortrait.css";
 
 interface Props {

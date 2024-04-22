@@ -14,12 +14,7 @@ interface Props {
 export const Price = ({ isSubscriber }: Props) => {
   const router = useRouter();
   const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "visible";
-    };
-  }, []);
+
   return (
     <>
       <Link
@@ -38,7 +33,7 @@ export const Price = ({ isSubscriber }: Props) => {
           router.back();
         }}
       >
-        <Image className="close-button-ig" src={XMark} alt="x mark" />
+        <Image className="close-button-img" src={XMark} alt="x mark" />
       </button>
       <div>
         <div className="container">

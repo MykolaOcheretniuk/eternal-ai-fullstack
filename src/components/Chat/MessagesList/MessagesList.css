@@ -14,7 +14,6 @@
   left: 0;
   right: 0;
   height: 20px;
-  margin-top: 40px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0), #0a0806);
   pointer-events: none;
 }
@@ -22,7 +21,7 @@
 .messages-list-messages {
   display: flex;
   flex-direction: column-reverse;
-  height: 680px;
+  height: 100%;
   overflow-x: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -34,7 +33,6 @@
 }
 .messages-list-send-message {
   border-radius: 120px;
-  border: 1px solid var(--Eternal-Gradient, #f82d98);
   background: linear-gradient(91deg, #08081e 11.84%, #21050c 111.32%);
   padding: 8px;
   display: flex;
@@ -47,6 +45,7 @@
   width: 727px;
   align-self: flex-end;
 }
+
 .messages-list-send-message-input {
   color: white;
   background: transparent;
@@ -54,11 +53,13 @@
   width: 75%;
   margin-left: 40px;
   outline: none;
+  z-index: 10;
 }
 
 .messages-list-send-message-button {
   width: 157px;
   height: 62px;
+  z-index: 10;
 }
 .messages-list-send-message-button:disabled {
   opacity: 0.7;
@@ -66,6 +67,7 @@
 .messages-list-send-message {
   margin-bottom: 32px;
 }
+
 .messages-container {
   display: flex;
   flex-direction: column;
@@ -84,6 +86,10 @@
   z-index: 999;
   width: 50px;
   height: 50px;
+  user-select: none;
+}
+.button-spinner {
+  user-select: none;
 }
 @media (max-width: 1640px) {
   .messages-list::before {
@@ -106,7 +112,6 @@
   }
 }
 @media (max-width: 510px) {
-
   .messages-list-send-message-input {
     font-size: 14px;
   }

@@ -13,12 +13,14 @@ import { format } from "date-fns";
 import { Stripe, loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { PaymentForm } from "../Pricing/paymentForm/PaymentForm";
+import validator from "validator";
 interface Props {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 export const AccountDetails = ({ user, setUser }: Props) => {
   let { data: session } = useSession();
+  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
   const [userName, setUserName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [phone, setPhone] = useState<string | null>(null);
@@ -54,16 +56,22 @@ export const AccountDetails = ({ user, setUser }: Props) => {
     });
     const updatedUser = await res.json();
     if (updatedUser.message) {
-      toast(updatedUser.message, {
-        style: {
-          background: "#B5E42E",
-          border: "none",
-          fontSize: "18px",
-          color: "black",
-          fontFamily: "Avenir",
-          justifyContent: "center",
-        },
-      });
+      const fields = Object.keys(updatedUser);
+      toast(
+        `Fields: ${fields
+          .toString()
+          .replace("message,", "")} was successfully updated!`,
+        {
+          style: {
+            background: "#B5E42E",
+            border: "none",
+            fontSize: "18px",
+            color: "black",
+            fontFamily: "Avenir",
+            justifyContent: "center",
+          },
+        }
+      );
     }
     let prevUser = user;
     Object.keys(updatedUser).forEach((key) => {
@@ -82,9 +90,6 @@ export const AccountDetails = ({ user, setUser }: Props) => {
         Authorization: "Bearer " + session?.user.token,
       },
     });
-    console.log(res);
-    const response = await res.json();
-    console.log(response);
     if (user) {
       setUser(user);
     }
@@ -109,8 +114,9 @@ export const AccountDetails = ({ user, setUser }: Props) => {
   return (
     <section className="account-details">
       <div className="container">
-        <Toaster position="top-center" />
+        <Toaster position="bottom-right" closeButton={true} />
         <span className="account-details-top-decor"></span>
+
         <div className="account-details-inner">
           <div className="account-details-info gradient-border">
             <h1 className="account-details-title avenir-bold">
@@ -125,8 +131,10 @@ export const AccountDetails = ({ user, setUser }: Props) => {
                   setUserName(e.target.value);
                 }}
                 value={userName ? userName : ""}
+                pattern="^[A-Za-z]+(?: [A-Za-z]+)*$"
                 type="text"
                 tabIndex={isPopUpOpen ? -1 : 0}
+                autoComplete="off"
               ></input>
             </div>
             <div className="account-details-input-container">
@@ -141,6 +149,7 @@ export const AccountDetails = ({ user, setUser }: Props) => {
                 pattern={`${EMAIL_TEST_REGEX}`}
                 type="email"
                 tabIndex={isPopUpOpen ? -1 : 0}
+                autoComplete="off"
               ></input>
             </div>
             <div className="account-details-input-container">
@@ -148,14 +157,24 @@ export const AccountDetails = ({ user, setUser }: Props) => {
                 Phone number
               </p>
               <input
-                className="account-details-input base-input"
+                className={`account-details-input ${
+                  !isPhoneNumberValid && "account-details-input-invalid"
+                } base-input`}
                 placeholder={user?.phone ? user.phone : "8329822222"}
                 value={phone ? phone : ""}
-                onChange={(e) => {
-                  setPhone(e.target.value);
+                onChange={({ target }) => {
+                  if (target.value.length === 0) {
+                    setIsPhoneNumberValid(true);
+                  } else {
+                    setIsPhoneNumberValid(
+                      validator.isMobilePhone(target.value)
+                    );
+                  }
+                  setPhone(target.value);
                 }}
                 type="number"
                 tabIndex={isPopUpOpen ? -1 : 0}
+                autoComplete="off"
               ></input>
             </div>
             <div className="account-details-input-container">
@@ -169,13 +188,15 @@ export const AccountDetails = ({ user, setUser }: Props) => {
                   setPassword(e.target.value);
                 }}
                 tabIndex={isPopUpOpen ? -1 : 0}
+                autoComplete="off"
               ></input>
             </div>
             <button
               className="account-details-save-button gradient-button"
               disabled={
-                (!userName && !email && !phone && !password) ||
-                (email ? !EMAIL_TEST_REGEX.test(email as string) : false)
+                (!userName && !email && !password && !phone) ||
+                (email ? !EMAIL_TEST_REGEX.test(email as string) : false) ||
+                !isPhoneNumberValid
               }
               onClick={async () => {
                 await updateUser();
@@ -261,8 +282,8 @@ export const AccountDetails = ({ user, setUser }: Props) => {
                         style: {
                           border: "none",
                           fontSize: "18px",
-                          color: "black",
-                          background: "#B5E42E",
+                          color: "white",
+                          background: "#F82D98",
                           fontFamily: "Avenir",
                         },
                       });

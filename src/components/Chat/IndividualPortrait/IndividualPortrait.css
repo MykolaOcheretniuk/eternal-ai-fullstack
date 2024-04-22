@@ -1,12 +1,12 @@
-
 .individual-portrait-inner {
   overflow: hidden;
   position: relative;
   z-index: 10;
 }
-
+.individual-portrait {
+  user-select: none;
+}
 .individual-portrait-img-container {
-  max-width: 920px;
   max-width: 920px;
   display: flex;
   justify-content: center;

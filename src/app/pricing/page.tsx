@@ -26,12 +26,14 @@ export default function AccountDetailsPage() {
   }
   return (
     <div className="wrapper">
-      {pricingAction && (
-        <PricingPopUp
-          action={pricingAction}
-          isSubscriber={(context?.user?.subscriptionId as number) <= 0}
-        />
-      )}
+      <div className="pricing-page-inner">
+        {pricingAction && (
+          <PricingPopUp
+            action={pricingAction}
+            isSubscriber={(context?.user?.subscriptionId as number) <= 0}
+          />
+        )}
+      </div>
     </div>
   );
 }

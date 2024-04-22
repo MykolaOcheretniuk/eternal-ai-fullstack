@@ -18,6 +18,9 @@
 .logo-container {
   padding-left: 230px;
 }
+.header-logo {
+  user-select: none;
+}
 .header-menu-button {
   background-color: transparent;
   border: none;
@@ -26,9 +29,11 @@
 }
 .menu-icon {
   cursor: pointer;
+  user-select: none;
 }
 .menu-close {
   cursor: pointer;
+  user-select: none;
   width: 56px;
   height: 56px;
   border-radius: 8px;
@@ -37,6 +42,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.5s;
+}
+.menu-close:hover {
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 .menu-mobile-close-container {
   display: none;

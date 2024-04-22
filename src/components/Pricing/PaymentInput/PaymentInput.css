@@ -22,7 +22,17 @@
   justify-content: center;
   gap: 24px;
 }
-
+.payment-input-main.gradient-border {
+  background: linear-gradient(
+    151.03deg,
+    rgba(4, 4, 16, 0.6) 7.463%,
+    rgba(15, 3, 6, 0.6) 135.418%
+  );
+  backdrop-filter: blur(24px);
+}
+.payment-input-main.gradient-border::before{
+  border-radius: 32px;
+}
 @media (max-width: 872px) {
   .payment-input-inner {
     margin-top: 192px;

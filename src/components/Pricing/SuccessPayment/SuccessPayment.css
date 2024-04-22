@@ -22,6 +22,17 @@
   justify-content: center;
   gap: 24px;
 }
+.success-payment-inner.gradient-border {
+  backdrop-filter: blur(24px);
+  background: linear-gradient(
+    151.03deg,
+    rgba(4, 4, 16, 0.6) 7.463%,
+    rgba(15, 3, 6, 0.6) 135.418%
+  );
+}
+.success-payment-inner.gradient-border::before {
+  border-radius: 32px;
+}
 .success-payment-text-group {
   text-align: center;
 }
@@ -29,6 +40,7 @@
   font-size: 24px;
 }
 .success-payment-start {
+  z-index: 10;
   width: 529px;
   height: 62px;
 }

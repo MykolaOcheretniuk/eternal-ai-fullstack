@@ -5,6 +5,7 @@
 }
 
 .individual-portrait-container {
+  user-select: none;
   border-radius: 16px;
   cursor: pointer;
   width: 270px;
