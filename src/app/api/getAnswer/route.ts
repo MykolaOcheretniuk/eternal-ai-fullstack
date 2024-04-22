@@ -1,5 +1,4 @@
 import { BASE_URL } from "@/constants/api";
-import getEnv from "@/utils/getEnv";
 import jwt from "jsonwebtoken";
 
 interface RequestBody {
