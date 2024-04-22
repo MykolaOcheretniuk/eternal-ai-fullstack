@@ -14,7 +14,7 @@ export default function Home() {
   const { status } = useSession({
     required: false,
   });
-  if (status !== "loading") {
+  if (status === "loading") {
     return <Loading />;
   }
   return (
