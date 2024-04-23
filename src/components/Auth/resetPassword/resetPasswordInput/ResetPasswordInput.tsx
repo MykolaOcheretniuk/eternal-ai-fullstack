@@ -5,14 +5,25 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import "./ResetPasswordInputStyle.css";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
+import { useEnterKeyHandler } from "@/utils/handleEnterKey";
+import Link from "next/link";
 export const ResetPasswordInput = () => {
   const router = useRouter();
   const activeAreaRef = useRef<HTMLDivElement>(null);
-  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   useHandleOutsideClick(activeAreaRef, () => {
     router.push("/");
   });
+  useEnterKeyHandler(() => {
+    if (password.length > 0) {
+      router.push("/?action=password-reset-password-input");
+    }
+  });
   useEffect(() => {
+    const resetEmail = sessionStorage.getItem("RESET_PASSWORD_EMAIL");
+    if (!resetEmail) {
+      router.push("/?action=password-reset-email-input");
+    }
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "visible";
@@ -20,12 +31,9 @@ export const ResetPasswordInput = () => {
   }, [router]);
   return (
     <>
-      <Image
-        className="auth-pop-up-logo"
-        src={EternalLogo}
-        alt="logo"
-        onClick={() => router.push("/")}
-      />
+      <Link className="auth-pop-up-logo" href="/">
+        <Image src={EternalLogo} alt="logo" />
+      </Link>
       <div>
         <button className="close-button" onClick={() => router.push("/")}>
           <Image className="close-button-ig" src={XMark} alt="x mark" />
@@ -52,16 +60,17 @@ export const ResetPasswordInput = () => {
                 placeholder="•••••••••••••••••••"
                 type="password"
                 onChange={({ target }) => {
-                  setEmail(target.value);
+                  setPassword(target.value);
                 }}
               ></input>
             </div>
             <button
               className="reset-password-input-submit gradient-button"
-              disabled={email.length === 0}
+              disabled={password.length === 0}
               onClick={() => {
-                sessionStorage.setItem("RESET_PASSWORD_EMAIL", email);
-                router.push("/?action=password-reset-code-input");
+                router.push(
+                  "/?action=signIn&successMessage=Password successfully reset"
+                );
               }}
             >
               ENTER

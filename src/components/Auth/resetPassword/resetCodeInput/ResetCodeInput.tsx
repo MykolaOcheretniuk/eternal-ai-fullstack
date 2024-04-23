@@ -2,10 +2,12 @@ import { useRouter } from "next/navigation";
 import EternalLogo from "../../../../../public/EternalLogo.svg";
 import XMark from "../../../../../public/xMark.svg";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import OtpInput from "react-otp-input";
 import "./ResetCodeInputStyle.css";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
+import { useEnterKeyHandler } from "@/utils/handleEnterKey";
+import Link from "next/link";
 export const ResetCodeInput = () => {
   const router = useRouter();
   const [otp, setOtp] = useState("");
@@ -13,20 +15,27 @@ export const ResetCodeInput = () => {
   useHandleOutsideClick(activeAreaRef, () => {
     router.push("/");
   });
+  useEnterKeyHandler(() => {
+    if (otp.length) {
+      router.push("/?action=password-reset-password-input");
+    }
+  });
   useEffect(() => {
+    const resetEmail = sessionStorage.getItem("RESET_PASSWORD_EMAIL");
+    if (!resetEmail) {
+      router.push("/?action=password-reset-email-input");
+    }
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "visible";
     };
   }, [router]);
+
   return (
     <>
-      <Image
-        className="auth-pop-up-logo"
-        src={EternalLogo}
-        alt="logo"
-        onClick={() => router.push("/")}
-      />
+      <Link className="auth-pop-up-logo" href="/">
+        <Image src={EternalLogo} alt="logo" />
+      </Link>
       <div>
         <button className="close-button" onClick={() => router.push("/")}>
           <Image className="close-button-ig" src={XMark} alt="x mark" />

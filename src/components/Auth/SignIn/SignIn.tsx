@@ -13,6 +13,7 @@ import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 import { AuthForm } from "../AuthForm/AuthForm";
 import { AuthButtons } from "../AuthButtons/AuthButtons";
 import { Toaster, toast } from "sonner";
+import Link from "next/link";
 export const SignIn = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -77,12 +78,9 @@ export const SignIn = () => {
   return (
     <>
       <Toaster position="top-left" />
-      <Image
-        className="auth-pop-up-logo"
-        src={EternalLogo}
-        alt="logo"
-        onClick={() => router.push("/")}
-      />
+      <Link className="auth-pop-up-logo" href="/">
+        <Image src={EternalLogo} alt="logo" />
+      </Link>
       <div>
         <button className="close-button" onClick={() => router.push("/")}>
           <Image className="close-button-ig" src={XMark} alt="x mark" />

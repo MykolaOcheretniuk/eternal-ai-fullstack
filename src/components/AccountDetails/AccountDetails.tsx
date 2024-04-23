@@ -4,7 +4,7 @@ import "./AccountDetails.css";
 import { useLayoutEffect, useState } from "react";
 import { UpdateUser, User } from "@/models/user";
 import Spinner from "../../../public/ButtonSpinner.svg";
-import { EMAIL_TEST_REGEX } from "@/constants/regex";
+import { EMAIL_TEST_REGEX, NAME_REGEX } from "@/constants/regex";
 import Image from "next/image";
 import { Toaster, toast } from "sonner";
 import { BASE_URL } from "@/constants/api";
@@ -196,7 +196,8 @@ export const AccountDetails = ({ user, setUser }: Props) => {
               disabled={
                 (!userName && !email && !password && !phone) ||
                 (email ? !EMAIL_TEST_REGEX.test(email as string) : false) ||
-                !isPhoneNumberValid
+                !isPhoneNumberValid ||
+                (userName ? !NAME_REGEX.test(userName as string) : false)
               }
               onClick={async () => {
                 await updateUser();

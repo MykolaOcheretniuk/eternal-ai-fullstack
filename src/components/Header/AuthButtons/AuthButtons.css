@@ -1,3 +1,4 @@
+
 .header-auth-start {
   width: 185px;
   height: 48px;
@@ -22,11 +23,22 @@
   .header-auth-start {
     margin-left: 0;
   }
+  .header-auth-start {
+    order: 1;
+  }
+  .header-auth-login {
+    order: 2;
+  }
   .header-auth-buttons {
     display: flex;
     flex-direction: column;
     gap: 24px;
     align-items: center;
     justify-content: center;
+  }
+}
+@media (max-width: 480px) {
+  .header-auth-start {
+    width: 90dvw;
   }
 }

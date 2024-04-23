@@ -42,7 +42,10 @@
   background-color: #2e0202 !important;
 }
 .account-details-input-text {
-  font-size: 18px;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 150%;
+  letter-spacing: -1%;
 }
 .account-details-save-button {
   z-index: 10;
@@ -159,7 +162,6 @@ input[type="number"] {
     rgb(88, 51, 239) 77.545%
   );
   opacity: 0.2;
-
 }
 
 @media (max-width: 845px) {

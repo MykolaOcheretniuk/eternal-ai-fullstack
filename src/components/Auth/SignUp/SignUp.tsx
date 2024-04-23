@@ -12,6 +12,7 @@ import { EMAIL_TEST_REGEX } from "@/constants/regex";
 import { useEscapeKeyHandler } from "@/utils/handleEscPush";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 import { Toaster, toast } from "sonner";
+import Link from "next/link";
 export const SignUp = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -62,15 +63,9 @@ export const SignUp = () => {
   return (
     <>
       <Toaster position="top-center" />
-      <Image
-        className="auth-pop-up-logo"
-        src={EternalLogo}
-        alt="logo"
-        onClick={() => {
-          saveRegisterData();
-          router.push("/?action=about");
-        }}
-      />
+      <Link className="auth-pop-up-logo" href="/">
+        <Image src={EternalLogo} alt="logo" />
+      </Link>
       <div>
         <button
           className="close-button"
