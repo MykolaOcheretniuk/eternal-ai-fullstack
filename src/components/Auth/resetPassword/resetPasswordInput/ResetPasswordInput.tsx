@@ -16,7 +16,7 @@ export const ResetPasswordInput = () => {
   });
   useEnterKeyHandler(() => {
     if (password.length > 0) {
-      router.push("/?action=password-reset-password-input");
+      router.push("/?action=signIn");
     }
   });
   useEffect(() => {
