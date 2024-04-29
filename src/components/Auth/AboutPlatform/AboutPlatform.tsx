@@ -9,11 +9,14 @@ import { useEffect, useState } from "react";
 import { useEscapeKeyHandler } from "@/utils/handleEscPush";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 import { BASE_URL, HEADERS } from "@/constants/api";
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 export const AboutPlatform = () => {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
   const [authDataSending, setAuthDataSending] = useState(false);
+  const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   useEscapeKeyHandler(() => {
+    setIsPopUpOpen(false);
     router.push("/");
   });
   useEnterKeyHandler(() => {
@@ -57,6 +60,7 @@ export const AboutPlatform = () => {
       <button
         className="close-button"
         onClick={() => {
+          setIsPopUpOpen(false);
           router.push("/");
         }}
       >

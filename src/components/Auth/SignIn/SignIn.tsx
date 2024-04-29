@@ -14,6 +14,7 @@ import { AuthForm } from "../AuthForm/AuthForm";
 import { AuthButtons } from "../AuthButtons/AuthButtons";
 import { Toaster, toast } from "sonner";
 import Link from "next/link";
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 export const SignIn = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -22,6 +23,7 @@ export const SignIn = () => {
   const [dataSending, setDataSending] = useState(false);
   const signInAreaRef = useRef(null);
   const successMessage = searchParams.get("successMessage");
+  const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   const submitLogin = async () => {
     setDataSending(true);
     const res = await signIn("credentials", {
@@ -46,9 +48,11 @@ export const SignIn = () => {
     setDataSending(false);
   };
   useEscapeKeyHandler(() => {
+    setIsPopUpOpen(false);
     router.push("/");
   });
   useHandleOutsideClick(signInAreaRef, () => {
+    setIsPopUpOpen(false);
     router.push("/");
   });
   useEnterKeyHandler(() => {
@@ -82,7 +86,13 @@ export const SignIn = () => {
         <Image src={EternalLogo} alt="logo" />
       </Link>
       <div>
-        <button className="close-button" onClick={() => router.push("/")}>
+        <button
+          className="close-button"
+          onClick={() => {
+            setIsPopUpOpen(false);
+            router.push("/");
+          }}
+        >
           <Image className="close-button-ig" src={XMark} alt="x mark" />
         </button>
         <div className="container">

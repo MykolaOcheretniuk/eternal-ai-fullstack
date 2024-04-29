@@ -7,17 +7,37 @@ import "./ResetEmailInputStyle.css";
 import { useHandleOutsideClick } from "@/utils/handleOutsideClick";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 import Link from "next/link";
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
+import { BASE_URL, HEADERS } from "@/constants/api";
+import Spinner from "../../../../../public/ButtonSpinner.svg";
 export const ResetEmailInput = () => {
   const router = useRouter();
   const activeAreaRef = useRef<HTMLDivElement>(null);
   const [email, setEmail] = useState("");
+  const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
+  const [isDataSending, setIsDataSending] = useState(false);
+  const sendOtp = async () => {
+    setIsDataSending(true);
+    const res = await fetch(`${BASE_URL}/send-otp`, {
+      method: "POST",
+      headers: HEADERS,
+      body: JSON.stringify({ email: email }),
+    });
+    const { message } = await res.json();
+    if (!res.ok) {
+      return router.push(`/?action=signUp&errorMessage=${message}`);
+    }
+    setIsDataSending(false);
+    router.push("/?action=password-reset-code-input");
+  };
   useHandleOutsideClick(activeAreaRef, () => {
+    setIsPopUpOpen(false);
     router.push("/");
   });
-  useEnterKeyHandler(() => {
+  useEnterKeyHandler(async () => {
     if (email.length) {
       sessionStorage.setItem("RESET_PASSWORD_EMAIL", email);
-      router.push("/?action=password-reset-code-input");
+      await sendOtp();
     }
   });
   useEffect(() => {
@@ -32,7 +52,13 @@ export const ResetEmailInput = () => {
         <Image src={EternalLogo} alt="logo" />
       </Link>
       <div>
-        <button className="close-button" onClick={() => router.push("/")}>
+        <button
+          className="close-button"
+          onClick={() => {
+            setIsPopUpOpen(false);
+            router.push("/");
+          }}
+        >
           <Image className="close-button-ig" src={XMark} alt="x mark" />
         </button>
         <div className="container">
@@ -64,12 +90,16 @@ export const ResetEmailInput = () => {
             <button
               className="reset-email-input-submit gradient-button"
               disabled={email.length === 0}
-              onClick={() => {
+              onClick={async () => {
                 sessionStorage.setItem("RESET_PASSWORD_EMAIL", email);
-                router.push("/?action=password-reset-code-input");
+                await sendOtp();
               }}
             >
-              ENTER
+              {isDataSending ? (
+                <Image className="button-spinner" src={Spinner} alt="loading" />
+              ) : (
+                <>ENTER</>
+              )}
             </button>
           </div>
         </div>

@@ -13,6 +13,7 @@ import { useEscapeKeyHandler } from "@/utils/handleEscPush";
 import { useEnterKeyHandler } from "@/utils/handleEnterKey";
 import { Toaster, toast } from "sonner";
 import Link from "next/link";
+import { useIsPopUpOpen } from "@/store/useIsPopUpOpenStore";
 export const SignUp = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -21,10 +22,13 @@ export const SignUp = () => {
   const [dataSending, setDataSending] = useState(false);
   const signUpAreaRef = useRef(null);
   const errorMessage = searchParams.get("errorMessage");
+  const { setIsOpen: setIsPopUpOpen } = useIsPopUpOpen();
   useHandleOutsideClick(signUpAreaRef, () => {
+    setIsPopUpOpen(false);
     router.push("/");
   });
   useEscapeKeyHandler(() => {
+    setIsPopUpOpen(false);
     router.push("/");
   });
   useEnterKeyHandler(() => {
@@ -62,7 +66,7 @@ export const SignUp = () => {
   }, [errorMessage, router]);
   return (
     <>
-      <Toaster position="top-center" />
+      <Toaster position="top-left" />
       <Link className="auth-pop-up-logo" href="/">
         <Image src={EternalLogo} alt="logo" />
       </Link>
@@ -70,6 +74,7 @@ export const SignUp = () => {
         <button
           className="close-button"
           onClick={() => {
+            setIsPopUpOpen(false);
             router.push("/");
           }}
         >
