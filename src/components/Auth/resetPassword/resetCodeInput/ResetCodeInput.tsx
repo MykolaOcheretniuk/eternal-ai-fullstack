@@ -49,6 +49,7 @@ export const ResetCodeInput = () => {
   const resendCode = async () => {
     const codeWasSent = sessionStorage.getItem("CODE_WAS_RESENT");
     if (!codeWasSent) {
+      sessionStorage.setItem("CODE_WAS_RESENT", "true");
       const res = await fetch(`${BASE_URL}/send-otp`, {
         method: "POST",
         headers: HEADERS,
@@ -68,7 +69,6 @@ export const ResetCodeInput = () => {
           justifyContent: "center",
         },
       });
-      sessionStorage.setItem("CODE_WAS_RESENT", "true");
       return;
     }
     toast("You cant request resend anymore!", {

@@ -27,7 +27,6 @@ export const ResetPasswordInput = () => {
         password: password,
         phone: undefined,
       };
-      console.log(password);
       const res = await fetch(`${BASE_URL}/user`, {
         method: "PUT",
         headers: {
